@@ -1,7 +1,7 @@
 ---
 layout: about
 permalink: /
-title: <strong> Florian Schäfer </strong> 
+title: <strong> Florian </strong> Schäfer 
 <!--description: <a href="">Caltech</a>. Address. Contacts. Moto. Etc.?-->
 
 profile:
