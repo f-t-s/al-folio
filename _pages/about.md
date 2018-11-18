@@ -24,6 +24,6 @@ and fast algorithms.
 I'm part of the [Department of Computing and Mathematical Sciences](http://www.cms.caltech.edu/)
 and my PhD-advisor is [Houman Owhadi](http://users.cms.caltech.edu/~owhadi/index.htm).
 
-Before coming to Caltech, I obtained my Bachelors-- and Masters degrees 
+Before coming to Caltech, I obtained my Bachelor's-- and Master's degrees 
 in Mathematics at the [University of Bonn](https://www.mathematics.uni-bonn.de/).
 
