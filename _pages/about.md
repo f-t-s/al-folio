@@ -6,7 +6,7 @@ title: <strong> Florian Schäfer </strong>
 
 profile:
   align: right
-  image: aws2cropped.jpg
+  image: profile.jpg
   address: >
     <p>331 Annenberg</p>
     <p>1200 E California Blvd</p>
