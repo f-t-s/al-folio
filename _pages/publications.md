@@ -5,7 +5,7 @@ title: publications
 ---
 
 In the pipeline:
-  {% bibliography -f preprint  %}
+{% bibliography -f preprint  %}
 
 Journal Publications:
 {% bibliography -f journal  %}
