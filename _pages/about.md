@@ -13,7 +13,7 @@ profile:
     <p>Pasadena, CA 91106</p>
 
 news: false
-social: false
+social: true
 ---
 
 I'm Florian Schäfer, a fourth year PhD-student in applied and computational
