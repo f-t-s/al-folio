@@ -16,7 +16,7 @@ news: false
 social: true
 ---
 
-I'm Florian Schäfer, a fifth year PhD-student in applied and computational
+I'm Florian Schäfer, PhD-candidate in applied and computational
 mathematics at [Caltech](http://www.caltech.edu/), where I'm doing research
 at the interface of partial differential equations, statistical inference,
 and fast algorithms.
