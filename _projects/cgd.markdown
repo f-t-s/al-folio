@@ -20,7 +20,7 @@ In this note, I will try to convince you that this natural generalization of gra
 
 Consider a single-agent optimization problem,
 $$ \min_{x \in \mathbb{R}^{m}} f(x). $$
-Gradient descent with step size $$\eta$$ is given by the update rule
+Gradient descent (GD) with step size $$\eta$$ is given by the update rule
 
 $$ x_{k+1} = x_{k} - \eta \nabla f(x_{k}) $$
 
@@ -37,7 +37,6 @@ Here, the first agent tries to choose $$x$$ such as to minimize $$f$$, while the
 The interesting part is that the optimal choice of $$x$$ depends of $$y$$ and vice versa, and the objectives of the two players will in general be at odds with each other, the important special case $$f = -g$$ corresponding to zero-sum or minimax games.
 
 Since neither player can *know* what the other player will do, they might assume each other to not move at all.
-Thenext move of their opponent, both agents might as well assume each other to be stationary.
 Under this assumption, following the direction of steepest descent seems like a reasonable strategy, leading to simultaneous gradient descent (SimGD).
 
 $$ x_{k+1} = x_{k} - \eta \nabla_x f(x_{k}, y_{k}) $$\\
