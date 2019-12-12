@@ -353,3 +353,8 @@ using a Lagrange multiplier $\mu$.
 These types of problems are ubiquitous in many areas including Reinforcement Learning and Control theory.
 In the latter context, [Pierre-Luc](http://pierrelucbacon.com/) [Clement](http://people.csail.mit.edu/gehring/), Anima, [Emma](https://cs.stanford.edu/people/ebrun/), and I are investigating the effectiveness of CGD.  
 If you are interested to learn more, check out our [workshop paper](https://optrl2019.github.io/assets/accepted_papers/70.pdf), the [implementation using JAX](https://github.com/gehring/fax) and out poster at [the NeurIPS 2019 workshop on optimization for RL](https://optrl2019.github.io/).
+
+### Conclusion
+
+In the above, I have hopefully convinced you that CGD indeed has some right to claim the position as natural generalization of gradient descent to two-player games. \\
+In future posts and papers, I am hoping to comment in more detail on extensions to multiple players and higher order regularity, as well as the implicit regularization of CGD and how it can meaningfully stabilize GAN training even in the absence of Nash equilibria.
