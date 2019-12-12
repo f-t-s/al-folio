@@ -231,9 +231,9 @@ In words: taking the linear approximation in the original coordinate system yiel
 This property holds for all orders (linear, quadratic, cubic etc.) of polynomial approximation.\\
 For single agent problems given in an arbitrary coordinate system this is clearly a desirable feature, but do we want this invariance for competitive optimization?
 
-For insance, $$A$$ could be a permutation matrix that takes a decision variable under the control of $$x$$ and swap it for a decision variable under the control of $$y$$.
+For instance, $$A$$ could be a permutation matrix that takes a decision variable under the control of $$x$$ and swaps it for a decision variable under the control of $$y$$.
 This is **not** just a different way to represent the same problem but may be a drastically different game.
-Therefore, we do **not** want to be invariant to this transformation and the invariances built in of first, second, third, etc. order approximations is a severe limitation.
+Therefore, we do **not** want to be invariant to this transformation and having this invariance built into the first, second, third, etc. order approximations is a severe limitation.
 
 <div class="img_row">
     <img class="col one left" src="{{ site.baseurl }}/assets/img/queenblack.png" alt="" title="Black queen white bishop"/>
