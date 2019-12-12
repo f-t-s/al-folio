@@ -359,5 +359,5 @@ If you are interested to learn more, check out our [workshop paper](https://optr
 
 ### Conclusion
 
-In the above, I have hopefully convinced you that CGD indeed has some right to claim the position as natural generalization of gradient descent to two-player games. \\
-In future posts and papers, I am hoping to comment in more detail on extensions to multiple players and higher order regularity, as well as the implicit regularization of CGD and how it can meaningfully stabilize GAN training even in the absence of Nash equilibria.
+In the above, I have tried to convince you that CGD is indeed the natural generalization of gradient descent to two-player games.\\
+In future posts and papers, I hope to comment in more detail on extensions to multiple players and higher order regularity, as well as the implicit regularization of CGD and how it can meaningfully stabilize GAN training even in the absence of Nash equilibria.
