@@ -269,6 +269,7 @@ Therefore, we do **not** want to be invariant to this transformation and it is t
 
 <div class="img_row">
     <img class="col one left" src="{{ site.baseurl }}/assets/img/queenblack.png" alt="" title="Black queen white bishop image"/>
+    <img class="col one left" src="{{ site.baseurl }}/assets/img/leftrightarrow.png" alt="" title="equivalent to"/>
     <img class="col one right" src="{{ site.baseurl }}/assets/img/queenwhite.png" alt="" title="White queen black bishop image"/>
 </div>
 <div class="col three caption">
