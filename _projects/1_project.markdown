@@ -29,7 +29,6 @@ The vector $$-\nabla f(x_{k})$$ points in the direction of the steepest descent 
 Let us now move to the competitive optimization problem:
 
 $$ \min_{x \in \mathbb{R}^m} f(x, y) $$\\
-
 $$ \min_{y \in \mathbb{R}^n} g(x, y) $$
 
 
