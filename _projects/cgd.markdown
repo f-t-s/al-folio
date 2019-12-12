@@ -226,9 +226,9 @@ Indeed, we can check that for an invertible matrix $$A \in \mathbb{R}^{m \times 
 
 $$ Df(\cdot)(x) = Df(A \cdot)(A^{-1} x), $$
 
-where the derivative on the left side is taken in a basepoint $$x_0$$, and the one on the right side, in the corresponding point $$A^{-1}x_0$$. \
+where the derivative on the left side is taken in a basepoint $$x_0$$, and the one on the right side, in the corresponding point $$A^{-1}x_0$$. \\
 In words: taking the linear approximation in the original coordinate system yields the same result as applying the coordinate transform $$x \mapsto Ax$$, taking the linear approximation, and then transforming back as $$x \mapsto A^{-1}x$$.
-This property holds for all orders (linear, quadratic, cubic etc.) of polynomial approximation.\
+This property holds for all orders (linear, quadratic, cubic etc.) of polynomial approximation.\\
 In contrast, the bilinear approximation only satisfies 
 
 $$ \begin{pmatrix}
