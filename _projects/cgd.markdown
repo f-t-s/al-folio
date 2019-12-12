@@ -355,7 +355,7 @@ $$ \min_{x} \max_{\mu} f(x) + \mu^{\top} h(x)$$
 
 using a Lagrange multiplier $$\mu$$.\\
 [Pierre-Luc](http://pierrelucbacon.com/), [Clement](http://people.csail.mit.edu/gehring/), Anima, [Emma](https://cs.stanford.edu/people/ebrun/), and I are presently investigating the effectiveness of CGD in the context of equality constrained optimization problems arising in reinforcement learning (RL) and control.  
-If you are interested to learn more, check out our [workshop paper](https://optrl2019.github.io/assets/accepted_papers/70.pdf), the [implementation using JAX](https://github.com/gehring/fax) and out poster at [the NeurIPS 2019 workshop on optimization for RL](https://optrl2019.github.io/).
+If you are interested to learn more, check out our [workshop paper](https://optrl2019.github.io/assets/accepted_papers/70.pdf), the [implementation using JAX](https://github.com/gehring/fax), or our poster at [the NeurIPS 2019 workshop on optimization for RL](https://optrl2019.github.io/).
 
 ### Conclusion
 
