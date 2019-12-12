@@ -24,10 +24,6 @@ Gradient descent with step size $\eta$ is given by the update rule
 
 $$ x_{k+1} = x_{k} - \eta \nabla f(x_{k}) $$
 
-$$ \begin{equation*}
-  x_{k+1} = x_{k} - \eta \nabla f(x_{k})
-  \end{equation*} $$
-
 $$ x_{k+1} = x_{k} - \eta \nabla f(x_{k}) $$ 
 
 $$ x_{k+1} = x_{k} - \eta \nabla f(x_{k}) $$
