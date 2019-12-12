@@ -269,8 +269,7 @@ Therefore, we do **not** want to be invariant to this transformation and it is t
 
 <div class="img_row">
     <img class="col one left" src="{{ site.baseurl }}/assets/img/queenblack.png" alt="" title="Black queen white bishop image"/>
-    <img class="col one left" src="{{ site.baseurl }}/assets/img/leftrightarrow.png" alt="" title="equivalent to"/>
-    <img class="col one left" src="{{ site.baseurl }}/assets/img/queenwhite.png" alt="" title="White queen black bishop image"/>
+    <img class="col one right" src="{{ site.baseurl }}/assets/img/queenwhite.png" alt="" title="White queen black bishop image"/>
 </div>
 <div class="col three caption">
   A chess analogy: The left position can be transformed into the right one by a rotation in the joint strategy space that swaps the "queen coordinate" of black with the "bishop coordinate" of white. The two resulting games are drastically different, illustrating that games are not invariant under arbitrary rotations in the joint strategy space.
