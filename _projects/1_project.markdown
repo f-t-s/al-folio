@@ -47,10 +47,7 @@ $$
 $$
 
 $$
-\begin{pmatrix}
-  x_{k+1}\\
-  y_{k+1}
-\end{pmatrix}
+\begin{pmatrix} x_{k+1} \\ y_{k+1} \end{pmatrix}
 $$
 
 $$
