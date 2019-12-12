@@ -6,17 +6,17 @@ img: /assets/img/oscillationSimGD.png
 ---
 
 ### Introduction
-*this post summarizes joint work with [Anima Anandkumar](http://tensorlab.cms.caltech.edu/users/anima/) on a new algorithm for competitive optimization: Competitive gradient descent (CGD). 
-If you want to know more, you should check out the [paper](https://arxiv.org/abs/1905.12103) play with [Hongkai's](https://devzhk.github.io/) [pytorch code](https://github.com/devzhk/Implicit-Competitive-Regularization), or talk to us at NeurIPS 2019, where we will present a [poster](https://nips.cc/Conferences/2019/ScheduleMultitrack?event=13843) on Thursday Dec 12th from 10:45 AM to 12:45 PM in the east exhibition hall (poster \# 195).*
+*This post summarizes joint work with [Anima Anandkumar](http://tensorlab.cms.caltech.edu/users/anima/) on a new algorithm for competitive optimization: Competitive gradient descent (CGD). 
+If you want to know more, you should check out the [paper](https://arxiv.org/abs/1905.12103), play with [Hongkai's](https://devzhk.github.io/) [pytorch code](https://github.com/devzhk/Implicit-Competitive-Regularization), or talk to us at NeurIPS 2019, where we will present a [poster](https://nips.cc/Conferences/2019/ScheduleMultitrack?event=13843) on Thursday Dec 12th from 10:45 AM to 12:45 PM in the east exhibition hall (poster \# 195).*
     
-Many learning algorithms are modelled a single agent minimizing a loss function, such as empirical risk.
-however the spectacular successes of generative adversarial networks (gans) have renewed interest in algorithms that are modeled after multiple agents that compete in optimizing their own objective functions, which we refer to as *competitive optimization*.
+Many learning algorithms are modelled as a single agent minimizing a loss function, such as empirical risk.
+However, the spectacular successes of generative adversarial networks (GANs) have renewed interest in algorithms that are modeled after multiple agents that compete in optimizing their own objective functions, which we refer to as *competitive optimization*.
 
-much of single agent machine learning is powered by variants of gradient descent, which leads us to the important question:
+Since much of single agent machine learning is powered by variants of gradient descent, this raises the important question:
 **What is the natural generalization of gradient descent to competitive optimization?**
+In this note, I will try to convince you that this natural generalization of gradient descent is a novel algorithm, with a beautiful game-theoretical interpretation and promising practical performance.
 
-
-### Gradient Descent (GD)
+### (Simultaneous) Gradient Descent
 
 Consider a single-agent optimization problem,
 $$ \min_{x \in \mathbb{R}^{m}} f(x). $$
