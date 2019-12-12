@@ -19,10 +19,7 @@ Much of single agent machine learning is powered by variants of gradient descent
 
 ## Gradient Descent (GD)
 
-Consider a single-agent optimization problem,
-$$
-  \min_{x \in \mathbb{R}^{m}} f(x).
-$$
+Consider a single-agent optimization problem, $$ \min_{x \in \mathbb{R}^{m}} f(x) $$.
 Gradient descent with step size $\eta$ is given by the update rule
 
 $$
@@ -43,9 +40,17 @@ $$
 
 $$
   x_{k+1} = x_{k} - \eta \nabla f(x_{k}) 
-$$ \\
+$$ 
+
 $$
   x_{k+1} = x_{k} - \eta \nabla f(x_{k}) 
+$$
+
+$$
+\begin{pmatrix}
+  x_{k+1}\\
+  y_{k+1}
+\end{pmatrix}
 $$
 
 $$
