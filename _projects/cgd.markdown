@@ -6,7 +6,7 @@ img: /assets/img/oscillationSimGD.png
 ---
 
 ### Introduction
-*This post summarizes joint work with [Anima Anandkumar](http://tensorlab.cms.caltech.edu/users/anima/) on a new algorithm for competitive optimization: Competitive gradient descent (CGD). 
+*This post summarizes joint work with [Anima](http://tensorlab.cms.caltech.edu/users/anima/) on a new algorithm for competitive optimization: Competitive gradient descent (CGD). 
 If you want to know more, you should check out the [paper](https://arxiv.org/abs/1905.12103), play with [Hongkai's](https://devzhk.github.io/) [pytorch code](https://github.com/devzhk/Implicit-Competitive-Regularization), or talk to us at NeurIPS 2019, where we will present a [poster](https://nips.cc/Conferences/2019/ScheduleMultitrack?event=13843) on Thursday Dec 12th from 10:45 AM to 12:45 PM in the east exhibition hall (poster \# 195).*
     
 Many learning algorithms are modelled as a single agent minimizing a loss function, such as empirical risk.
