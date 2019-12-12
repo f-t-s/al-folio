@@ -14,7 +14,7 @@ However, the spectacular successes of generative adversarial networks (GANs) hav
 
 Since much of single agent machine learning is powered by variants of gradient descent, this raises the important question:
 **What is the natural generalization of gradient descent to competitive optimization?**
-In this note, I will try to convince you that this natural generalization of gradient descent is a novel algorithm, with a beautiful game-theoretical interpretation and promising practical performance.
+In this note, I will try to convince you that this natural generalization of gradient descent is a novel algorithm, with a beautiful game-theoretic interpretation and promising practical performance.
 
 ### The problem with simultaneous gradient descent
 
