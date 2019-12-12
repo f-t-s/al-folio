@@ -22,36 +22,25 @@ Much of single agent machine learning is powered by variants of gradient descent
 Consider a single-agent optimization problem, $$ \min_{x \in \mathbb{R}^{m}} f(x) $$.
 Gradient descent with step size $\eta$ is given by the update rule
 
+$$ x_{k+1} = x_{k} - \eta \nabla f(x_{k}) $$
+
 $$
+   \begin{equation*}
   x_{k+1} = x_{k} - \eta \nabla f(x_{k})
+  \end{equation*} 
 $$
 
-$$
-  \begin{equation*}
+$$ \begin{equation*}
   x_{k+1} = x_{k} - \eta \nabla f(x_{k})
-  \end{equation*}
-$$
+  \end{equation*} $$
 
-$$
-  \begin{equation*}
-  x_{k+1} = x_{k} - \eta \nabla f(x_{k})
-  \end{equation*}
-$$
+$$ x_{k+1} = x_{k} - \eta \nabla f(x_{k}) $$ 
 
-$$
-  x_{k+1} = x_{k} - \eta \nabla f(x_{k}) 
-$$ 
+$$ x_{k+1} = x_{k} - \eta \nabla f(x_{k}) $$
 
-$$
-  x_{k+1} = x_{k} - \eta \nabla f(x_{k}) 
-$$
+$$ \begin{pmatrix} x_{k+1} \\ y_{k+1} \end{pmatrix} $$
 
-$$
-\begin{pmatrix} x_{k+1} \\ y_{k+1} \end{pmatrix}
-$$
-
-$$
-\begin{pmatrix}
+$$ \begin{pmatrix}
   x_{k+1}\\
   y_{k+1}
 \end{pmatrix} ≔
@@ -66,8 +55,7 @@ $$
 \begin{pmatrix}
   \nabla_{x}f\\
   \nabla_{y}g
-\end{pmatrix}.
-$$
+\end{pmatrix}. $$
 
 
 
