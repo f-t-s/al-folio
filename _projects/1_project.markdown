@@ -52,7 +52,7 @@ The oscillatory behavior of SimGD is not restricted to this toy problem and a va
     <img class="col two left" src="{{ site.baseurl }}/assets/img/oscillationSimGD.png" alt="" title="Oscillation of SimGD"/>
     <img class="col one left" src="{{ site.baseurl }}/assets/img/460px-Rock-paper-scissors.svg.png" alt="" title="Rock Paper Scissor"/>
 </div>
-<div class="col two caption">
+<div class="col three caption">
   *Even for the simple bilinear problem $$f(x,y) = -g(x,y) = xy$$, simultaneous gradient descent cycles to infinity rather than converge towards the nash equilibrium $$(0,0)$$. This can be seen as the analogue of "ROCK! PAPER! SCISSOR ROCK ..." in the eponymous hand game (right image taken from [wikimedia](https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rock-paper-scissors.svg))*
 </div>
 
@@ -75,47 +75,40 @@ This begs a fundamental question: **What is the right notion of local first orde
 In single-agent optimization, the local first order approximation of the problem is obtained as the linear approximation of the objective functions.
 If we use a linear approximation of both agents' loss function, we obtain the following game.
 
-\begin{equation*}
-\arg \min_{x \in \mathbb{R}^m} \ f + D_{x}f (x-x_k) + D_{y}f(y - y_k) + \frac{1}{2 \eta}\|x - x_k\|^2 \\
-\arg \min_{y \in \mathbb{R}^n} \ g + D_{x}g (x-x_k) + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2.
-\end{equation*}
+
+$$ \arg \min_{x \in \mathbb{R}^m} \ f + D_{x}f (x-x_k) + D_{y}f(y - y_k) + \frac{1}{2 \eta}\|x - x_k\|^2 $$ \\
+$$ \arg \min_{y \in \mathbb{R}^n} \ g + D_{x}g (x-x_k) + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2. $$
 
 Here and in the following, the evaluations of loss functions and their derivatives always occur in the last iterate $(x_k, y_k)$, unless otherwise mentioned.
-When looking at the above local game we observe that the optimal strategy of player $x$ is inddependent of $y$ and vice versa.
+When looking at the above local game we observe that the optimal strategy of player $$x$$ is inddependent of $$y$$ and vice versa.
 Thus, the above game is equivalent to
-\begin{equation*}
-\arg \min_{y ∈ \mathbb{R}^m} f + D_{x}f (x-x_k) + \frac{1}{2 \eta}\|x - x_k\|^2,\\
-\arg \min_{x ∈ \mathbb{R}^n} g + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2,
-\end{equation*}
+
+$$ \arg \min_{y ∈ \mathbb{R}^m} f + D_{x}f (x-x_k) + \frac{1}{2 \eta}\|x - x_k\|^2,$$\\
+$$\arg \min_{x ∈ \mathbb{R}^n} g + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2,$$
 
 which leads to the update rule of SimGD.
 One explanation for the poor convergence properties of SGA is that the underlying local game game has completely lost the underlying game-theoretic structure and instead consists of both players myopically minimizing their own objective function.
 
 Instead of generalizing the linear approximation in the single-agent case to a linear approximation in the multi-agent case, we could also generalize it to a **multi**linear approximation.
-Instead of using polynomial terms up to first order ($f$, $g$, $D_x f$, $D_y f$, $D_x g$, $D_y g$) we use use derivatives up to first order per agent.
-In the two-agent setting, this is the bilinear approximation obtained by including the "mixed" second derivatives ($D_{xy}^2f$, $D_{yx}f^2$, $D_{xy}^2g$, and $D_{yx}^2g$) in the approximation, while omitting the "pure" second derivatives ($D_{xx}^2f$, $D_{yy}^2f$, $D_{xx}^2g$, and $D_{yy}^2g$).
+Instead of using polynomial terms up to first order ($$f$$, $$g$$, $$D_x f$$, $$D_y f$$, $$D_x g$$, $$D_y g$$) we use use derivatives up to first order per agent.
+In the two-agent setting, this is the bilinear approximation obtained by including the "mixed" second derivatives ($$D_{xy}^2f$$, $$D_{yx}f^2$$, $$D_{xy}^2g$$, and $$D_{yx}^2g$$) in the approximation, while omitting the "pure" second derivatives ($$D_{xx}^2f$$, $$D_{yy}^2f$$, $$D_{xx}^2g$$, and $$D_{yy}^2g$$).
 The resulting local game is
 
-\begin{equation*}
-\arg \min_{x \in \mathbb{R}^m}\  f + D_{x}f (x-x_k) + x^{\top} D_{xy}^2 f y + D_{y}f(y - y_k) + \frac{1}{2 \eta}\|x - x_k\|^2\\
-\arg \min_{y \in \mathbb{R}^n}\  g + D_{x}g (x-x_k) + x^{\top} D_{xy}^2 g y + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2,
-\end{equation*}
+$$ \arg \min_{x \in \mathbb{R}^m}\  f + D_{x}f (x-x_k) + x^{\top} D_{xy}^2 f y + D_{y}f(y - y_k) + \frac{1}{2 \eta}\|x - x_k\|^2 $$\\
+$$ \arg \min_{y \in \mathbb{R}^n}\  g + D_{x}g (x-x_k) + x^{\top} D_{xy}^2 g y + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2, $$
 
 which can be simplified to
 
-\begin{equation*}
-\arg \min_{x \in \mathbb{R}^m} \  D_{x}f (x-x_k) + x^{\top} D_{xy}^2 f y + \frac{1}{2 \eta}\|x - x_k\|^2\\
-\arg \min_{y \in \mathbb{R}^n} \ x^{\top} D_{xy}^2 g y + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2.
-\end{equation*}
+$$ \arg \min_{x \in \mathbb{R}^m} \  D_{x}f (x-x_k) + x^{\top} D_{xy}^2 f y + \frac{1}{2 \eta}\|x - x_k\|^2 $$\\
+$$ \arg \min_{y \in \mathbb{R}^n} \ x^{\top} D_{xy}^2 g y + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2. $$
 
-This local game preserves the interactive aspect of the underlying problem, since the optimal action of $x$ depends on the next move of $y$ and vice versa.
+This local game preserves the interactive aspect of the underlying problem, since the optimal action of $$x$$ depends on the next move of $$y$$ and vice versa.
 
-The local game obtained from bilinear approximation also has the property that the functions  $x \mapsto f(x,y)$ and $y \mapsto g(x,y)$ are convex.
-For this type of game, a natural notion of solution is given by a Nash equilibrium, that is a point $(x,y)$ such that neither of the two players can unilaterally improve their payoff.
+The local game obtained from bilinear approximation also has the property that the functions  $$x \mapsto f(x,y)$$ and $$y \mapsto g(x,y)$$ are convex.
+For this type of game, a natural notion of solution is given by a Nash equilibrium, that is a point $$(x,y)$$ such that neither of the two players can unilaterally improve their payoff.
 Indeed, one can show that the unique Nash-equilibrium of this game is given by
 
-\begin{equation*}
-\begin{pmatrix}
+$$ \begin{pmatrix}
   x\\
   y
 \end{pmatrix} =
@@ -130,12 +123,10 @@ Indeed, one can show that the unique Nash-equilibrium of this game is given by
 \begin{pmatrix}
   \nabla_{x}f\\
   \nabla_{y}g
-\end{pmatrix}.
-\end{equation*}
+\end{pmatrix}. $$
 
 Using this solution as our update, we obtain a new algorithm, which we refer to as **competitive gradient descent (CGD)**.
-\begin{equation*}
-\begin{pmatrix}
+$$ \begin{pmatrix}
   x_{k+1}\\
   y_{k+1}
 \end{pmatrix} ≔
@@ -150,19 +141,17 @@ Using this solution as our update, we obtain a new algorithm, which we refer to 
 \begin{pmatrix}
   \nabla_{x}f\\
   \nabla_{y}g
-\end{pmatrix}.
-\end{equation*}
+\end{pmatrix}. $$
 
 ## What I think that they think that I think ... that I do
 
-For small enough $\eta$, the matrix $(I - \eta A)^{-1}$ can be expanded in a [Neumann series](https://en.wikipedia.org/wiki/Neumann_series) as 
-\begin{equation*}
-    (I - \eta A)^{-1} = \sum \limits_{k=0}^\infty (\eta A)^k.
-\end{equation*}
+For small enough $$\eta$$, the matrix $$(I - \eta A)^{-1}$$ can be expanded in a [Neumann series](https://en.wikipedia.org/wiki/Neumann_series) as 
+
+$$ (I - \eta A)^{-1} = \sum \limits_{k=0}^\infty (\eta A)^k. $$
+
 If we apply this identity to the matrix inverse in the CGD update rule, the partial summands of this series have an inuitive interpretation as a [cognitive hierarchy](https://en.wikipedia.org/wiki/Cognitive_hierarchy_theory):
 The first summand yields the update rule of SimGD
-\begin{equation*}
-\begin{pmatrix}
+$$ \begin{pmatrix}
   x_{k+1}\\
   y_{k+1}
 \end{pmatrix} ≔
@@ -173,12 +162,12 @@ The first summand yields the update rule of SimGD
 \begin{pmatrix}
   \nabla_{x}f\\
   \nabla_{y}g
-\end{pmatrix},
-\end{equation*} 
+\end{pmatrix}, $$
+
 which is the optimal strategy for the local game if we assume that the other player stays still.
 The second partial sum yields the update rule 
-\begin{equation*}
-\begin{pmatrix}
+
+$$ \begin{pmatrix}
   x_{k+1}\\
   y_{k+1}
 \end{pmatrix} ≔
@@ -193,8 +182,8 @@ The second partial sum yields the update rule
 \begin{pmatrix}
   D_{xy}^2 f \nabla_{y}g\\
   D_{yx}^2 g \nabla_{x}f
-\end{pmatrix},
-\end{equation*}
+\end{pmatrix}, $$
+
 which is also the optimal strategy under the assumption that the other agent makes the gradient descent update, that is assuming the other agent assumes that we stay still.
 Correspondingly, the third partial sum is the optimal strategy assuming that the other player assumes that we assume that they stay still and so forth, until the Nash equilibrium is recovered in the limit.
 In principle, the Neumann series could be used to approximate the matrix inverse in the update rule, which would amount to using [Richardson iteration](https://en.wikipedia.org/wiki/Modified_Richardson_iteration). 
@@ -204,8 +193,8 @@ However, the matrix inverse is defined even in settings the Neumann series might
 
 Despite the game-theoretic interpretation of CGD, the choice of a **bilinear** local approximation might still seem arbitrary.
 Indeed, the "normal" thing to do in optimization would be to go from the linear approximation underlying SimGD straight to a quadratic approximation, leading for instance to a damped and regularized Netwton's method given by 
-\begin{equation*}
-\begin{pmatrix}
+
+$$ \begin{pmatrix}
   x_{k+1}\\
   y_{k+1}
 \end{pmatrix} ≔
@@ -220,8 +209,8 @@ Indeed, the "normal" thing to do in optimization would be to go from the linear 
 \begin{pmatrix}
   \nabla_{x}f\\
   \nabla_{y}g
-\end{pmatrix}.
-\end{equation*}
+\end{pmatrix}. $$
+
 In our work on CGD, we argue that the hierarchy of approximations in competitive optimization is fundamentally different from the corresponding hierarchy in single-agent optimization. 
 Instead of linear, quadratic, cubic, etc. approximations of the loss function, it is more natural to consider approximations that are linear, quadratic, cubic, etc. **in each player**.
 In particular, the natural notion of first order approximation is given by the bilinear approximation of the objective function.
@@ -230,18 +219,17 @@ In the following, I will present three justifications for this claim.
 
 ## Reason 1: Getting the invariances right
 
-One reason to only consider linear, quadratic, cubic, etc. approximation in single-agent optimization is that we want our approximation to be independent of the coordinate system we use to represent $x$.
-Indeed, we can check that for an invertible matrix $A \in \mathbb{R}^{m \times m}$ and $f: \mathbb{R}^m \longrightarrow \mathbb{R}$ we have 
-\begin{equation*}
-     Df(\cdot)(x) = Df(A \cdot)(A^{-1} x),
-\end{equation*}
-where the derivative on the left side is taken in a basepoint $x_0$, and the one on the right side, in the corresponding point $A^{-1}x_0$. \
-In words: taking the linear approximation in the original coordinate system yields the same result as applying the coordinate transform $x \mapsto Ax$, taking the linear approximation, and then transforming back as $x \mapsto A^{-1}x$.
+One reason to only consider linear, quadratic, cubic, etc. approximation in single-agent optimization is that we want our approximation to be independent of the coordinate system we use to represent $$x$$.
+Indeed, we can check that for an invertible matrix $$A \in \mathbb{R}^{m \times m}$$ and $$f: \mathbb{R}^m \longrightarrow \mathbb{R}$$ we have 
+
+$$ Df(\cdot)(x) = Df(A \cdot)(A^{-1} x), $$
+
+where the derivative on the left side is taken in a basepoint $$x_0$$, and the one on the right side, in the corresponding point $$A^{-1}x_0$$. \
+In words: taking the linear approximation in the original coordinate system yields the same result as applying the coordinate transform $$x \mapsto Ax$$, taking the linear approximation, and then transforming back as $$x \mapsto A^{-1}x$$.
 This property holds for all orders (linear, quadratic, cubic etc.) of polynomial approximation.\
 In contrast, the bilinear approximation only satisfies 
 
-\begin{equation*}
-\begin{pmatrix}
+$$ \begin{pmatrix}
 x\\
 y
 \end{pmatrix}^{\top}
@@ -267,16 +255,15 @@ y
 \begin{pmatrix}
     x \\
     y
-\end{pmatrix}\right)
-\end{equation*}
+\end{pmatrix}\right) $$
 
-if $A = 
+if $$A = 
 \begin{pmatrix}
 A_{xx} & 0\\
 0 & A_{yy}
-\end{pmatrix}$ is block-diagonal.
-An $A$ that is not block-diagonal can for instance swap a degree of freedom of $x$ with a degree of freedom $y$.
-This transformation corresponds to taking a decision variable under the control of $x$ and swapping it for a decision variable under the control of $y$.
+\end{pmatrix}$$ is block-diagonal.
+An $$A$$ that is not block-diagonal can for instance swap a degree of freedom of $$x$$ with a degree of freedom $$y$$.
+This transformation corresponds to taking a decision variable under the control of $$x$$ and swapping it for a decision variable under the control of $$y$$.
 This is **not** just a different way to represent the same problem but may be a drastically different game.
 Therefore, we do **not** want to be invariant to this transformation and it is the bilinear approximation that is invariant to exactly those linear transformations that keep the underlying game unchanged, while the linear or quadratic approximations have spurious invariances built in.
 
@@ -293,15 +280,15 @@ Thus, bilinear approximation preserves this important propery while at the same 
 ## Reason 3: Fully exploiting first order regularity
 
 Many if not most competitive optimization problems have the structure 
-\begin{equation*}
-f(x,y) = \Phi\left(X(x), Y(y)\right), \\
-g(x,y) = \Theta\left(X(x), Y(y)\right),
-\end{equation*}
-where the functions $\Phi$ and $\Theta$ are highly regular, but the functions $x \mapsto X(x)$ and $y \mapsto Y(y)$ might only have first order regularity.
-In the setting of GANs for instance, $x \mapsto X(x) = \mathcal{G}_x$ maps the generator weights to the induced probability measure and the map $y \mapsto Y(y) = \mathcal{D}_y$ maps the discriminator weights to the induced classifier.
-In the original GAN, the function $\Phi$ would then be given as $\Phi(\mathcal{G},\mathcal{D}) = \mathbb{E}_{z \sim \mathcal{P}}[\log(\mathcal{D}(z))] + \mathbb{E}_{z \sim \mathcal{G}}[\log\left(1 - \mathcal{D}(z)\right)]$.
-We observe that in this case the mixed derivative $D_{xy}^2 f(x,y) = (D_{x}X) D_{XY}^2\Phi (D_{y} Y)^{\top}$ is well behaved, since only one derivative falls onto each $X$ and $Y$.
-The "pure" second derivatives $D_{xx}^2 f$ and $D_{yy}^2 f$ however require second order regularity of $X$ or $Y$.
+
+$$ f(x,y) = \Phi\left(X(x), Y(y)\right), $$ \\
+$$ g(x,y) = \Theta\left(X(x), Y(y)\right), $$
+
+where the functions $$\Phi$$ and $$\Theta$$ are highly regular, but the functions $$x \mapsto X(x)$$ and $$y \mapsto Y(y)$$ might only have first order regularity.
+In the setting of GANs for instance, $$x \mapsto X(x) = \mathcal{G}_x$$ maps the generator weights to the induced probability measure and the map $$y \mapsto Y(y) = \mathcal{D}_y$$ maps the discriminator weights to the induced classifier.
+In the original GAN, the function $$\Phi$$ would then be given as $$\Phi(\mathcal{G},\mathcal{D}) = \mathbb{E}_{z \sim \mathcal{P}}[\log(\mathcal{D}(z))] + \mathbb{E}_{z \sim \mathcal{G}}[\log\left(1 - \mathcal{D}(z)\right)]$$.
+We observe that in this case the mixed derivative $$D_{xy}^2 f(x,y) = (D_{x}X) D_{XY}^2\Phi (D_{y} Y)^{\top}$$ is well behaved, since only one derivative falls onto each $$X$$ and $$Y$$.
+The "pure" second derivatives $$D_{xx}^2 f$$ and $$D_{yy}^2 f$$ however require second order regularity of $$X$$ or $$Y$$.
 Thus, instead of than requiring second order regularity, the bilinear approximation fully exploits the first order regularity present in many competitive optimization problems. 
 
 # Does it work?
