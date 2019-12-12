@@ -152,6 +152,7 @@ $$ (I - \eta A)^{-1} = \sum \limits_{k=0}^\infty (\eta A)^k. $$
 
 If we apply this identity to the matrix inverse in the CGD update rule, the partial summands of this series have an inuitive interpretation as a [cognitive hierarchy](https://en.wikipedia.org/wiki/Cognitive_hierarchy_theory):
 The first summand yields the update rule of SimGD
+
 $$ \begin{pmatrix}
   x_{k+1}\\
   y_{k+1}
@@ -185,8 +186,8 @@ $$ \begin{pmatrix}
   D_{yx}^2 g \nabla_{x}f
 \end{pmatrix}, $$
 
-which is also the optimal strategy under the assumption that the other agent makes the gradient descent update, that is assuming the other agent assumes that we stay still.
-Correspondingly, the third partial sum is the optimal strategy assuming that the other player assumes that we assume that they stay still and so forth, until the Nash equilibrium is recovered in the limit.
+which is the optimal strategy under the assumption that the other agent makes the gradient descent update, that is assuming the other agent assumes that we stay still.
+The third partial sum is the optimal strategy assuming that the other player assumes that we assume that they stay still and so forth, until the Nash equilibrium is recovered in the limit.
 In principle, the Neumann series could be used to approximate the matrix inverse in the update rule, which would amount to using [Richardson iteration](https://en.wikipedia.org/wiki/Modified_Richardson_iteration). 
 However, the matrix inverse is defined even in settings the Neumann series might not converge and by can using optimal Krylov subspace methods such as [conjugate gradient](https://en.wikipedia.org/wiki/Conjugate_gradient_method), we can obtain significantly better approximations with fewer Hessian-vector products.
 
