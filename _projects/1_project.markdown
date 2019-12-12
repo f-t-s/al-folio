@@ -21,17 +21,14 @@ Consider a single-agent optimization problem,
 $$ \min_{x \in \mathbb{R}^{m}} f(x). $$
 Gradient descent with step size $$\eta$$ is given by the update rule
 
-<center>
 $$ x_{k+1} = x_{k} - \eta \nabla f(x_{k}) $$
-</center>
 
 where the gradient $$\nabla f(x_{k})$$ is the vector containing the partial derivatives of $f$, taken in the last iterate $$x_k$$.
 The vector $$-\nabla f(x_{k})$$ points in the direction of the steepest descent of the loss function $$f$$ in the point $$x_k$$, which is why gradient descent is also referred to as the method of steepest descent.
 
 Let us now move to the competitive optimization problem:
 
-$$ \min_{x \in \mathbb{R}^m} f(x, y) $$\\
-$$ \min_{y \in \mathbb{R}^n} g(x, y) $$
+$$ \begin{align*} \min_{x \in \mathbb{R}^m} f(x, y) \\\ \min_{y \in \mathbb{R}^n} g(x, y) \end{align}$$
 
 
 restricting ourselves to two agents for the sake of simplicity.
