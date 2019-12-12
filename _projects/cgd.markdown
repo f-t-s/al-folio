@@ -54,7 +54,7 @@ The oscillatory behavior of SimGD is not restricted to this toy problem and a va
     <img class="col one left" src="{{ site.baseurl }}/assets/img/460px-Rock-paper-scissors.svg.png" alt="" title="Rock Paper Scissor"/>
 </div>
 <div class="col three caption">
-  *Even for the simple bilinear problem $$f(x,y) = -g(x,y) = xy$$, simultaneous gradient descent cycles to infinity rather than converge towards the nash equilibrium $$(0,0)$$. This can be seen as the analogue of "ROCK! PAPER! SCISSOR ROCK ..." in the eponymous hand game (right image taken from [wikimedia](https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rock-paper-scissors.svg))*
+  Even for a simple bilinear problem, simultaneous gradient descent cycles to infinity rather than converging to the Nash equilibrium at zero. This can be seen as the analogue of "ROCK! PAPER! SCISSOR ROCK ..." in the eponymous hand game (right image taken from [wikimedia](https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rock-paper-scissors.svg))
 </div>
 
 
