@@ -319,9 +319,8 @@ In order to better understand the convergence behavior of CGD, we consider a lin
 The main take-away is that while CGD has a higher cost per iteration than other methods, it is able to take larger steps without diverging, which often allows it to converge faster even when accounting for the Hessian vector products required for the matrix inverse in the CGD update. 
 
 <div class="img_row">
-    <img class="col one left" src="{{ site.baseurl }}/assets/img/cvest_d_20.png" alt="" title="small problem"/>
-    <img class="col one left" src="{{ site.baseurl }}/assets/img/cvest_d_40.png" alt="" title="medium problem"/>
-    <img class="col one left" src="{{ site.baseurl }}/assets/img/cvest_d_60.png" alt="" title="large problem"/>
+    <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/cvest_d_20.png" alt="" title="small problem"/>
+    <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/cvest_d_60.png" alt="" title="large problem"/>
 </div>
 <div class="col three caption">
   While for small stepsizes CGD is not faster than other methods, it can make larger steps without diverging, which enables it to outperform other methods (combinations of algorithms and step sizes that lead to divergence are not plotted).
