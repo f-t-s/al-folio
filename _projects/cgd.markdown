@@ -348,7 +348,7 @@ We are happy to give advice regarding any issues you might encounter along the r
 
 An important class of competitive optimization problems arises from equality constrained optimization problems 
 
-$$ \min_{x : h(x) = 0} f(x) $$
+$$ \min_{x \ : \ h(x) = 0} f(x) $$
 
 that can be rewritten as 
 
