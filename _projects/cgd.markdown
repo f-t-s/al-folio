@@ -87,7 +87,7 @@ $$ \min \limits_{y ∈ \mathbb{R}^m} f + D_{x}f (x-x_k) + \frac{1}{2 \eta}\|x - 
 $$ \min \limits_{x ∈ \mathbb{R}^n} g + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2,$$
 
 which leads to the update rule of SimGD.
-One explanation for the poor convergence properties of SGA is that the underlying local game game has completely lost the underlying game-theoretic structure and instead consists of both players myopically minimizing their own objective function.
+One explanation for the poor convergence properties of SimGD is that the underlying local game has completely lost the underlying game-theoretic structure and instead consists of both players myopically minimizing their own objective function.
 
 Instead of generalizing the linear approximation in the single-agent case to a linear approximation in the multi-agent case, we could also generalize it to a **multi**linear approximation.
 Instead of using polynomial terms up to first order ($$f$$, $$g$$, $$D_x f$$, $$D_y f$$, $$D_x g$$, $$D_y g$$) we use use derivatives up to first order per agent.
@@ -286,11 +286,11 @@ Based on the above arguments, this is exactly the right set of invariances to be
 
 One downside of Newton's method in nonconvex optimization is that its update rule can amount to players choosing their local *worst* strategy if the critical point is a local maximum instead of a local minimum. 
 This can be countered by adaptive choice of step sizes, trust-region methods, or cubic regularization, but a distinct benefit of first order methods is that their updates always amount to optimal strategies of the local game.
-Thus, bilinear approximation preserves this important propery while at the same time leading to an interactive local problem.
+Bilinear approximation preserves this important property while at the same time leading to an interactive local problem.
 
 #### Reason 3: Fully exploiting first order regularity
 
-Many if not most competitive optimization problems have the structure 
+Many competitive optimization problems have the structure 
 
 $$ f(x,y) = \Phi\left(X(x), Y(y)\right), $$ \\
 $$ g(x,y) = \Theta\left(X(x), Y(y)\right), $$
@@ -300,13 +300,13 @@ In the setting of GANs for instance, $$x \mapsto X(x) = \mathcal{G}_x$$ maps the
 In the original GAN, the function $$\Phi$$ would then be given as $$\Phi(\mathcal{G},\mathcal{D}) = \mathbb{E}_{z \sim \mathcal{P}}[\log(\mathcal{D}(z))] + \mathbb{E}_{z \sim \mathcal{G}}[\log\left(1 - \mathcal{D}(z)\right)]$$.
 We observe that in this case the mixed derivative $$D_{xy}^2 f(x,y) = (D_{x}X) D_{XY}^2\Phi (D_{y} Y)^{\top}$$ is well behaved, since only one derivative falls onto each $$X$$ and $$Y$$.
 The "pure" second derivatives $$D_{xx}^2 f$$ and $$D_{yy}^2 f$$ however require second order regularity of $$X$$ or $$Y$$.
-Thus, instead of than requiring second order regularity, the bilinear approximation fully exploits the first order regularity present in many competitive optimization problems. 
+Thus, instead of requiring second order regularity, the bilinear approximation fully exploits the first order regularity present in many competitive optimization problems. 
 
 ### Does it work?
 
 #### Gaussian mixture GAN
 
-As a first experiment, we tried deploying CGD to a simple GAN fitting a bimodal Gaussian mixture. 
+As a first experiment, we tried using CGD on GAN fitting a bimodal Gaussian mixture. 
 While this is obviously a simple problem that can be solved with a variety of algorithms, it has the advantage that it lends itself to an easy visualization.
 With many of the existing methods we observed a strong cycling behavior with generator and discriminator chasing each other between the two modes. 
 In contrast, throughout all step sizes that we tried, CGD seemed to show initial cycling behavior followed by a rapid splitting on the two modes that stayed stable throughout the experiment. *We emphasize that the other methods surely could be made work on this problem with the right hyperparameters. The main point of interest of these experiments is the sudden splitting of mass observed when using CGD*.
@@ -325,7 +325,7 @@ In order to study the convergence speed of CGD, we consider a linear-quadratic c
 
 $$ -g(V,W) = f(V,W) = \sum_{ij}W_{ij}\left(\Sigma_{ij} - \left(V V^{\top}\right)_{ij}\right) $$ 
 
-The main take-away is that while CGD has a higher cost per iteration than other methods, it is able to take larger steps without diverging, which often allows it to converge faster even when accounting for the Hessian vector products required for the matrix inverse in the CGD update. 
+The main take-away is that while CGD has a higher cost per iteration than other methods, it is able to take larger steps without diverging, which often allows it to converge faster even when accounting for the Hessian vector products required for computing the matrix inverse in the CGD update using iterative methods.
 <div class="img_row">
     <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/cvest_d_20.png" alt="" title="small problem"/>
     <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/cvest_d_60.png" alt="" title="large problem"/>
@@ -337,9 +337,9 @@ The main take-away is that while CGD has a higher cost per iteration than other 
 #### Image GANs on CIFAR10 and implicit competitive regularization
 
 As part of a separate work, [Hongkai](https://devzhk.github.io/), Anima, and I have investigated the performance of CGD on image GANs.
-For instance, we observe that when taking [an existing implementation of WGAN-GP](https://github.com/EmilienDupont/wgan-gp/blob/master/models.py), removing the gradient penalty, and instead training with CGD, we obtain an improved inception score of CIFAR10.
+For instance, we observe that when taking [an existing implementation of WGAN-GP](https://github.com/EmilienDupont/wgan-gp/blob/master/models.py), removing the gradient penalty, and instead training with CGD, we obtain an improved inception score of CIFAR10!
 We explain this behavior with an implicit regularization induced by CGD. 
-If you want to know more you should check out the [paper](https://arxiv.org/abs/1910.05852) or drop by the [SGO\&ML-workshop](https://sgo-workshop.github.io/) this Saturday at Neurips.
+If you want to know more you should check out the [paper](https://arxiv.org/abs/1910.05852) or drop by the [SGO & ML workshop](https://sgo-workshop.github.io/) this Saturday at Neurips.
 Of course there is still a lot to explore, so feel free to check out [Hongkai's pytorch implementation of CGD](https://github.com/devzhk/Implicit-Competitive-Regularization) and try out CGD on your own problems! 
 
 #### CGD for equality constrained optimization
