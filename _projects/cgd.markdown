@@ -229,7 +229,24 @@ $$ Df(\cdot)(x) = Df(A \cdot)(A^{-1} x), $$
 where the derivative on the left side is taken in a basepoint $$x_0$$, and the one on the right side, in the corresponding point $$A^{-1}x_0$$. \\
 In words: taking the linear approximation in the original coordinate system yields the same result as applying the coordinate transform $$x \mapsto Ax$$, taking the linear approximation, and then transforming back as $$x \mapsto A^{-1}x$$.
 This property holds for all orders (linear, quadratic, cubic etc.) of polynomial approximation.\\
-In contrast, the bilinear approximation only satisfies 
+For single agent problems given in an arbitrary coordinate system this is clearly a desirable feature, but do we want this invariance for competitive optimization?
+
+For insance, $$A$$ could be a permutation matrix that takes a decision variable under the control of $$x$$ and swap it for a decision variable under the control of $$y$$.
+This is **not** just a different way to represent the same problem but may be a drastically different game.
+Therefore, we do **not** want to be invariant to this transformation and the invariances built in of first, second, third, etc. order approximations is a severe limitation.
+
+<div class="img_row">
+    <img class="col one left" src="{{ site.baseurl }}/assets/img/queenblack.png" alt="" title="Black queen white bishop"/>
+    <img class="col one left" src="{{ site.baseurl }}/assets/img/leftrightarrow.png" alt="" title="equivalent to"/>
+    <img class="col one right" src="{{ site.baseurl }}/assets/img/queenwhite.png" alt="" title="White queen black bishop"/>
+</div>
+<div class="col three caption">
+  A chess analogy: The left position can be transformed into the right one by a rotation in the joint strategy space that swaps the "queen coordinate" of black with the "bishop coordinate" of white. The two resulting games are drastically different, illustrating that games are not invariant under arbitrary rotations in the joint strategy space.
+</div>
+
+
+In contrast, the bilinear approximation only is only invariant to reparametrizations of the strategy space of each player in isolation, but not to a reassignment of the decision variables accross players.
+Mathematically we have 
 
 $$ \begin{pmatrix}
 x\\
@@ -259,24 +276,12 @@ y
     y
 \end{pmatrix}\right) $$
 
-if $$A = 
+in general only if $$A = 
 \begin{pmatrix}
 A_{xx} & 0\\
 0 & A_{yy}
 \end{pmatrix}$$ is block-diagonal.
-An $$A$$ that is not block-diagonal can for instance swap a degree of freedom of $$x$$ with a degree of freedom $$y$$.
-This transformation corresponds to taking a decision variable under the control of $$x$$ and swapping it for a decision variable under the control of $$y$$.
-This is **not** just a different way to represent the same problem but may be a drastically different game.
-Therefore, we do **not** want to be invariant to this transformation and it is the bilinear approximation that is invariant to exactly those linear transformations that keep the underlying game unchanged, while the linear or quadratic approximations have spurious invariances built in.
-
-<div class="img_row">
-    <img class="col one left" src="{{ site.baseurl }}/assets/img/queenblack.png" alt="" title="Black queen white bishop"/>
-    <img class="col one left" src="{{ site.baseurl }}/assets/img/leftrightarrow.png" alt="" title="equivalent to"/>
-    <img class="col one right" src="{{ site.baseurl }}/assets/img/queenwhite.png" alt="" title="White queen black bishop"/>
-</div>
-<div class="col three caption">
-  A chess analogy: The left position can be transformed into the right one by a rotation in the joint strategy space that swaps the "queen coordinate" of black with the "bishop coordinate" of white. The two resulting games are drastically different, illustrating that games are not invariant under arbitrary rotations in the joint strategy space.
-</div>
+Based on the above arguments, this is exactly the right set of invariances to be built into the approximation.
 
 #### Reason 2: Bilinear plays well with quadratic regularization
 
