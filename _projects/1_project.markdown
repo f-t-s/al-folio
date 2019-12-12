@@ -267,9 +267,14 @@ This transformation corresponds to taking a decision variable under the control 
 This is **not** just a different way to represent the same problem but may be a drastically different game.
 Therefore, we do **not** want to be invariant to this transformation and it is the bilinear approximation that is invariant to exactly those linear transformations that keep the underlying game unchanged, while the linear or quadratic approximations have spurious invariances built in.
 
-![](https://i.imgur.com/aca5qvd.png)    $\leftrightarrow$    ![](https://i.imgur.com/Bo6AQV7.png)
-
-*A chess analogy: The left position can be transformed into the right one by a rotation in the joint strategy space that swaps the "queen coordinate" of black with the "bishop coordinate" of white. The two resulting games are drastically different, illustrating that games are not invariant under arbitrary rotations in the joint strategy space.*
+<div class="img_row">
+    <img class="col one left" src="{{ site.baseurl }}/assets/img/queenblack.png" alt="" title="Black queen white bishop image"/>
+    <img class="col one left" src="{{ site.baseurl }}/assets/img/leftrightarrow.png" alt="" title="equivalent to"/>
+    <img class="col one left" src="{{ site.baseurl }}/assets/img/queenwhite.png" alt="" title="White queen black bishop image"/>
+</div>
+<div class="col three caption">
+  A chess analogy: The left position can be transformed into the right one by a rotation in the joint strategy space that swaps the "queen coordinate" of black with the "bishop coordinate" of white. The two resulting games are drastically different, illustrating that games are not invariant under arbitrary rotations in the joint strategy space.
+</div>
 
 ## Reason 2: Bilinear plays well with quadratic regularization
 
