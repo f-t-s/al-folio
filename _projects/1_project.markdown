@@ -28,8 +28,8 @@ The vector $$-\nabla f(x_{k})$$ points in the direction of the steepest descent 
 
 Let us now move to the competitive optimization problem:
 
-$$ \begin{align*} \min_{x \in \mathbb{R}^m} f(x, y) \\\ \min_{y \in \mathbb{R}^n} g(x, y) \end{align}$$
-
+$$ \min_{x \in \mathbb{R}^m} f(x, y) $$\\
+$$ \min_{y \in \mathbb{R}^n} g(x, y) $$
 
 restricting ourselves to two agents for the sake of simplicity.
 Here, the first agent tries to choose $x$ such as to minimize $f$, while the second agent tries to choose the decision variable $y$ such as to minimize $g$.
@@ -50,6 +50,15 @@ The oscillatory behavior of SimGD is not restricted to this toy problem and a va
 
 ![](https://i.imgur.com/CBqQEWT.png =300x200)
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rock-paper-scissors.svg/460px-Rock-paper-scissors.svg.png =230x220)
+
+<div class="img_row">
+    <img class="col one left" src="{{ site.baseurl }}/assets/img/oscillationSimGD.png" alt="" title="Oscillation of SimGD"/>
+    <img class="col one left" src="{{ site.baseurl }}/assets/img/460px-Rock-paper-scissors.svg.png" alt="" title="Rock Paper Scissor"/>
+</div>
+<div class="col two caption">
+    You can also have artistically styled 2/3 + 1/3 images, like these.
+</div>
+
 
 *Even for the simple bilinear problem $$f(x,y) = -g(x,y) = xy$$, simultaneous gradient descent cycles to infinity rather than converge towards the nash equilibrium $$(0,0)$$. This can be seen as the analogue of "ROCK! PAPER! SCISSOR ROCK ..." in the eponymous hand game (right image taken from [wikimedia](https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rock-paper-scissors.svg))*
 
