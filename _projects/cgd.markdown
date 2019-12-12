@@ -330,7 +330,7 @@ The main take-away is that while CGD has a higher cost per iteration than other 
   While for small stepsizes CGD is not faster than other methods, it can make larger steps without diverging, which enables it to outperform other methods (combinations of algorithms and step sizes that lead to divergence are not plotted).
 </div>
 
-#### Image GANs on CIFAR10
+#### Image GANs on CIFAR10 and implicit competitive regularization
 
 As part of a separate work, [Hongkai](https://devzhk.github.io/), Anima, and I have investigated the performance of CGD on image GANs.
 For instance, we observe that when taking [an existing implementation of WGAN-GP](https://github.com/EmilienDupont/wgan-gp/blob/master/models.py), removing the gradient penalty, and instead training with CGD, we obtain an improved inception score of CIFAR10.
