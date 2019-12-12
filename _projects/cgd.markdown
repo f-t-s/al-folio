@@ -16,7 +16,7 @@ Since much of single agent machine learning is powered by variants of gradient d
 **What is the natural generalization of gradient descent to competitive optimization?**
 In this note, I will try to convince you that this natural generalization of gradient descent is a novel algorithm, with a beautiful game-theoretical interpretation and promising practical performance.
 
-### (Simultaneous) Gradient Descent
+### The problem with simultaneous gradient descent
 
 Consider a single-agent optimization problem,
 $$ \min_{x \in \mathbb{R}^{m}} f(x). $$
@@ -29,8 +29,8 @@ The vector $$-\nabla f(x_{k})$$ points in the direction of the steepest descent 
 
 Let us now move to the competitive optimization problem:
 
-$$ \min_{x \in \mathbb{R}^m} f(x, y) $$\\
-$$ \min_{y \in \mathbb{R}^n} g(x, y) $$
+$$ \min \limits_{x \in \mathbb{R}^m} f(x, y) $$\\
+$$ \min \limits_{y \in \mathbb{R}^n} g(x, y) $$
 
 restricting ourselves to two agents for the sake of simplicity.
 Here, the first agent tries to choose $x$ such as to minimize $$f$$, while the second agent tries to choose the decision variable $$y$$ such as to minimize $$g$$.
@@ -77,15 +77,15 @@ In single-agent optimization, the local first order approximation of the problem
 If we use a linear approximation of both agents' loss function, we obtain the following game.
 
 
-$$ \min_{x \in \mathbb{R}^m} \ f + D_{x}f (x-x_k) + D_{y}f(y - y_k) + \frac{1}{2 \eta}\|x - x_k\|^2 $$ \\
-$$ \min_{y \in \mathbb{R}^n} \ g + D_{x}g (x-x_k) + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2. $$
+$$ \min \limits_{x \in \mathbb{R}^m} \ f + D_{x}f (x-x_k) + D_{y}f(y - y_k) + \frac{1}{2 \eta}\|x - x_k\|^2 $$ \\
+$$ \min \limits_{y \in \mathbb{R}^n} \ g + D_{x}g (x-x_k) + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2. $$
 
 Here and in the following, the evaluations of loss functions and their derivatives always occur in the last iterate $(x_k, y_k)$, unless otherwise mentioned.
 When looking at the above local game we observe that the optimal strategy of player $$x$$ is inddependent of $$y$$ and vice versa.
 Thus, the above game is equivalent to
 
-$$ \min_{y ∈ \mathbb{R}^m} f + D_{x}f (x-x_k) + \frac{1}{2 \eta}\|x - x_k\|^2,$$\\
-$$ \min_{x ∈ \mathbb{R}^n} g + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2,$$
+$$ \min \limits_{y ∈ \mathbb{R}^m} f + D_{x}f (x-x_k) + \frac{1}{2 \eta}\|x - x_k\|^2,$$\\
+$$ \min \limits_{x ∈ \mathbb{R}^n} g + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2,$$
 
 which leads to the update rule of SimGD.
 One explanation for the poor convergence properties of SGA is that the underlying local game game has completely lost the underlying game-theoretic structure and instead consists of both players myopically minimizing their own objective function.
@@ -94,11 +94,15 @@ Instead of generalizing the linear approximation in the single-agent case to a l
 Instead of using polynomial terms up to first order ($$f$$, $$g$$, $$D_x f$$, $$D_y f$$, $$D_x g$$, $$D_y g$$) we use use derivatives up to first order per agent.
 In the two-agent setting, this is the bilinear approximation obtained by including the "mixed" second derivatives ($$D_{xy}^2f$$, $$D_{yx}f^2$$, $$D_{xy}^2g$$, and $$D_{yx}^2g$$) in the approximation, while omitting the "pure" second derivatives ($$D_{xx}^2f$$, $$D_{yy}^2f$$, $$D_{xx}^2g$$, and $$D_{yy}^2g$$).
 The resulting local game is
-$$ \min_{x \in \mathbb{R}^m}\  f + D_{x}f (x-x_k) + x^{\top} D_{xy}^2 f y + D_{y}f(y - y_k) + \frac{1}{2 \eta}\|x - x_k\|^2 $$\\
-$$ \min_{y \in \mathbb{R}^n}\  g + D_{x}g (x-x_k) + x^{\top} D_{xy}^2 g y + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2, $$
+
+$$ \min \limits_{x \in \mathbb{R}^m}\  f + D_{x}f (x-x_k) + x^{\top} D_{xy}^2 f y + D_{y}f(y - y_k) + \frac{1}{2 \eta}\|x - x_k\|^2 $$\\
+$$ \min \limits_{y \in \mathbb{R}^n}\  g + D_{x}g (x-x_k) + x^{\top} D_{xy}^2 g y + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2, $$
+
 which can be simplified to
-$$ \min_{x \in \mathbb{R}^m} \  D_{x}f (x-x_k) + x^{\top} D_{xy}^2 f y + \frac{1}{2 \eta}\|x - x_k\|^2 $$\\
-$$ \min_{y \in \mathbb{R}^n} \ x^{\top} D_{xy}^2 g y + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2. $$
+
+$$ \min \limits_{x \in \mathbb{R}^m} \  D_{x}f (x-x_k) + x^{\top} D_{xy}^2 f y + \frac{1}{2 \eta}\|x - x_k\|^2 $$\\
+$$ \min \limits_{y \in \mathbb{R}^n} \ x^{\top} D_{xy}^2 g y + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2. $$
+
 This local game preserves the interactive aspect of the underlying problem, since the optimal action of $$x$$ depends on the next move of $$y$$ and vice versa.
 The local game obtained from bilinear approximation also has the property that the functions  $$x \mapsto f(x,y)$$ and $$y \mapsto g(x,y)$$ are convex.
 For this type of game, a natural notion of solution is given by a Nash equilibrium, that is a point $$(x,y)$$ such that neither of the two players can unilaterally improve their payoff.
