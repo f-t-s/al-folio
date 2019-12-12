@@ -320,6 +320,7 @@ The first video shows the frequently observed chasing between the two modes, tha
 In order to study the convergence speed of CGD, we consider a linear-quadratic covariance estimation problem given by the loss function
 
 $$ -g(V,W) = f(V,W) = \sum_{ij}W_{ij}\left(\Sigma_{ij} - \left(V V^{\top}\right)_{ij}\right) $$ 
+
 The main take-away is that while CGD has a higher cost per iteration than other methods, it is able to take larger steps without diverging, which often allows it to converge faster even when accounting for the Hessian vector products required for the matrix inverse in the CGD update. 
 <div class="img_row">
     <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/cvest_d_20.png" alt="" title="small problem"/>
@@ -329,7 +330,7 @@ The main take-away is that while CGD has a higher cost per iteration than other 
   While for small stepsizes CGD is not faster than other methods, it can make larger steps without diverging, which enables it to outperform other methods (combinations of algorithms and step sizes that lead to divergence are not plotted).
 </div>
 
-#### Image GANs on CIFAR10?
+#### Image GANs on CIFAR10
 
 As part of a separate work, [Hongkai](https://devzhk.github.io/), Anima, and I have investigated the performance of CGD on image GANs.
 For instance, we observe that when taking [an existing implementation of WGAN-GP](https://github.com/EmilienDupont/wgan-gp/blob/master/models.py), removing the gradient penalty, and instead training with CGD, we obtain an improved inception score of CIFAR10.
@@ -337,3 +338,18 @@ We explain this behavior with an implicit regularization induced by CGD.
 If you want to know more you should check out the [paper](https://arxiv.org/abs/1910.05852) or drop by the [SGO\&ML-workshop](https://sgo-workshop.github.io/) this Saturday at Neurips.
 Of course, the utility of CGD still has to be explored on more problems, so feel free to check out [Hongkai's pytorch implementation of CGD](https://github.com/devzhk/Implicit-Competitive-Regularization) and try out CGD on your own problems! 
 We are happy to give advice regarding any issues you might encounter along the road.
+
+#### CGD for equality constrained optimization
+
+An important class of competitive optimization problems arises from equality constrained optimization problems 
+
+$$ \min_{x : h(x) = 0} f(x) $$
+
+that can be rewritten as 
+
+$$ \min_{x} \max_{\mu} f(x) + \mu^{\top} h(x)$$
+
+using a Lagrange multiplier $\mu$.
+These types of problems are ubiquitous in many areas including Reinforcement Learning and Control theory.
+In the latter context, [Pierre-Luc](http://pierrelucbacon.com/) [Clement](http://people.csail.mit.edu/gehring/), Anima, [Emma](https://cs.stanford.edu/people/ebrun/), and I are investigating the effectiveness of CGD.  
+If you are interested to learn more, check out our [workshop paper](https://optrl2019.github.io/assets/accepted_papers/70.pdf), the [implementation using JAX](https://github.com/gehring/fax) and out poster at [the NeurIPS 2019 workshop on optimization for RL](https://optrl2019.github.io/).
