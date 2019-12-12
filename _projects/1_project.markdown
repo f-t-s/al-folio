@@ -328,3 +328,11 @@ The main take-away is that while CGD has a higher cost per iteration than other 
 <div class="col three caption">
   While for small stepsizes CGD is not faster than other methods, it can make larger steps without diverging, which enables it to outperform other methods (combinations of algorithms and step sizes that lead to divergence are not plotted).
 </div>
+
+#### What about image GANs?
+
+As part of a , [Hongkai](https://devzhk.github.io/), Anima, and I have investigated the performance of CGD on image GANs.
+While I will defer more details to a future post, I will mention here that we observe that when taking [an existing implementation of WGAN-GP](https://github.com/EmilienDupont/wgan-gp/blob/master/models.py), removing the gradient penalty, and instead training with CGD, we obtain an improved inception score of CIFAR10.
+With explain this behavior with an implicit regularization inherent in CGD, if you want to know more you should check out the [paper](https://arxiv.org/abs/1910.05852) or drop by the the [SGO\&ML-workshop](https://sgo-workshop.github.io/) this Saturday at Neurips.
+Of course, the utility of CGD still has to be explored on more problems, so feel free to check out [Hongkai's pytorch implementation of CGD](https://github.com/devzhk/Implicit-Competitive-Regularization) and try out CGD on your own problems! 
+We are happy to give advice regarding any issues you might encounter along the road.
