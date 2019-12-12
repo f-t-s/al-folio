@@ -107,6 +107,7 @@ This local game preserves the interactive aspect of the underlying problem, sinc
 The local game obtained from bilinear approximation also has the property that the functions  $$x \mapsto f(x,y)$$ and $$y \mapsto g(x,y)$$ are convex.
 For this type of game, a natural notion of solution is given by a Nash equilibrium, that is a point $$(x,y)$$ such that neither of the two players can unilaterally improve their payoff.
 Indeed, one can show that the unique Nash-equilibrium of this game is given by
+
 $$ \begin{pmatrix}
   x\\
   y
@@ -123,7 +124,9 @@ $$ \begin{pmatrix}
   \nabla_{x}f\\
   \nabla_{y}g
 \end{pmatrix}. $$
+
 Using this solution as our update, we obtain a new algorithm, which we refer to as **competitive gradient descent (CGD)**.
+
 $$ \begin{pmatrix}
   x_{k+1}\\
   y_{k+1}
