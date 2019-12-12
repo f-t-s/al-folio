@@ -341,8 +341,7 @@ As part of a separate work, [Hongkai](https://devzhk.github.io/), Anima, and I h
 For instance, we observe that when taking [an existing implementation of WGAN-GP](https://github.com/EmilienDupont/wgan-gp/blob/master/models.py), removing the gradient penalty, and instead training with CGD, we obtain an improved inception score of CIFAR10.
 We explain this behavior with an implicit regularization induced by CGD. 
 If you want to know more you should check out the [paper](https://arxiv.org/abs/1910.05852) or drop by the [SGO\&ML-workshop](https://sgo-workshop.github.io/) this Saturday at Neurips.
-Of course, the utility of CGD still has to be explored on more problems, so feel free to check out [Hongkai's pytorch implementation of CGD](https://github.com/devzhk/Implicit-Competitive-Regularization) and try out CGD on your own problems! 
-We are happy to give advice regarding any issues you might encounter along the road.
+Of course there is still a lot to explore, so feel free to check out [Hongkai's pytorch implementation of CGD](https://github.com/devzhk/Implicit-Competitive-Regularization) and try out CGD on your own problems! 
 
 #### CGD for equality constrained optimization
 
