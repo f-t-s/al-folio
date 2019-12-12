@@ -315,9 +315,9 @@ The first video shows the frequently observed chasing between the two modes, tha
 
 #### Linear-Quadratic GAN 
 
-In order to study the convergence speed of CGD, we consider a linear-quadratic covariance estimation problem given as
+In order to study the convergence speed of CGD, we consider a linear-quadratic covariance estimation problem given by the loss function
 
-$$ -g(V,W) = f(V,W) = \sum_{ij}W_{ij}(\Sigma_{ij} - (V V^{\top})_{ij}) $$ 
+$$ -g(V,W) = f(V,W) = \sum_{ij}W_{ij}\left(\Sigma_{ij} - \left(V V^{\top}\right)_{ij}\right) $$ 
 
 The main take-away is that while CGD has a higher cost per iteration than other methods, it is able to take larger steps without diverging, which often allows it to converge faster even when accounting for the Hessian vector products required for the matrix inverse in the CGD update. 
 
