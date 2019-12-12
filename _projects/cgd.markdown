@@ -58,7 +58,7 @@ The oscillatory behavior of SimGD is not restricted to this toy problem and a va
 </div>
 
 
-### Gradient Descent revisited
+### Gradient descent revisited
 
 Rather than adding modifications to SimGD, we begin by revisiting gradient descent.
 It is well-known that the GD update can equivalently be written as
@@ -70,7 +70,7 @@ Here, $$ Df(x_{k}) = (\nabla f(x_{k}))^{\top}$$ is the $$1 \times m$$-matrix con
 This can be interpreted as the agent the linear approximation in the last iterate, $$x \mapsto f(x_{k}) + Df(x_{k}) (x - x_{k})$$, adding a quadrative regularization term that expresses her distrust of this approximation far away form the point of linearization.
 This suggests that for multiple players, the gradient descent update should be the solution of a local first order approximation of the full problem, with quadratic regularization terms on each player that express their limited confidence in this approximation.
 
-### Linear or Bilinear
+### Linear or bilinear
 
 This begs a fundamental question: **What is the right notion of local first order approximation for multi-agent optimization problems?**.
 In single-agent optimization, the local first order approximation of the problem is obtained as the linear approximation of the objective functions.
@@ -315,7 +315,7 @@ In contrast, throughout all step sizes that we tried, CGD seemed to show initial
 The green arrows show the movement of the present fake data under the next weight update of the generator.
 The first video shows the frequently observed chasing between the two modes, that eventually diverges. The second video shows that when using CGD, the mass suddenly splits among the two modes and then stays stable in this configuration.*
 
-#### Linear-Quadratic GAN 
+#### Linear-quadratic GAN 
 
 In order to study the convergence speed of CGD, we consider a linear-quadratic covariance estimation problem given by the loss function
 
@@ -328,7 +328,9 @@ The main take-away is that while CGD has a higher cost per iteration than other 
 <div class="col three caption">
   While for small stepsizes CGD is not faster than other methods, it can make larger steps without diverging, which enables it to outperform other methods (combinations of algorithms and step sizes that lead to divergence are not plotted).
 </div>
-#### What about image GANs?
+
+#### Image GANs on CIFAR10?
+
 As part of a separate work, [Hongkai](https://devzhk.github.io/), Anima, and I have investigated the performance of CGD on image GANs.
 For instance, we observe that when taking [an existing implementation of WGAN-GP](https://github.com/EmilienDupont/wgan-gp/blob/master/models.py), removing the gradient penalty, and instead training with CGD, we obtain an improved inception score of CIFAR10.
 We explain this behavior with an implicit regularization induced by CGD. 
