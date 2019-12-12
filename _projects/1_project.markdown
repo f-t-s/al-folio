@@ -29,6 +29,21 @@ $$
   x_{k+1} = x_{k} - \eta \nabla f(x_{k})
 $$
 
+$$
+  \begin{equation*}
+  x_{k+1} = x_{k} - \eta \nabla f(x_{k})
+  \end{equation*}
+$$
+
+$$
+  \begin{align*}
+  x_{k+1} = x_{k} - \eta \nabla f(x_{k}) \\
+  x_{k+1} = x_{k} - \eta \nabla f(x_{k}) 
+  \end{align*}
+$$
+
+
+
 where the gradient $$\nabla f(x_{k})$$ is the vector containing the partial derivatives of $$f$$, taken in the last iterate $$x_k$$.
 The vector $$-\nabla f(x_{k})$$ points in the direction of the steepest descent of the loss function $$f$$ in the point $$x_k$$, which is why gradiend descent is also referred to as the method of steepest descent.
 
