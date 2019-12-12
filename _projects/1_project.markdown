@@ -49,8 +49,8 @@ Instead, its trajectories form ever larger cycles as the two players chase each 
 The oscillatory behavior of SimGD is not restricted to this toy problem and a variety of corrections have been proposed in the literature.
 
 <div class="img_row">
-    <img class="col two left" src="{{ site.baseurl }}/assets/img/oscillationSimGD.png" alt="" title="Oscillation of SimGD"/>
-    <img class="col one left" src="{{ site.baseurl }}/assets/img/460px-Rock-paper-scissors.svg.png" alt="" title="Rock Paper Scissor"/>
+    <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/oscillationSimGD.png" alt="" title="Oscillation of SimGD"/>
+    <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/460px-Rock-paper-scissors.svg.png" alt="" title="Rock Paper Scissor"/>
 </div>
 <div class="col three caption">
   *Even for the simple bilinear problem $$f(x,y) = -g(x,y) = xy$$, simultaneous gradient descent cycles to infinity rather than converge towards the nash equilibrium $$(0,0)$$. This can be seen as the analogue of "ROCK! PAPER! SCISSOR ROCK ..." in the eponymous hand game (right image taken from [wikimedia](https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rock-paper-scissors.svg))*
@@ -315,7 +315,10 @@ The first video shows the frequently observed chasing between the two modes, tha
 
 #### Linear-Quadratic GAN 
 
-In order to better understand the convergence behavior of CGD, we consider a linear-quadratic covariance estimation problem.
+In order to study the convergence speed of CGD, we consider a linear-quadratic covariance estimation problem given as
+
+$$ -g(V,W) = f(V,W) = \sum_{ij}W_{ij}(\Sigma_{ij} - (V V^{\top})_{ij}) $$ 
+
 The main take-away is that while CGD has a higher cost per iteration than other methods, it is able to take larger steps without diverging, which often allows it to converge faster even when accounting for the Hessian vector products required for the matrix inverse in the CGD update. 
 
 <div class="img_row">
