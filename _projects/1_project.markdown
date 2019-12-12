@@ -305,6 +305,10 @@ While this is obviously a simple problem that can be solved with a variety of al
 With many of the existing methods we observed a strong cycling behavior with generator and discriminator chasing each other between the two modes. 
 In contrast, throughout all step sizes that we tried, CGD seemed to show initial cycling behavior followed by a rapid splitting on the two modes that stayed stable throughout the experiment. *We emphasize that the other method surely could be made work on this problem with the right hyperparameters. The main point of interest of these experiments is the sudden splitting of mass observed when using CGD*.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EYFQC-0KfVw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EussOxsv5p0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 *Visualization of Gaussian mixture GAN. The triangles denote true data while the circles denote fake data. Lighter color represents a larger confidence of the discriminator in the data to be true data. 
 The green arrows show the movement of the present fake data under the next weight update of the generator.
 The first video shows the frequently observed chasing between the two modes, that eventually diverges. The second video shows that when using CGD, the mass suddenly splits among the two modes and then stays stable in this configuraion.*
