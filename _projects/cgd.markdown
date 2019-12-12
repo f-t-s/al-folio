@@ -24,7 +24,7 @@ Gradient descent with step size $$\eta$$ is given by the update rule
 
 $$ x_{k+1} = x_{k} - \eta \nabla f(x_{k}) $$
 
-where the gradient $$\nabla f(x_{k})$$ is the vector containing the partial derivatives of $f$, taken in the last iterate $$x_k$$.
+where the gradient $$\nabla f(x_{k})$$ is the vector containing the partial derivatives of $$f$$, taken in the last iterate $$x_k$$.
 The vector $$-\nabla f(x_{k})$$ points in the direction of the steepest descent of the loss function $$f$$ in the point $$x_k$$, which is why gradient descent is also referred to as the method of steepest descent.
 
 Let us now move to the competitive optimization problem:
@@ -33,8 +33,8 @@ $$ \min \limits_{x \in \mathbb{R}^m} f(x, y) $$\\
 $$ \min \limits_{y \in \mathbb{R}^n} g(x, y) $$
 
 restricting ourselves to two agents for the sake of simplicity.
-Here, the first agent tries to choose $x$ such as to minimize $$f$$, while the second agent tries to choose the decision variable $$y$$ such as to minimize $$g$$.
-The interesting part is that the optimal choice of $$x$$ depends of $$y$$ and vice versa, and the objectives of the two players will in general be at odds with each other, the important special case $f = -g$ corresponding to zero-sum or minimax games.
+Here, the first agent tries to choose $$x$$ such as to minimize $$f$$, while the second agent tries to choose the decision variable $$y$$ such as to minimize $$g$$.
+The interesting part is that the optimal choice of $$x$$ depends of $$y$$ and vice versa, and the objectives of the two players will in general be at odds with each other, the important special case $$f = -g$$ corresponding to zero-sum or minimax games.
 
 Since neither player can *know* what the other player will do, they might assume each other to not move at all.
 Thenext move of their opponent, both agents might as well assume each other to be stationary.
