@@ -20,16 +20,16 @@ Much of single agent machine learning is powered by variants of gradient descent
 ## Gradient Descent (GD)
 
 Consider a single-agent optimization problem,
-\begin{equation*}
+$$
   \min_{x \in \mathbb{R}^{m}} f(x).
-\end{equation*}
+$$
 Gradient descent with step size $\eta$ is given by the update rule
 
-\begin{equation*}
+$$
   x_{k+1} = x_{k} - \eta \nabla f(x_{k})
-\end{equation*}
+$$
 
-where the gradient $\nabla f(x_{k})$ is the vector containing the partial derivatives of $f$, taken in the last iterate $x_k$.
+where the gradient $$\nabla f(x_{k})$$ is the vector containing the partial derivatives of $$f$$, taken in the last iterate $$x_k$$.
 The vector $-\nabla f(x_{k})$ points in the direction of the steepest descent of the loss function $f$ in the point $x_k$, which is why gradiend descent is also referred to as the method of steepest descent.
 
 Let us now move to the competitive optimization problem:
