@@ -36,10 +36,35 @@ $$
 $$
 
 $$
+  \begin{equation*}
+  x_{k+1} = x_{k} - \eta \nabla f(x_{k})
+  \end{equation*}
+$$
+
+$$
+  x_{k+1} = x_{k} - \eta \nabla f(x_{k}) 
+$$ \\
+$$
   x_{k+1} = x_{k} - \eta \nabla f(x_{k}) 
 $$
+
 $$
-  x_{k+1} = x_{k} - \eta \nabla f(x_{k}) 
+\begin{pmatrix}
+  x_{k+1}\\
+  y_{k+1}
+\end{pmatrix} ≔
+\begin{pmatrix}
+  x_{k}\\
+  y_{k}
+\end{pmatrix} - \eta
+\begin{pmatrix}
+  I + \eta D^2_{xx}f & \eta D^2_{xy}f \\
+  \eta D^2_{yx}g & I + \eta D^2_{yy}g
+\end{pmatrix}^{-1}
+\begin{pmatrix}
+  \nabla_{x}f\\
+  \nabla_{y}g
+\end{pmatrix}.
 $$
 
 
