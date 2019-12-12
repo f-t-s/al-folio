@@ -48,8 +48,10 @@ Thenext move of their opponent, both agents might as well assume each other to b
 Under this assumption, following the dire
 
 $$
+\begin{align*}
   x_{k+1} = x_{k} - \eta \nabla_x f(x_{k}, y_{k})\\
   y_{k+1} = y_{k} - \eta \nabla_y f(x_{k}, y_{k}).
+\end{align*}
 $$
 
 Here, $$\nabla_x f(x_{k}, y_{k}) \in \mathbb{R}^m$$ and $$\nabla_y f(x_{k}, y_{k}) \in \mathbb{R}^n$$ denote the gradient with respect to the variables $$x$$ and $$y$$, respectively.
