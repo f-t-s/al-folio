@@ -285,7 +285,7 @@ Based on the above arguments, this is exactly the right set of invariances to be
 
 #### Reason 2: Bilinear plays well with quadratic regularization
 
-One downside of Newton's method in nonconvex optimization is that its update rule can amount to players choosing their local *worst* strategy if a critical point amounts to a local maximum instead of a local minimum. 
+One downside of Newton's method in nonconvex optimization is that its update rule can amount to players choosing their local *worst* strategy if the critical point is a local maximum instead of a local minimum. 
 This can be countered by adaptive choice of step sizes, trust-region methods, or cubic regularization, but a distinct benefit of first order methods is that their updates always amount to optimal strategies of the local game.
 Thus, bilinear approximation preserves this important propery while at the same time leading to an interactive local problem.
 
