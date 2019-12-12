@@ -5,7 +5,7 @@ description: What is gradient descent for multi-player games?
 img: /assets/img/oscillationSimGD.png
 ---
 
-## introduction
+### Introduction
 *this post summarizes joint work with [Anima Anandkumar](http://tensorlab.cms.caltech.edu/users/anima/) on a new algorithm for competitive optimization: [Competitive gradient descent](https://nips.cc/conferences/2019/schedulemultitrack?event=13843).*
     
 Many learning algorithms are modelled a single agent minimizing a loss function, such as empirical risk.
@@ -15,7 +15,7 @@ much of single agent machine learning is powered by variants of gradient descent
 **What is the natural generalization of gradient descent to competitive optimization?**
 
 
-## Gradient Descent (GD)
+### Gradient Descent (GD)
 
 Consider a single-agent optimization problem,
 $$ \min_{x \in \mathbb{R}^{m}} f(x). $$
@@ -57,7 +57,7 @@ The oscillatory behavior of SimGD is not restricted to this toy problem and a va
 </div>
 
 
-## Gradient Descent revisited
+### Gradient Descent revisited
 
 Rather than adding modifications to SimGD, we begin by revisiting gradient descent.
 It is well-known that the GD update can equivalently be written as
@@ -69,7 +69,7 @@ Here, $$ Df(x_{k}) = (\nabla f(x_{k}))^{\top}$$ is the $$1 \times m$$-matrix con
 This can be interpreted as the agent the linear approximation in the last iterate, $$x \mapsto f(x_{k}) + Df(x_{k}) (x - x_{k})$$, adding a quadrative regularization term that expresses her distrust of this approximation far away form the point of linearization.
 This suggests that for multiple players, the gradient descent update should be the solution of a local first order approximation of the full problem, with quadratic regularization terms on each player that express their limited confidence in this approximation.
 
-## Linear or Bilinear
+### Linear or Bilinear
 
 This begs a fundamental question: **What is the right notion of local first order approximation for multi-agent optimization problems?**.
 In single-agent optimization, the local first order approximation of the problem is obtained as the linear approximation of the objective functions.
@@ -143,7 +143,7 @@ $$ \begin{pmatrix}
   \nabla_{y}g
 \end{pmatrix}. $$
 
-## What I think that they think that I think ... that I do
+### What I think that they think that I think ... that I do
 
 For small enough $$\eta$$, the matrix $$(I - \eta A)^{-1}$$ can be expanded in a [Neumann series](https://en.wikipedia.org/wiki/Neumann_series) as 
 
@@ -189,7 +189,7 @@ Correspondingly, the third partial sum is the optimal strategy assuming that the
 In principle, the Neumann series could be used to approximate the matrix inverse in the update rule, which would amount to using [Richardson iteration](https://en.wikipedia.org/wiki/Modified_Richardson_iteration). 
 However, the matrix inverse is defined even in settings the Neumann series might not converge and by can using optimal Krylov subspace methods such as [conjugate gradient](https://en.wikipedia.org/wiki/Conjugate_gradient_method), we can obtain significantly better approximations with fewer Hessian-vector products.
 
-# Why bilinear?
+### Why bilinear?
 
 Despite the game-theoretic interpretation of CGD, the choice of a **bilinear** local approximation might still seem arbitrary.
 Indeed, the "normal" thing to do in optimization would be to go from the linear approximation underlying SimGD straight to a quadratic approximation, leading for instance to a damped and regularized Netwton's method given by 
@@ -217,7 +217,7 @@ In particular, the natural notion of first order approximation is given by the b
 In the following, I will present three justifications for this claim.
 
 
-## Reason 1: Getting the invariances right
+#### Reason 1: Getting the invariances right
 
 One reason to only consider linear, quadratic, cubic, etc. approximation in single-agent optimization is that we want our approximation to be independent of the coordinate system we use to represent $$x$$.
 Indeed, we can check that for an invertible matrix $$A \in \mathbb{R}^{m \times m}$$ and $$f: \mathbb{R}^m \longrightarrow \mathbb{R}$$ we have 
@@ -268,21 +268,21 @@ This is **not** just a different way to represent the same problem but may be a 
 Therefore, we do **not** want to be invariant to this transformation and it is the bilinear approximation that is invariant to exactly those linear transformations that keep the underlying game unchanged, while the linear or quadratic approximations have spurious invariances built in.
 
 <div class="img_row">
-    <img class="col one left" src="{{ site.baseurl }}/assets/img/queenblack.png" alt="" title="Black queen white bishop image"/>
+    <img class="col one left" src="{{ site.baseurl }}/assets/img/queenblack.png" alt="" title="Black queen white bishop"/>
     <img class="col one left" src="{{ site.baseurl }}/assets/img/leftrightarrow.png" alt="" title="equivalent to"/>
-    <img class="col one right" src="{{ site.baseurl }}/assets/img/queenwhite.png" alt="" title="White queen black bishop image"/>
+    <img class="col one right" src="{{ site.baseurl }}/assets/img/queenwhite.png" alt="" title="White queen black bishop"/>
 </div>
 <div class="col three caption">
   A chess analogy: The left position can be transformed into the right one by a rotation in the joint strategy space that swaps the "queen coordinate" of black with the "bishop coordinate" of white. The two resulting games are drastically different, illustrating that games are not invariant under arbitrary rotations in the joint strategy space.
 </div>
 
-## Reason 2: Bilinear plays well with quadratic regularization
+#### Reason 2: Bilinear plays well with quadratic regularization
 
 One downside of Newton's method in nonconvex optimization is that its update rule can amount to players choosing their local *worst* strategy if a critical point amounts to a local maximum instead of a local minimum. 
 This can be countered by adaptive choice of step sizes, trust-region methods, or cubic regularization, but a distinct benefit of first order methods is that their updates always amount to optimal strategies of the local game.
 Thus, bilinear approximation preserves this important propery while at the same time leading to an interactive local problem.
 
-## Reason 3: Fully exploiting first order regularity
+#### Reason 3: Fully exploiting first order regularity
 
 Many if not most competitive optimization problems have the structure 
 
@@ -296,9 +296,9 @@ We observe that in this case the mixed derivative $$D_{xy}^2 f(x,y) = (D_{x}X) D
 The "pure" second derivatives $$D_{xx}^2 f$$ and $$D_{yy}^2 f$$ however require second order regularity of $$X$$ or $$Y$$.
 Thus, instead of than requiring second order regularity, the bilinear approximation fully exploits the first order regularity present in many competitive optimization problems. 
 
-# Does it work?
+### Does it work?
 
-## Gaussian mixture GAN
+#### Gaussian mixture GAN
 
 As a first experiment, we tried deploying CGD to a simple GAN fitting a bimodal Gaussian mixture. 
 While this is obviously a simple problem that can be solved with a variety of algorithms, it has the advantage that it lends itself to an easy visualization.
@@ -309,7 +309,7 @@ In contrast, throughout all step sizes that we tried, CGD seemed to show initial
 The green arrows show the movement of the present fake data under the next weight update of the generator.
 The first video shows the frequently observed chasing between the two modes, that eventually diverges. The second video shows that when using CGD, the mass suddenly splits among the two modes and then stays stable in this configuraion.*
 
-## Linear-Quadratic GAN 
+#### Linear-Quadratic GAN 
 
 In order to better understand the convergence behavior of CGD, we consider a linear-quadratic covariance estimation problem
 Here, the main take-away is that while CGD has a higher cost per iteration than other methods, it is able to take larger steps without diverging, which often allows it to converge faster even when accounting for the Hessian vector products required for the matrix inverse in the CGD update. 
