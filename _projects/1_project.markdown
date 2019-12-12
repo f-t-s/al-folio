@@ -6,7 +6,8 @@ img: /assets/img/oscillationSimGD.png
 ---
 
 ### Introduction
-*this post summarizes joint work with [Anima Anandkumar](http://tensorlab.cms.caltech.edu/users/anima/) on a new algorithm for competitive optimization: [Competitive gradient descent](https://nips.cc/conferences/2019/schedulemultitrack?event=13843).*
+*this post summarizes joint work with [Anima Anandkumar](http://tensorlab.cms.caltech.edu/users/anima/) on a new algorithm for competitive optimization: Competitive gradient descent (CGD). 
+If you want to know more, you should check out the [paper](https://arxiv.org/abs/1905.12103) play with [Hongkai's](https://devzhk.github.io/) [pytorch code](https://github.com/devzhk/Implicit-Competitive-Regularization), or talk to us at NeurIPS 2019, where we will present a [poster](https://nips.cc/Conferences/2019/ScheduleMultitrack?event=13843) on Thursday Dec 12th from 10:45 AM to 12:45 PM in the east exhibition hall (poster \# 195).
     
 Many learning algorithms are modelled a single agent minimizing a loss function, such as empirical risk.
 however the spectacular successes of generative adversarial networks (gans) have renewed interest in algorithms that are modeled after multiple agents that compete in optimizing their own objective functions, which we refer to as *competitive optimization*.
@@ -331,8 +332,9 @@ The main take-away is that while CGD has a higher cost per iteration than other 
 
 #### What about image GANs?
 
-As part of a , [Hongkai](https://devzhk.github.io/), Anima, and I have investigated the performance of CGD on image GANs.
-While I will defer more details to a future post, I will mention here that we observe that when taking [an existing implementation of WGAN-GP](https://github.com/EmilienDupont/wgan-gp/blob/master/models.py), removing the gradient penalty, and instead training with CGD, we obtain an improved inception score of CIFAR10.
-With explain this behavior with an implicit regularization inherent in CGD, if you want to know more you should check out the [paper](https://arxiv.org/abs/1910.05852) or drop by the the [SGO\&ML-workshop](https://sgo-workshop.github.io/) this Saturday at Neurips.
+As part of a separate work, [Hongkai](https://devzhk.github.io/), Anima, and I have investigated the performance of CGD on image GANs.
+For instance, we observe that when taking [an existing implementation of WGAN-GP](https://github.com/EmilienDupont/wgan-gp/blob/master/models.py), removing the gradient penalty, and instead training with CGD, we obtain an improved inception score of CIFAR10.
+We explain this behavior with an implicit regularization induced by CGD. 
+If you want to know more you should check out the [paper](https://arxiv.org/abs/1910.05852) or drop by the [SGO\&ML-workshop](https://sgo-workshop.github.io/) this Saturday at Neurips.
 Of course, the utility of CGD still has to be explored on more problems, so feel free to check out [Hongkai's pytorch implementation of CGD](https://github.com/devzhk/Implicit-Competitive-Regularization) and try out CGD on your own problems! 
 We are happy to give advice regarding any issues you might encounter along the road.
