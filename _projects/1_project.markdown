@@ -36,10 +36,10 @@ $$
 $$
 
 $$
-  \begin{align*}
-  x_{k+1} = x_{k} - \eta \nabla f(x_{k}) \\
   x_{k+1} = x_{k} - \eta \nabla f(x_{k}) 
-  \end{align*}
+$$
+$$
+  x_{k+1} = x_{k} - \eta \nabla f(x_{k}) 
 $$
 
 
