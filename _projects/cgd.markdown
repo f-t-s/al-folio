@@ -1,13 +1,13 @@
 ---
 layout: page
 title: Competitive Gradient Descent
-description: What is gradient descent for multi-player games?
+description: Gradient descent for multi-player games?
 img: /assets/img/oscillationSimGD.png
 ---
 
 ### Introduction
 *This post summarizes joint work with [Anima](http://tensorlab.cms.caltech.edu/users/anima/) on a new algorithm for competitive optimization: Competitive gradient descent (CGD). 
-If you want to know more, you should check out the [paper](https://arxiv.org/abs/1905.12103), play with [Hongkai's](https://devzhk.github.io/) [pytorch code](https://github.com/devzhk/Implicit-Competitive-Regularization), or talk to us at NeurIPS 2019, where we will present a [poster](https://nips.cc/Conferences/2019/ScheduleMultitrack?event=13843) on Thursday Dec 12th from 10:45 AM to 12:45 PM in the east exhibition hall (poster \# 195).*
+If you want to know more, you should check out the [paper](https://arxiv.org/abs/1905.12103) or play with [Hongkai's](https://devzhk.github.io/) [pytorch code](https://github.com/devzhk/Implicit-Competitive-Regularization).
     
 Many learning algorithms are modelled as a single agent minimizing a loss function, such as empirical risk.
 However, the spectacular successes of generative adversarial networks (GANs) have renewed interest in algorithms that are modeled after multiple agents that compete in optimizing their own objective functions, which we refer to as *competitive optimization*.
