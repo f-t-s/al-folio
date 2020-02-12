@@ -8,8 +8,10 @@
 
     .thumbnail {
         overflow: hidden;
-        height: 100%;
-        width: 100%;
+        height: auto;
+        width: auto;
+        max-height:200px
+        max-width:200px
 
         img {
             height: auto;
