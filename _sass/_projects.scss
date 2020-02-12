@@ -9,7 +9,9 @@
     .thumbnail {
         overflow: hidden;
         height: auto;
-        width: 300px;
+        width: auto;
+        max-height: 250px;
+        max-width: 250px;
 
         img {
             height: auto;
