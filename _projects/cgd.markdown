@@ -7,7 +7,7 @@ img: /assets/gif/cgd_title.gif
 
 ### Introduction
 *This post summarizes joint work with [Anima](http://tensorlab.cms.caltech.edu/users/anima/) on a new algorithm for competitive optimization: Competitive gradient descent (CGD). 
-If you want to know more, you should check out the [paper](https://arxiv.org/abs/1905.12103) or play with [Hongkai's](https://devzhk.github.io/) [pytorch code](https://github.com/devzhk/Implicit-Competitive-Regularization).
+If you want to know more, you should check out the [paper](https://arxiv.org/abs/1905.12103) or play with [Hongkai's](https://devzhk.github.io/) [pytorch code](https://github.com/devzhk/Implicit-Competitive-Regularization).*
     
 Many learning algorithms are modelled as a single agent minimizing a loss function, such as empirical risk.
 However, the spectacular successes of generative adversarial networks (GANs) have renewed interest in algorithms that are modeled after multiple agents that compete in optimizing their own objective functions, which we refer to as *competitive optimization*.
