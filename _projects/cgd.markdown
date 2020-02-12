@@ -312,7 +312,7 @@ With many of the existing methods we observed a strong cycling behavior with gen
 In contrast, throughout all step sizes that we tried, CGD seemed to show initial cycling behavior followed by a rapid splitting on the two modes that stayed stable throughout the experiment. *We emphasize that the other methods surely could be made work on this problem with the right hyperparameters. The main point of interest of these experiments is the sudden splitting of mass observed when using CGD*.
 
 <div class="img_row">
-    <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/other_methods_are_unstable.gif" alt="" title="other methods cycle diverge"/>
+    <img class="col threehalf left" src="{{ site.baseurl }}/assets/gif/other_methods_are_unstable.gif" alt="" title="other methods cycle diverge"/>
     <img class="col threehalf left" src="{{ site.baseurl }}/assets/gif/cgd_can_split_mass.gif" alt="" title="cgd eventually splits the mass"/>
 </div>
 <div class="col three caption">
