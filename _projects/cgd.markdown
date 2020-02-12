@@ -103,9 +103,9 @@ $$ \min \limits_{x \in \mathbb{R}^m} \  D_{x}f (x-x_k) + x^{\top} D_{xy}^2 f y +
 $$ \min \limits_{y \in \mathbb{R}^n} \ x^{\top} D_{xy}^2 g y + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2. $$
 
 This local game preserves the interactive aspect of the underlying problem, since the optimal action of $$x$$ depends on the next move of $$y$$ and vice versa.
-The local game obtained from bilinear approximation also has the property that the functions  $$x \mapsto f(x,y)$$ and $$y \mapsto g(x,y)$$ are convex.
-For this type of game, a natural notion of solution is given by a Nash equilibrium, that is a point $$(x,y)$$ such that neither of the two players can unilaterally improve their payoff.
-Indeed, one can show that the unique Nash-equilibrium of this game is given by
+The local game obtained from the bilinear approximation also has the property that the functions  $$x \mapsto f(x,y)$$ and $$y \mapsto g(x,y)$$ are convex.
+For this type of game, a natural notion of solution is given by a Nash equilibrium, a point $$(x,y)$$ such that neither of the two players can unilaterally improve their payoff.
+Indeed, one can show that the unique Nash equilibrium of this game is given by
 
 $$ \begin{pmatrix}
   x\\
@@ -244,7 +244,7 @@ Therefore, we do **not** want to be invariant to this transformation and having 
 </div>
 
 
-In contrast, the bilinear approximation only is only invariant to reparametrizations of the strategy space of each player in isolation, but not to a reassignment of the decision variables accross players.
+In contrast, the bilinear approximation is only invariant to reparametrizations of the strategy space of each player in isolation, but not to a reassignment of the decision variables accross players.
 Mathematically we have 
 
 $$ \begin{pmatrix}
@@ -309,7 +309,7 @@ Thus, instead of requiring second order regularity, the bilinear approximation f
 As a first experiment, we tried using CGD on GAN fitting a bimodal Gaussian mixture. 
 While this is obviously a simple problem that can be solved with a variety of algorithms, it has the advantage that it lends itself to an easy visualization.
 With many of the existing methods we observed a strong cycling behavior with generator and discriminator chasing each other between the two modes. 
-In contrast, throughout all step sizes that we tried, CGD seemed to show initial cycling behavior followed by a rapid splitting on the two modes that stayed stable throughout the experiment. *We emphasize that the other methods surely could be made work on this problem with the right hyperparameters. The main point of interest of these experiments is the sudden splitting of mass observed when using CGD*.
+In contrast, throughout all step sizes that we tried, CGD seemed to show initial cycling behavior followed by a rapid splitting on the two modes. *We emphasize that the other methods surely could be made work on this problem with the right hyperparameters. The main point of interest of these experiments is the sudden splitting of mass observed when using CGD*.
 
 <div class="img_row">
     <img class="col threehalf left" src="{{ site.baseurl }}/assets/gif/other_methods_are_unstable.gif" alt="" title="other methods cycle diverge"/>
@@ -355,7 +355,7 @@ that can be rewritten as
 $$ \min_{x} \max_{\mu} f(x) + \mu^{\top} h(x)$$
 
 using a Lagrange multiplier $$\mu$$.\\
-[Pierre-Luc](http://pierrelucbacon.com/), [Clement](http://people.csail.mit.edu/gehring/), Anima, [Emma](https://cs.stanford.edu/people/ebrun/), and I are presently investigating the effectiveness of CGD in the context of equality constrained optimization problems arising in reinforcement learning (RL) and control.  
+[Pierre-Luc](http://pierrelucbacon.com/), [Clement](http://people.csail.mit.edu/gehring/), [Anima](http://tensorlab.cms.caltech.edu/users/anima/), [Emma](https://cs.stanford.edu/people/ebrun/), and I are presently investigating the effectiveness of CGD in the context of equality constrained optimization problems arising in reinforcement learning (RL) and control.  
 If you are interested to learn more, check out our [workshop paper](https://optrl2019.github.io/assets/accepted_papers/70.pdf), the [implementation using JAX](https://github.com/gehring/fax), or our poster at [the NeurIPS 2019 workshop on optimization for RL](https://optrl2019.github.io/).
 
 ### Conclusion
