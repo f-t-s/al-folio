@@ -2,7 +2,7 @@
 layout: page
 title: Competitive Gradient Descent
 description: Gradient descent for multi-player games?
-img: /assets/img/oscillationSimGD.png
+img: /assets/gif/cgd_title.gif
 ---
 
 ### Introduction
@@ -318,7 +318,7 @@ In contrast, throughout all step sizes that we tried, CGD seemed to show initial
 <div class="col three caption">
 Visualization of Gaussian mixture GAN. The triangles denote true data while the circles denote fake data. The discriminator says that orange points are more likely to be true and violet points are more likely to be false.
 The arrows show the movement of the present fake data under the next weight update of the generator.
-The first video shows the frequently observed chasing between the two modes that eventually diverges. The second video shows that when using CGD, the mass suddenly splits among the two modes and then stays stable in this configuration.
+The first video shows the frequently observed chasing between the two modes that eventually diverges. The second video shows that when using CGD, the mass suddenly splits among the two modes.
 </div>
 
 #### Linear-quadratic GAN 
