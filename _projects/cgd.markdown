@@ -80,7 +80,7 @@ $$ \min \limits_{x \in \mathbb{R}^m} \ f + D_{x}f (x-x_k) + D_{y}f(y - y_k) + \f
 $$ \min \limits_{y \in \mathbb{R}^n} \ g + D_{x}g (x-x_k) + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2. $$
 
 Here and in the following, the evaluations of loss functions and their derivatives always occur in the last iterate $$(x_k, y_k)$$, unless otherwise mentioned.
-When looking at the above local game we observe that the optimal strategy of player $$x$$ is inddependent of $$y$$ and vice versa.
+When looking at the above local game we observe that the optimal strategy of player $$x$$ is independent of $$y$$ and vice versa.
 Thus, the above game is equivalent to
 
 $$ \min \limits_{y ∈ \mathbb{R}^m} f + D_{x}f (x-x_k) + \frac{1}{2 \eta}\|x - x_k\|^2,$$\\
