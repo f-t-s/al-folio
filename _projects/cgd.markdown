@@ -44,7 +44,7 @@ $$ y_{k+1} = y_{k} - \eta \nabla_y f(x_{k}, y_{k}). $$
 
 Here, $$\nabla_x f(x_{k}, y_{k}) \in \mathbb{R}^m$$ and $$\nabla_y f(x_{k}, y_{k}) \in \mathbb{R}^n$$ denote the gradient with respect to the variables $$x$$ and $$y$$, respectively.
 
-Unfortunately, even on the most simple bilinear minimiax problem $$f(x,y) = x^{\top} y = - g(x,y)$$, SimGD fails to converge to the Nash equilibrium $$(0,0)$$.
+Unfortunately, even on the most simple bilinear minimax problem $$f(x,y) = x^{\top} y = - g(x,y)$$, SimGD fails to converge to the Nash equilibrium $$(0,0)$$.
 Instead, its trajectories form ever larger cycles as the two players chase each other in strategy space.
 The oscillatory behavior of SimGD is not restricted to this toy problem and a variety of corrections have been proposed in the literature.
 
