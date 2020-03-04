@@ -29,7 +29,8 @@ The vector $$-\nabla f(x_{k})$$ points in the direction of the steepest descent 
 
 Let us now move to the competitive optimization problem:
 
-$$ \min \limits_{x \in \mathbb{R}^m} f(x, y) $$\\
+$$ \min \limits_{x \in \mathbb{R}^m} f(x, y) $$
+
 $$ \min \limits_{y \in \mathbb{R}^n} g(x, y) $$
 
 restricting ourselves to two agents for the sake of simplicity.
@@ -39,7 +40,8 @@ The interesting part is that the optimal choice of $$x$$ depends of $$y$$ and vi
 Since neither player can *know* what the other player will do, they might assume each other to not move at all.
 Under this assumption, following the direction of steepest descent seems like a reasonable strategy, leading to simultaneous gradient descent (SimGD).
 
-$$ x_{k+1} = x_{k} - \eta \nabla_x f(x_{k}, y_{k}) $$\\
+$$ x_{k+1} = x_{k} - \eta \nabla_x f(x_{k}, y_{k}) $$
+
 $$ y_{k+1} = y_{k} - \eta \nabla_y f(x_{k}, y_{k}). $$
 
 Here, $$\nabla_x f(x_{k}, y_{k}) \in \mathbb{R}^m$$ and $$\nabla_y f(x_{k}, y_{k}) \in \mathbb{R}^n$$ denote the gradient with respect to the variables $$x$$ and $$y$$, respectively.
@@ -64,7 +66,6 @@ It is well-known that the GD update can equivalently be written as
 
 $$ x_{k+1} = \arg \min \limits_{x \in \mathbb{R}^m} f(x_{k}) + Df(x_{k}) (x - x_{k}) + \frac{1}{2 \eta} \|x - x_{k}\|^2. $$
 
-
 Here, $$ Df(x_{k}) = (\nabla f(x_{k}))^{\top}$$ is the $$1 \times m$$-matrix containing the partial derivatives of $$f$$.
 This can be interpreted as the agent the linear approximation in the last iterate, $$x \mapsto f(x_{k}) + Df(x_{k}) (x - x_{k})$$, adding a quadrative regularization term that expresses her distrust of this approximation far away form the point of linearization.
 This suggests that for multiple players, the gradient descent update should be the solution of a local first order approximation of the full problem, with quadratic regularization terms on each player that express their limited confidence in this approximation.
@@ -76,14 +77,16 @@ In single-agent optimization, the local first order approximation of the problem
 If we use a linear approximation of both agents' loss function, we obtain the following game.
 
 
-$$ \min \limits_{x \in \mathbb{R}^m} \ f + D_{x}f (x-x_k) + D_{y}f(y - y_k) + \frac{1}{2 \eta}\|x - x_k\|^2 $$ \\
+$$ \min \limits_{x \in \mathbb{R}^m} \ f + D_{x}f (x-x_k) + D_{y}f(y - y_k) + \frac{1}{2 \eta}\|x - x_k\|^2 $$ 
+
 $$ \min \limits_{y \in \mathbb{R}^n} \ g + D_{x}g (x-x_k) + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2. $$
 
 Here and in the following, the evaluations of loss functions and their derivatives always occur in the last iterate $$(x_k, y_k)$$, unless otherwise mentioned.
 When looking at the above local game we observe that the optimal strategy of player $$x$$ is independent of $$y$$ and vice versa.
 Thus, the above game is equivalent to
 
-$$ \min \limits_{y ∈ \mathbb{R}^m} f + D_{x}f (x-x_k) + \frac{1}{2 \eta}\|x - x_k\|^2,$$\\
+$$ \min \limits_{y ∈ \mathbb{R}^m} f + D_{x}f (x-x_k) + \frac{1}{2 \eta}\|x - x_k\|^2,$$
+
 $$ \min \limits_{x ∈ \mathbb{R}^n} g + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2,$$
 
 which leads to the update rule of SimGD.
@@ -94,12 +97,14 @@ Instead of using polynomial terms up to first order ($$f$$, $$g$$, $$D_x f$$, $$
 In the two-agent setting, this is the bilinear approximation obtained by including the "mixed" second derivatives ($$D_{xy}^2f$$, $$D_{yx}f^2$$, $$D_{xy}^2g$$, and $$D_{yx}^2g$$) in the approximation, while omitting the "pure" second derivatives ($$D_{xx}^2f$$, $$D_{yy}^2f$$, $$D_{xx}^2g$$, and $$D_{yy}^2g$$).
 The resulting local game is
 
-$$ \min \limits_{x \in \mathbb{R}^m}\  f + D_{x}f (x-x_k) + x^{\top} D_{xy}^2 f y + D_{y}f(y - y_k) + \frac{1}{2 \eta}\|x - x_k\|^2 $$\\
+$$ \min \limits_{x \in \mathbb{R}^m}\  f + D_{x}f (x-x_k) + x^{\top} D_{xy}^2 f y + D_{y}f(y - y_k) + \frac{1}{2 \eta}\|x - x_k\|^2 $$
+
 $$ \min \limits_{y \in \mathbb{R}^n}\  g + D_{x}g (x-x_k) + x^{\top} D_{xy}^2 g y + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2, $$
 
 which can be simplified to
 
-$$ \min \limits_{x \in \mathbb{R}^m} \  D_{x}f (x-x_k) + x^{\top} D_{xy}^2 f y + \frac{1}{2 \eta}\|x - x_k\|^2 $$\\
+$$ \min \limits_{x \in \mathbb{R}^m} \  D_{x}f (x-x_k) + x^{\top} D_{xy}^2 f y + \frac{1}{2 \eta}\|x - x_k\|^2 $$
+
 $$ \min \limits_{y \in \mathbb{R}^n} \ x^{\top} D_{xy}^2 g y + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2. $$
 
 This local game preserves the interactive aspect of the underlying problem, since the optimal action of $$x$$ depends on the next move of $$y$$ and vice versa.
@@ -292,7 +297,8 @@ Bilinear approximation preserves this important property while at the same time 
 
 Many competitive optimization problems have the structure 
 
-$$ f(x,y) = \Phi\left(X(x), Y(y)\right), $$ \\
+$$ f(x,y) = \Phi\left(X(x), Y(y)\right), $$ 
+
 $$ g(x,y) = \Theta\left(X(x), Y(y)\right), $$
 
 where the functions $$\Phi$$ and $$\Theta$$ are highly regular, but the functions $$x \mapsto X(x)$$ and $$y \mapsto Y(y)$$ might only have first order regularity.
