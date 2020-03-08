@@ -17,7 +17,7 @@ Where ordinary neural networks learn by minimizing a fixed loss function, GANs c
 In most work on GANs, this is seen as the generator minimizing just another loss function that happens to be obtained by fully optimizing the discriminator.
 
 I will argue that **this minimax interpretation of GANs can not explain GAN performance**.
-Instead, GAN performance can only be explained by the *dynamics* of simultaneous training.
+Instead, I believe that GAN performance can only be explained by the *dynamics* of simultaneous training.
 
 In an attempt to make this more precise, I will explain how *implicit competitive regularization* could allow GANs to generate good images.
 I will also provide empirical evidence that this is what actually happens in practice.
@@ -70,22 +70,54 @@ $$
 $$
 
 The key difference here is the constraint on the discriminator.
-WGAN restricts the size of the gradient of the Discriminator by one, forcing it to map nearby points to similar values.
+WGAN restricts the size of the gradient of the discriminator, forcing it to map nearby points to similar values.
 Thus, the generator loss under an optimal discriminator will be smaller if the generated images are closer to the true images. In fact, it will be equal to the [earth mover's distance](https://en.wikipedia.org/wiki/Earth_mover%27s_distance) between the two distributions.
 
 The big catch is that we have to choose a way to quantify the size $$\left\| \nabla \mathcal{D}\right\|$$ of the discriminator's gradients!
 Since the inputs of the discriminator are images, this  means we have to measure similarity of images.
 
 Most variants of WGAN bound the Euclidean norm $$\left\| \nabla \mathcal{D}\right\|_2$$ of the discriminator's gradient.
-But this amounts to measuring the similarity images by the Euclidean distance of the respective vectors of pixel-wise intensities.
+But this amounts to measuring the similarity of images by the Euclidean distance of the respective vectors of pixel-wise intensities.
 The example below shows that this is a *terrible* measure of visual similarity.
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $("#show_hide").click(function(){
+      $("#solution").toggle();
+    });
+  });
+</script>
+
+<style>
+.btn {
+  border: none;
+  background-color: inherit;
+  padding: none;
+  font-size: 100%;
+  cursor: pointer;
+  display: inline-block;
+  color: orange;
+}
+</style>
+
+
 <div class="img_row">
-    <img class="col three center" src="{{ site.baseurl }}/assets/img/deception_resize.png" alt="" title="The images are ordered from left to right in increasing order of distance. The first pair of images is identical, while the third pair of images differs by a tiny warping."/>
+    <img class="col three center" src="{{ site.baseurl }}/assets/img/deception_resize.png" alt="" title="Which of these pairs are most mutually similar."/>
 </div>
 <div class="col three caption">
-    Above you see three pairs of images (left column, middle column, and right column). Can you guess the ranking of the pixel-wise Euclidean distance within each pair? Hover over the image to see the solution. 
+    Above you see three pairs of images (left column, middle column, and right column). Can you guess the ranking of the pixel-wise Euclidean distance within each pair? <br> <button class="btn" id="show_hide">Click here to see the solution</button>
 </div>
+
+<div id="solution" style="display:none;">
+  <div class="img_row">
+      <img class="col three center" src="{{ site.baseurl }}/assets/gif/solution_mono.gif"/>
+  </div>
+  <div class="col three caption">
+    <b>The pairs of images are ordered left to right from smallest to largest distance</b>. The first pair of images are identical, while the third pair differs by a tiny warp. Due to the rough textures naturally present in the image, this hardly perceptible warp leads to a bigger Euclidean distance than between the pair in the center, despite the latter being visually obvious. Note that a similar transformation could occur naturally, for instance by wind moving the foliage in the foreground.
+  </div>
+</div> 
 
 In general, **quantifying visual similarity between images is a longstanding open problem in computer vision.**
 Until this problem is solved we will not be able to meaningfully constrain the discriminator's regularity.
@@ -98,7 +130,7 @@ I am arguing that the minimax interpretation is but a red herring that has nothi
 Generative modeling is all about generating data *similar* to the training data.
 Since GANs can create realistic images, they must have access to a notion of image similarity that captures visual similarity. 
 Most GAN variants can achieve good results, so this does not seem to be the result of a particular choice of loss function.
-Instead, it has to arise from the [inductive biases](https://en.wikipedia.org/wiki/Inductive_biasl) of the neural network that parametrizes the discriminator.
+Instead, it has to arise from the [inductive biases](https://en.wikipedia.org/wiki/Inductive_bias) of the neural network that parametrizes the discriminator.
 
 Deep neural networks reliably learn patterns obvious to the human eye.
 This suggests that they capture *something* about visual similarity better than the feature maps, kernels, or metrics of classical computer vision.\\
@@ -107,7 +139,7 @@ In particular, the output of a neural network classifier on a sample does [not r
 This means that all information about how similar the fake images look to the real ones is *lost* once the discriminator is fully trained.
 
 I think that the magic of GANs has to lie instead in the *dynamics* of simultaneous training that allows us to use the inductive biases of the discriminator for image generation, *without explicitly characterizing them*.
-I will now attempt to explain *how* this could be happening.
+I will now attempt to explain how this could be happening.
 
 #### Implicit competitive regularization (ICR)
 
@@ -123,18 +155,19 @@ and observe that SimGD with step sizes $$\eta_x = 0.09 , \eta_y = 0.01$$ converg
 If we instead keep $$x$$ fixed by setting $$\eta_x = 0$$ and train $$y$$ using gradient descent, it will diverge to infinity for almost all starting points.
 
 <div class="img_row">
-    <img class="col three center" src="{{ site.baseurl }}/assets/gif/combined_stable.gif" alt="" title="When training ."/>
+    <img class="col three center" src="{{ site.baseurl }}/assets/gif/combined_stable.gif" alt="" title="Implicit competitive regularization on quadratic example."/>
 </div>
 <div class="col three caption">
-    Above you see three pairs of images (left column, middle column, and right column). Can you guess the ranking of the pixel-wise Euclidean distance within each pair? Hover over the image to see the solution. (If the image is cropped, open it in a separate tab.)
+  When keeping the minimizing player fixed, the maximizing player diverges to infinity.
+  If we train both simultaneously, the system converges to zero instead.
 </div>
 
-This is commonly seen as a *flaw* of SimGD, but I think it is crucial for GANs to work.
+This is commonly seen as a *flaw* of SimGD, but I think it is crucial for GANs to work at all.
 Just like $$y$$ can improve for any fixed $$x$$, a GAN discriminator can improve for any fixed generator.
 Therefore, our only hope for convergent behavior in GANs is ICR! 
 
 To verify this behavior in the wild, we train a GAN on MNIST until training stagnates and the generator produces good images. We then either train only the discriminator using gradient descent (keeping the generator fixed), or continue training both players using SimGD.
-We observe that the discriminator changes more rapidly when trained in isolation, suggesting that the point of departure was indeed stabilized by ICR.
+We observe that the discriminator changes much more rapidly when trained in isolation, suggesting that the point of departure was indeed stabilized by ICR.
 
 <div class="img_row">
     <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/loss_compare_resize.png" alt="" title="Discriminator loss keeps decreasing when only training discriminator"/>
@@ -150,8 +183,8 @@ We observe that the discriminator changes more rapidly when trained in isolation
 
 #### ICR selects for slowly learning discriminators
 
-You might have noticed the peculiar choice of learning rates for the two player in the above example.
-This was not due coincidence, but due to a fascinating property of ICR:\\
+You might have noticed the peculiar choice of learning rates for the two players in the above example.
+This was no coincidence, but due to a fascinating property of ICR:\\
 *It selects for the relative speed of learning of $$x$$ and $$y$$!*
 
 If we play around with the learning rate a bit more we notice that ICR is stronger if $$y$$ (the player that would want to run off to infinity) learns slowly compared to $$x$$.
@@ -167,8 +200,8 @@ If we play around with the learning rate a bit more we notice that ICR is strong
 
 Our quadratic example has zero gradient only in $$(0,0)$$.
 Therefore, the presence of ICR only determines if we converge to it or not.
-A real GAN is highly nonlinear and has many points with (almost) vanishing gradient.
-ICR is then determines to *which* of these points we can converge.
+A real GAN is highly nonlinear and has many points with vanishing gradient.
+ICR then determines to *which* of these points we can converge.
 In particular, out of all the critical points it will prefer points where the discriminator learns *slowly*.
 
 
@@ -193,97 +226,139 @@ Therefore we explain GAN performance with ICR selectively stabilizing points whe
 
 #### Implicit projection through ICR
 
-Let's take another look at the relationship and image quality.
-If we assume for a moment that there is a distance between distributions of images that captures similarity *in the eyes of the discriminator*.
-By this I mean 
+Imagine there was a *perceptual distance* between distributions of images such that the discriminator learns more quickly to distinguish distant pairs of distributions than nearby ones.
+This distance measures *similarity in the eyes of the discriminator*, which by our hypothesis is a good proxy for similarity in the eyes of a human.
 
-Let us assume that there exists a well-defined *perceptual distance* between distributions of images that measures how quickly a neural network classifier can learn to tell them apart.
-Based on the hypothesis above, this seems like a good candidate for a measure of similarity between distributions.
-Unfortunately, even if this distance were to exist, we could not compute it explicitly.
+This distance would make for a great generator loss to use in a GAN, but unfortunately we can not compute it explicitly.
+Nevertheless, I will now show on a model problem how ICR could enable SimGD to use this distance for generative modeling.
 
-I will now present a model problem where know something about how this perceptual distance might look like.
-As we will see, SimGD can be used to compute projections with respect to the perceptual distance, without characterizing it explicitly.
-
-In our model, a "probability distribution" is characterized by two parameters.
-The generator is a tiny neural network that maps its weights to a pair of parameters. It is designed such that it cannot output the *true* distribution in $P_{\mathrm{data}}=(2,2)$ but has to accept an error in at least one of the two parameters.
+In our model problem, a "probability distribution" is characterized by two parameters.
+The generator is a tiny neural network that maps its weights to a pair of parameters. It is designed such that it cannot output the *true* distribution in $$P_{\mathrm{data}}=(2,2)$$ but has to accept an error in at least one of the two parameters.
 The discriminator maps a set of weights and a pair of parameters to a real number.
 
-In order to model the fact that it picks up on some features more quickly than others, the pair of parameters are multiplied by a diagonal matrix $\eta$ before being fed to the neural network.
-If for instance $\eta_{11} \gg \eta_{22}$, this means that mistakes in the first parameter are noticed much more quickly than those in the second component.
-We therefore use $\sqrt{(p-q)^{\top} \eta (p-q)}$ to represent the perceptual distance between $p$ and $q$.
-Importantly, we do *not* assume to have explicit knowledge of $\eta$ during training.
-Instead, we only assume black box access to gradients of the loss function.
+<div class="img_row">
+    <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/networks_resized_notext.png" alt="" title="The tiny neural networks used for our model."/>
+    <img class="col threehalf right" src="{{ site.baseurl }}/assets/img/scatter_background_resized.png" alt="" title="The generator can never exactly reproduce the target."/>
+</div>
+<div class="col three caption">
+  Both generator (top) and discriminator (bottom) are given by tiny neural networks (left).
+  Every point in the right plot represents a distribution of images. The last layer of the generator is designed such that it can only output values inside the set S, which does not include the target disctribution.
+</div>
 
-If we set $\eta_{11} = \eta_{22} = 1$, there is not preference preferred parameter for the generator to reproduce correctly.
-Therefore, when trained under SimGD it oscillates between satisfying either of the two parameters.
 
-![Plot_oscillate](./icr_graphics/plot_oscillate.png "plot_oscillate")
-![scatter_oscillate](./icr_graphics/scatter_oscillate.png "scatter_oscillate")
 
-Now we set $\eta_{11} = 10^2, \eta_{22} = 1$ meaning that errors in the first parameter are much easier to detect tan those in the second.
+It's hard to say how the perceptual distance of even such a simple network would look like. 
+Therefore, we will model it explicitly by multiplying the discriminator input with a diagonal matrix $$\eta$$ before feeding them to the network.
+We still can not characterize the perceptual distance exactly, but by changing the value of $$\eta$$ we have some control over it.
+If for instance we choose $$\eta_{11} \gg \eta_{22}$$, then the first component of the input images will lead to larger gradients.
+Thus, differences in the first component will be learned more quickly and contribute more to the perceptual distance.
 
-If we train again using SimGD we will see that for long periods of time, the generator accurately reproduces the first of the two components.
-This corresponds to an approximate minimization of the $\eta$-norm to the target distribution.
+Setting $$\eta_{11} = 10^2, \eta_{22} = 1$$ we would like the generator to accept some error in the second component for the sake of getting the first component right.
+But we cannot characterize the perceptual distance explicitly, so this will have to happen without us explicitly using $$\eta$$.
 
-![Plot_project](./icr_graphics/plot_project.png "plot_project")
-![scatter_project](./icr_graphics/scatter_project.png "scatter_project")
+Amazingly, SimGD solves this problem for us! If we train networks using SimGD, the generator will spend long periods of time getting the first component right, while accepting an error in the second one.
+We have used SimGD to compute a projection with respect to the perceptual distance *without knowing it*.
 
-While this example is highly idealized, it shows that simultaneous training can be used to approximately minimize the notion of dissimilarity implicit in the discriminator *without explicitly characterizing it*!.
-
+<div class="img_row">
+    <img class="col three center" src="{{ site.baseurl }}/assets/gif/combined_project.gif" alt="" title="Unstable case."/>
+</div>
+<div class="col three caption">
+  We plot the two components of the generator output. For a while the generator exactly reproduces the target in the first component, while accepting an error in the second component. This approximates a projection with respect to the perceptual distance of the discriminator. Eventually, the system snaps out of this state again.
+</div>
 
 ### Improving GAN training by strengthening ICR
 
-So how does the above help us to improve GANs?
-One problem with GANs is that their training is often not unstable.
-In fact, training them for too long can even deteriorate the resulting images.
-This fits nicely with what we observed so far.
-ICR stabilizes good generators to some degree, but it is often not strong enough to lead to convergence.
-Instead, it stabilizes the system only temporarily.
-How can we strengthen ICR to better stabilize these points?
+The implicit projection does not last forever and eventually the system snaps out and diverges.
+Similarly, our GAN example on MNIST hadn't fully converged and kept changing even when using SimGD.
+This suggests that ICR is too weak to permanently stabilizes the system.
+Instead, it merely slows down divergence by forcing the GAN to slowly spiral away, rather than diverge on a straight path.
+
+The instability of GAN training is a huge problem in practice that needs to be overcome by careful selection of hyperparameters.
+Since GAN performance is hard to quantify, this requires tedious manual labor on top of a huge computational budget.
+
+Since we believe that ICR is at the center of GAN performance, we want to stabilize training by strengthening ICR instead of just adding generic regularizers like dropout, weight decay, or spectral regularization to the network.
+To this end, it will be instructive to have a game-theoretic look at ICR.
 
 #### A game perspective on ICR
 
-Consider again the example
+Consider again our quadratic example 
 
 $$
-\min \limits_x \max \limits_y x^2 + xy + 10^{-1} y^2
+\min \limits_x \max \limits_y x^2 + 10 xy + y^2.
 $$
 
-where both players converge to zero, when using SimGD.
-Why do greedy updates from both players let $$y$$ converge to its *worst* strategy?
+We have seen that SimGD can converge to $$(0,0)$$ on this problem, for suitable step sizes.
+This is *strange*, since we think of SimGD as both players greedily improving their objective and for every fixed value of $$x$$, the best thing for $$y$$ would be to run off to infinity as quickly as possible.
 
-The answer is that the other strategies are vulnerable to *counterattack* by $$x$$. 
-Indeed, if $$y$$ were to move to $$\epsilon$$, $$x$$ would move start moving towards $$-2 \epsilon$$, using the mixed term $$xy$$ to improve its loss.
-The loss of $$y$$ due to the mixed term will outweigh the gains due to the quadratic terms, prompting $$y$$ to move back towards zero.
+To understand what's going on assume we start in $$(x,y) = (0,1)$$. 
+The gradient of $$y$$ points towards $$\infty$$, making it move to $$1 + \delta$$ for some $$\delta > 0$$. 
+At the same time, the gradient of $$x$$ points towards $$-\infty$$, making it move to $$-\epsilon$$, for some $$\epsilon > 0$$.
+If $$x$$ had stood still, the move of $$y$$ had decreased its loss from to $$-1^2$$ to $$-(1 + \delta)^2$$.
+But because the actions of $$x$$, $$y$$'s move incurs an additional loss of $$10 \epsilon \delta$$.
+This can be interpreted as $$y$$'s move exposing it to counterattack by $$x$$.
+If $$x$$ moves quickly enough meaning that $$\epsilon$$ is large enough, this mixed term will incentivize $$y$$ to move back towards zero. This is the mechanism underlying ICR.\\
+Thus, ICR arises because the players try to avoid exposing themselves to counterattack of their opponents.
+
+Remember our example on MNIST where we only trained the discriminator while keeping the checkpoint generator fixed. The discriminator was able to greatly decrease its loss, but what if we allow the generator to fight back.
+
+<div class="img_row">
+    <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/SGD_generator_strikes_resize.png" alt="" title="When training the generator again, the discriminator loss explodes."/>
+    <img class="col threehalf right" src="{{ site.baseurl }}/assets/img/SGD_overtraining_gradients_resize.png" alt="" title="This is no surprise, as the generator gradient has increased dramatically while only training the discriminator."/>
+</div>
+<div class="col three caption">
+  Although it has achieved very low loss, the overtrained discriminator is extremely vulnerable to counterattack by the generator, as witnessed by the drastic increase in loss when we fix the discriminator and only train the generator (left). This is foreshadowed by the growing generator gradient, that we observed while exclusively training the discriminator (right).
+</div>
+
+*BOOM!* As soon as the generator is allowed to move, the discriminator loss skyrockets.
+The decreased loss was only achieved at the expense of brittleness to counterattack.
 
 #### Competitive gradient descent for stronger ICR
 
-In SimGD, $$y$$ only takes the reaction of $$x$$ into account after it has occurred.
-This is the reason why SimGD does not converge to zero in the bilinear problem 
+As described above, ICR can be interpreted as arising from the agent's desire to be robust to counterattack.
+However, under SimGD they do not take the presence of their opponent into account *while* making their decision.
 
-$$\min \limits_x \max \limits_y xy$$
+In the quadratic example above, $$y$$ starts to feel the presence of $$x$$ only once $$x$$ has moved to $$\epsilon$$. Depending on the step size, this delay can be enough for the system to become unstable.
+This is also the reason why, infamously, SimGD applied to the the bilinear loss $$(x,y) \mapsto xy$$ does not converge to the Nash-equilibrium in $$(0,0)$$.
 
- and more generally induces relatively weak ICR.
-[Competitive Gradient Descent (CGD)](https://f-t-s.github.io/projects/cgd/) lets both players try to anticipate each other's action, at every iteration of the algorithm.
-This greatly increases the effect of ICR.
+If $$y$$ were aware of its opponent while making its decision it could have anticipated $$x$$'s actions and directly moved to $$1-\delta$$ to mitigate its impact.
+Algorithmically, this results in greater stability of the point $$(0,0)$$.
 
-When applying CGD to the quadratic example, we see that it converges over a much larger range of step sizes.
+[Competitive Gradient Descent (CGD)](https://f-t-s.github.io/projects/cgd/) lets both players try to anticipate each other's action by solving for a local Nash-equilbrium at every step, which results in greatly increased ICR. 
 
-When applying CGD to the example on MNIST, we see that *overtraining* the discriminator using CGD will make it even more robust to counteraction of the discriminator.
+When applying CGD to the example on MNIST, we see that training the discriminator using CGD while keeping the generator fixed will make it even more robust to counteraction of the discriminator. 
+We also observe that CGD prolongs the duration of the projection projection state in the example on ICR
 
-When applying CGD to the model problem computing the $$\eta$$-projection, we observe that it greatly prolongs the stability of the projection state.
+<div class="img_row">
+    <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/SimGD_CGD_blog.png" alt="" title="CGD prolongs the time spend in the projection state."/>
+    <img class="col threehalf right" src="{{ site.baseurl }}/assets/img/G3_Dloss3_resized.png" alt="" title="And it prevents the discriminator from becoming brittle."/>
+</div>
+<div class="col three caption">
+  When training with CGD, the stability of the the (desirable) projection state is greatly enhanced (left). When training the discriminator using CGD, it still accounts for the presence of the generator despite the latter being fixed. Thus, it becomes more, rather than less robust (right).
+</div>
+
 
 #### Experiments on CIFAR 10
 
 Based on the above, we hoped that strengthening ICR by training GANs with CGD would lead to better results than explicit regularization through, for instance, gradient penalties.
 To this end, we used the same DCGAN-architecture as in [WGAN-GP](https://arxiv.org/abs/1704.00028) and combined it with a wide range of regularizers and loss function.
-Indeed, we find that training with an adaptive version of CGD yields better, and more consistent results, as measured by the inception score.
-We see this as additional support that ICR is a key element of GAN performance.
+Indeed, we find that training with ACGD (CGD combined with an RMSProp-type heuristic) yields better and more consistent results, as measured by the inception score (IS).
+We see this as additional evidence that ICR is a key element of GAN performance.
+
+<div class="img_row">
+    <img class="col one left" src="{{ site.baseurl }}/assets/img/summary_is_resized.png" alt="" title="This plot shows the inception scores of the best performing variants."/>
+    <img class="col one center" src="{{ site.baseurl }}/assets/img/compare_is_resized.png" alt="" title="We plot the difference of the inception score achieved by ACGD and Adam."/>
+    <img class="col one right" src="{{ site.baseurl }}/assets/img/random_is_resized.png" alt="" title="We also observe more consistent IS when looking at the results of seven independent random seeds ."/>
+</div>
+<div class="col three caption">
+  On the left we see the IS of the best-performing combinations of loss function, regularization, and optimizer. In the middle, we see the difference of the IS achieved by ACGD and Adam, over all combinations of models and loss functions (higher means ACGD is better).
+  On the right, we see an experiment with Adam and ACGD repeated over seven independent trials.
+  The pytorch code for these experiments, which was written by <a href="https://devzhk.github.io/">Hongkai</a>, can be found <a href="https://github.com/devzhk/Implicit-Competitive-Regularization">here</a>.
+</div>
 
 ### Conclusion
 
 Instead of scrambling to salvage the minimax point of view, I think that it is more practical and more interesting to *embrace* the fact that these algorithms are designed as an iterative game and *do not* amount to a single player implicitly minimizing a loss function.\\
 This requires us to better understand why points found by adversarial training should be useful for a given downstream task.
 
-I hope that the proposal of ICR as underlying mechanism will pave the way for more sophisticated understanding of adversarial training.
-In the long run, I believe that this will greatly the range of problems that can be solved using deep neural networks.
+I hope that the work outlined above will pave the way for a better understanding of adversarial training.
+In the long run, I believe that this will greatly expand the range of problems that can be solved using deep neural networks.
