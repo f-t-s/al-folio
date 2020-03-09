@@ -117,7 +117,7 @@ The example below shows that this is a *terrible* measure of visual similarity.
       <img class="col three center" src="{{ site.baseurl }}/assets/gif/solution_mono.gif"/>
   </div>
   <div class="col three caption">
-    <b>The pairs of images are ordered left to right from smallest to largest distance</b>. The first pair of images are identical, while the third pair differs by a tiny warp. Due to the rough textures naturally present in the image, this hardly perceptible warp leads to a bigger Euclidean distance than between the pair in the center, despite the latter being visually obvious. Note that a similar transformation could occur naturally, for instance by wind moving the foliage in the foreground.
+    <b>The pairs of images are ordered left to right from smallest to largest distance</b>. The first pair of images are identical, while the third pair differs by a tiny warp. Due to the rough textures naturally present in the image, this hardly perceptible warp leads to a bigger Euclidean distance than between the pair in the center, despite the latter being visually obvious. Such a transformation could occur naturally, for instance by wind moving the foliage in the foreground.
   </div>
 </div> 
 
