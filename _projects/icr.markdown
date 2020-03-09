@@ -296,7 +296,7 @@ To understand what is going on assume we start in $$(x,y) = (0,1)$$.
 The gradient of $$y$$ points towards $$\infty$$, making it move to $$1 + \delta$$ for some $$\delta > 0$$. 
 At the same time, the gradient of $$x$$ points towards $$-\infty$$, making it move to $$-\epsilon$$, for some $$\epsilon > 0$$.
 If $$x$$ had stood still, the move of $$y$$ had decreased its loss from to $$-1^2$$ to $$-(1 + \delta)^2$$.
-But because the actions of $$x$$, $$y$$'s move incurs an additional loss of $$10 \epsilon \delta$$.
+But because of the actions of $$x$$, $$y$$'s move incurs an additional loss of $$10 \epsilon \delta$$.
 This can be interpreted as $$y$$'s move exposing it to counterattack by $$x$$.
 If $$x$$ moves quickly enough meaning that $$\epsilon$$ is large enough, this mixed term will incentivize $$y$$ to move back towards zero. This is the mechanism underlying ICR.\\
 Thus, ICR arises because the players try to avoid exposing themselves to counterattack of their opponents.
