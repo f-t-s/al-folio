@@ -21,6 +21,8 @@ Instead, I believe that GAN performance can only be explained by the *dynamics* 
 
 In an attempt to make this more precise, I will explain how *implicit competitive regularization* could allow GANs to generate good images.
 I will also provide empirical evidence that this is what actually happens in practice.
+Finally, I will use a game-theoretic interpretation of ICR to motivate the use of [Competitive Gradient Descent (CGD)](https://f-t-s.github.io/projects/cgd/) for the purpose of strengthening ICR.
+In our experiments on CIFAR 10, this leads to improved stability and higher inception score when compared to explicit regularization motivated by the minimax interpretation.
 
 ### The GAN-dilemma
 
@@ -130,7 +132,7 @@ I am arguing that the minimax interpretation is but a red herring that has nothi
 Generative modeling is all about generating data *similar* to the training data.
 Since GANs can create realistic images, they must have access to a notion of image similarity that captures visual similarity. 
 Most GAN variants can achieve good results, so this does not seem to be the result of a particular choice of loss function.
-Instead, it has to arise from the [inductive biases](https://en.wikipedia.org/wiki/Inductive_bias) of the neural network that parametrizes the discriminator.
+Instead, it has to arise from the [inductive biases](https://en.wikipedia.org/wiki/Inductive_bias) of the neural network that parameterizes the discriminator.
 
 Deep neural networks reliably learn patterns obvious to the human eye.
 This suggests that they capture *something* about visual similarity better than the feature maps, kernels, or metrics of classical computer vision.\\
@@ -158,8 +160,8 @@ If we instead keep $$x$$ fixed by setting $$\eta_x = 0$$ and train $$y$$ using g
     <img class="col three center" src="{{ site.baseurl }}/assets/gif/combined_stable.gif" alt="" title="Implicit competitive regularization on quadratic example."/>
 </div>
 <div class="col three caption">
-  When keeping the minimizing player fixed, the maximizing player diverges to infinity.
-  If we train both simultaneously, the system converges to zero instead.
+  When keeping <script type="math/tex"> x </script> fixed, the <script type="math/tex"> y </script> diverges to infinity.
+  If we train both simultaneously, the system converges to <script type="math/tex"> (0,0) </script> instead.
 </div>
 
 This is commonly seen as a *flaw* of SimGD, but I think it is crucial for GANs to work at all.
@@ -232,8 +234,8 @@ This distance measures *similarity in the eyes of the discriminator*, which by o
 This distance would make for a great generator loss to use in a GAN, but unfortunately we can not compute it explicitly.
 Nevertheless, I will now show on a model problem how ICR could enable SimGD to use this distance for generative modeling.
 
-In our model problem, a "probability distribution" is characterized by two parameters.
-The generator is a tiny neural network that maps its weights to a pair of parameters. It is designed such that it cannot output the *true* distribution in $$P_{\mathrm{data}}=(2,2)$$ but has to accept an error in at least one of the two parameters.
+In our model problem, a "probability distribution" is characterized by two parameters, $$\theta_1$$ and $$\theta_2$$.
+The generator is a tiny neural network that maps its weights to a pair of parameters. It is parameterized such that it can only output distributions within the set $$\mathcal{S}$$ that does not contain the *true* distribution $$P_{\mathrm{data}}=(2,2)$$. Thus, it has to accept an error in at least one of the two parameters.
 The discriminator maps a set of weights and a pair of parameters to a real number.
 
 <div class="img_row">
@@ -242,12 +244,12 @@ The discriminator maps a set of weights and a pair of parameters to a real numbe
 </div>
 <div class="col three caption">
   Both generator (top) and discriminator (bottom) are given by tiny neural networks (left).
-  Every point in the right plot represents a distribution of images. The last layer of the generator is designed such that it can only output values inside the set S, which does not include the target disctribution.
+  Every point in the right plot is thought to represent a distribution of images parameterized by <script type="math/tex"> \theta_1 </script> and <script type="math/tex"> \theta_2 </script>. The last layer of the generator is designed such that it can only output values inside the set <script type="math/tex"> \mathcal{S} </script>, which does not include the target distribution.
 </div>
 
 
 
-It's hard to say how the perceptual distance of even such a simple network would look like. 
+It is hard to say how the perceptual distance of even such a simple network would look like. 
 Therefore, we will model it explicitly by multiplying the discriminator input with a diagonal matrix $$\eta$$ before feeding them to the network.
 We still can not characterize the perceptual distance exactly, but by changing the value of $$\eta$$ we have some control over it.
 If for instance we choose $$\eta_{11} \gg \eta_{22}$$, then the first component of the input images will lead to larger gradients.
@@ -263,13 +265,13 @@ We have used SimGD to compute a projection with respect to the perceptual distan
     <img class="col three center" src="{{ site.baseurl }}/assets/gif/combined_project.gif" alt="" title="Unstable case."/>
 </div>
 <div class="col three caption">
-  We plot the two components of the generator output. For a while the generator exactly reproduces the target in the first component, while accepting an error in the second component. This approximates a projection with respect to the perceptual distance of the discriminator. Eventually, the system snaps out of this state again.
+  We plot the two components of the generator output. For a while the generator exactly reproduces the target in the first component <script type="math/tex"> \theta_1 = 2 </script>, while accepting an error in the second component <script type="math/tex"> \theta_2 </script>. This approximates a projection with respect to the perceptual distance of the discriminator, as given by <script type="math/tex"> \eta </script>. Eventually, the system snaps out of this state again.
 </div>
 
 ### Improving GAN training by strengthening ICR
 
 The implicit projection does not last forever and eventually the system snaps out and diverges.
-Similarly, our GAN example on MNIST hadn't fully converged and kept changing even when using SimGD.
+Similarly, our GAN example on MNIST had not fully converged and kept changing even when using SimGD.
 This suggests that ICR is too weak to permanently stabilizes the system.
 Instead, it merely slows down divergence by forcing the GAN to slowly spiral away, rather than diverge on a straight path.
 
@@ -290,7 +292,7 @@ $$
 We have seen that SimGD can converge to $$(0,0)$$ on this problem, for suitable step sizes.
 This is *strange*, since we think of SimGD as both players greedily improving their objective and for every fixed value of $$x$$, the best thing for $$y$$ would be to run off to infinity as quickly as possible.
 
-To understand what's going on assume we start in $$(x,y) = (0,1)$$. 
+To understand what is going on assume we start in $$(x,y) = (0,1)$$. 
 The gradient of $$y$$ points towards $$\infty$$, making it move to $$1 + \delta$$ for some $$\delta > 0$$. 
 At the same time, the gradient of $$x$$ points towards $$-\infty$$, making it move to $$-\epsilon$$, for some $$\epsilon > 0$$.
 If $$x$$ had stood still, the move of $$y$$ had decreased its loss from to $$-1^2$$ to $$-(1 + \delta)^2$$.
@@ -326,7 +328,7 @@ Algorithmically, this results in greater stability of the point $$(0,0)$$.
 [Competitive Gradient Descent (CGD)](https://f-t-s.github.io/projects/cgd/) lets both players try to anticipate each other's action by solving for a local Nash-equilbrium at every step, which results in greatly increased ICR. 
 
 When applying CGD to the example on MNIST, we see that training the discriminator using CGD while keeping the generator fixed will make it even more robust to counteraction of the discriminator. 
-We also observe that CGD prolongs the duration of the projection projection state in the example on ICR
+We also observe that CGD prolongs the duration of the projection state in the example on ICR
 
 <div class="img_row">
     <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/SimGD_CGD_blog.png" alt="" title="CGD prolongs the time spend in the projection state."/>
