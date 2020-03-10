@@ -7,7 +7,7 @@ img: /assets/gif/icr_title.gif
 
 ### Minimax is not enough
 
-*This post summarizes joint work with [Anima](http://tensorlab.cms.caltech.edu/users/anima/) and [Hongkai](https://devzhk.github.io/). In the interest of conciseness, I will defer to our [paper](https://arxiv.org/abs/1910.05852) for discussions of related work and technical details.*
+*This post summarizes joint work with [Anima](http://tensorlab.cms.caltech.edu/users/anima/) and [Hongkai](https://devzhk.github.io/). In the interest of conciseness, I will defer to our [paper](https://arxiv.org/abs/1910.05852v2) for discussions of related work and technical details.*
 
 [GANs](https://en.wikipedia.org/wiki/Generative_adversarial_network) are fascinating!
 Not only can they generate strikingly realistic [images](https://github.com/NVlabs/stylegan), they also introduce an exciting new paradigm to mainstream machine learning.
