@@ -19,7 +19,7 @@ In most work on GANs, this is seen as the generator minimizing just another loss
 I will argue that **this minimax interpretation of GANs can not explain GAN performance**.
 Instead, I believe that GAN performance can only be explained by the *dynamics* of simultaneous training.
 
-In an attempt to make this more precise, I will explain how *implicit competitive regularization* could allow GANs to generate good images.
+In an attempt to make this more precise, I will explain how *implicit competitive regularization* (ICR) could allow GANs to generate good images.
 I will also provide empirical evidence that this is what actually happens in practice.
 Finally, I will use a game-theoretic interpretation of ICR to motivate the use of [Competitive Gradient Descent (CGD)](https://f-t-s.github.io/projects/cgd/) for the purpose of strengthening ICR.
 In our experiments on CIFAR 10, this leads to improved stability and higher inception score when compared to explicit regularization motivated by the minimax interpretation.
