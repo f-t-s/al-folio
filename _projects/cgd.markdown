@@ -240,9 +240,7 @@ This is **not** just a different way to represent the same problem but may be a 
 Therefore, we do **not** want to be invariant to this transformation and having this invariance built into the first, second, third, etc. order approximations is a severe limitation.
 
 <div class="img_row">
-    <img class="col one left" src="{{ site.baseurl }}/assets/img/queenblack.png" alt="" title="Black queen white bishop"/>
-    <img class="col one left" src="{{ site.baseurl }}/assets/img/leftrightarrow.png" alt="" title="equivalent to"/>
-    <img class="col one right" src="{{ site.baseurl }}/assets/img/queenwhite.png" alt="" title="White queen black bishop"/>
+    <img class="col three left" src="{{ site.baseurl }}/assets/img/swapping_pieces.png" alt="" title="swapping pieces"/>
 </div>
 <div class="col three caption">
   A chess analogy: The left position can be transformed into the right one by a rotation in the joint strategy space that swaps the "queen coordinate" of black with the "bishop coordinate" of white. The two resulting games are drastically different, illustrating that games are not invariant under arbitrary rotations in the joint strategy space.
