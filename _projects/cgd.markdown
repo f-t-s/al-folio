@@ -97,15 +97,15 @@ Instead of using polynomial terms up to first order ($$f$$, $$g$$, $$D_x f$$, $$
 In the two-agent setting, this is the bilinear approximation obtained by including the "mixed" second derivatives ($$D_{xy}^2f$$, $$D_{yx}f^2$$, $$D_{xy}^2g$$, and $$D_{yx}^2g$$) in the approximation, while omitting the "pure" second derivatives ($$D_{xx}^2f$$, $$D_{yy}^2f$$, $$D_{xx}^2g$$, and $$D_{yy}^2g$$).
 The resulting local game is
 
-$$ \min \limits_{x \in \mathbb{R}^m}\  f + D_{x}f (x-x_k) + x^{\top} D_{xy}^2 f y + D_{y}f(y - y_k) + \frac{1}{2 \eta}\|x - x_k\|^2 $$
+$$ \min \limits_{x \in \mathbb{R}^m}\  f + D_{x}f (x-x_k) + (x - x_k)^{\top} D_{xy}^2 f (y - y_k) + D_{y}f(y - y_k) + \frac{1}{2 \eta}\|x - x_k\|^2 $$
 
-$$ \min \limits_{y \in \mathbb{R}^n}\  g + D_{x}g (x-x_k) + x^{\top} D_{xy}^2 g y + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2, $$
+$$ \min \limits_{y \in \mathbb{R}^n}\  g + D_{x}g (x-x_k) + (x - x_k)^{\top} D_{xy}^2 g (y - y_k) + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2, $$
 
 which can be simplified to
 
-$$ \min \limits_{x \in \mathbb{R}^m} \  D_{x}f (x-x_k) + x^{\top} D_{xy}^2 f y + \frac{1}{2 \eta}\|x - x_k\|^2 $$
+$$ \min \limits_{x \in \mathbb{R}^m} \  D_{x}f (x-x_k) + (x - x_k)^{\top} D_{xy}^2 f (y - y_k) + \frac{1}{2 \eta}\|x - x_k\|^2 $$
 
-$$ \min \limits_{y \in \mathbb{R}^n} \ x^{\top} D_{xy}^2 g y + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2. $$
+$$ \min \limits_{y \in \mathbb{R}^n} \ (x - x_k)^{\top} D_{xy}^2 g (y - y_k) + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2. $$
 
 This local game preserves the interactive aspect of the underlying problem, since the optimal action of $$x$$ depends on the next move of $$y$$ and vice versa.
 The local game obtained from the bilinear approximation also has the property that the functions  $$x \mapsto f(x,y)$$ and $$y \mapsto g(x,y)$$ are convex.
