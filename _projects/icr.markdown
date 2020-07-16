@@ -7,7 +7,7 @@ img: /assets/gif/icr_title.gif
 
 ### Minimax is not enough
 
-*This post summarizes joint work with [Anima](http://tensorlab.cms.caltech.edu/users/anima/) and [Hongkai](https://devzhk.github.io/). In the interest of conciseness, I will defer to our [paper](https://arxiv.org/abs/1910.05852v2) for discussions of related work and technical details.*
+*This post summarizes joint work with [Anima](http://tensorlab.cms.caltech.edu/users/anima/) and [Hongkai](https://devzhk.github.io/). In the interest of conciseness, I will defer to our [paper](https://arxiv.org/abs/1910.05852v2) for discussions of related work and technical details. This Thursday July 16th at 9am and 8pm PDT, we will presenting our work at ICML2020.*
 
 [GANs](https://en.wikipedia.org/wiki/Generative_adversarial_network) are fascinating!
 Not only can they generate strikingly realistic [images](https://github.com/NVlabs/stylegan), they also introduce an exciting new paradigm to mainstream machine learning.
@@ -342,18 +342,16 @@ We also observe that CGD prolongs the duration of the projection state in the ex
 #### Experiments on CIFAR 10
 
 Based on the above, we hoped that strengthening ICR by training GANs with CGD would lead to better results than explicit regularization through, for instance, gradient penalties.
-To this end, we used the same DCGAN-architecture as in [WGAN-GP](https://arxiv.org/abs/1704.00028) and combined it with a wide range of regularizers and loss function.
-Indeed, we find that training with ACGD (CGD combined with an RMSProp-type heuristic) yields better and more consistent results, as measured by the inception score (IS).
+To this end, we used the same DCGAN-architecture as in [WGAN-GP](https://arxiv.org/abs/1704.00028) and combined different regularizers and loss function.
+Indeed, we find that training with ACGD (CGD combined with an RMSProp-type heuristic) yields better and more consistent results, as measured by the inception score (IS) and Fréchet inception distance.
 We see this as additional evidence that ICR is a key element of GAN performance.
 
 <div class="img_row">
-    <img class="col one left" src="{{ site.baseurl }}/assets/img/summary_is_resized.png" alt="" title="This plot shows the inception scores of the best performing variants."/>
-    <img class="col one center" src="{{ site.baseurl }}/assets/img/compare_is_resized.png" alt="" title="We plot the difference of the inception score achieved by ACGD and Adam."/>
-    <img class="col one right" src="{{ site.baseurl }}/assets/img/random_is_resized.png" alt="" title="We also observe more consistent IS when looking at the results of seven independent random seeds ."/>
+    <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/summary_is_resized.png" alt="" title="Comparing the inception score of explicit and implicit regularization."/>
+    <img class="col threehalf right" src="{{ site.baseurl }}/assets/img/summary_fid_resized.png" alt="" title="Comparing the frechet distance of explicit and implicit regularization."/>
 </div>
 <div class="col three caption">
-  On the left we see the IS of the best-performing combinations of loss function, regularization, and optimizer. In the middle, we see the difference of the IS achieved by ACGD and Adam, over all combinations of models and loss functions (higher means ACGD is better).
-  On the right, we see an experiment with Adam and ACGD repeated over seven independent trials.
+  We compare combine the WGAN with a [gradient penalty (GP)](https://arxiv.org/abs/1704.00028), [spectral normalization](https://arxiv.org/abs/1802.05957) or ACGD (without explicit regularization) and report inception scores (left) and frechet inception distance on CIFAR10.
   The pytorch code for these experiments, which was written by <a href="https://devzhk.github.io/">Hongkai</a>, can be found <a href="https://github.com/devzhk/Implicit-Competitive-Regularization">here</a>.
 </div>
 
