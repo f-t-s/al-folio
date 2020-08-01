@@ -2,7 +2,7 @@
 layout: page
 title: Sparse factorization of dense matrices
 description: Fade-out instead of fill-in
-img:
+img: /assets/gif/ichol.gif
 ---
 
 ### Introduction
@@ -25,7 +25,7 @@ We focus on covariance matrices of finitely smooth Gaussian processes or, equiva
 Qualitatively, these kernels assign larger values to pairs of nearby points and smaller values to pairs of distant points.
 This means that if we observe a smooth random process to be positive in a point $$x$$, we will strongly expect it to be positive at a nearby point $$y$$.
 If this is all we know, we also tend to believe that values at a more distant point $$z$$ are positive, but we will be less confident in this belief.
-A popular class of such covariance functions is given by the [Matérn covariance function](https://en.wikipedia.org/wiki/Mat%C3%A9rn_covariance_function).
+A popular class of such covariance functions is given by the [Matérn family](https://en.wikipedia.org/wiki/Mat%C3%A9rn_covariance_function).
 
 <div class="img_row">
     <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/correlation.png"  alt="" title="The correlation is positive and falls of with distance"/>
@@ -56,12 +56,12 @@ We improve the state of the art computational efficiency by a simple three step 
 
 #### Picking the ordering
 
-We order the datapoints from coarse to fine according to the *minimax ordering*.
+We order the datapoints from coarse to fine according to the *maximin ordering*.
 This means that we successively pick the point that is furthest away from the points that we have picked already, starting with an arbitrary point.
 
 #### Selecting the sparsity set 
 
-We denote as $$\ell_i$$ the distance that the $$i$$-th point of the minimax ordering had to the points picked before.
+We denote as $$\ell_i$$ the distance that the $$i$$-th point of the maximin ordering had to the points picked before.
 We choose a tuning parameter $$\rho$$ and let $$x_i$$ interact with all points later in the ordering that have a distance at most $$\rho \ell_i$$.
 This means that we add an element $$(i,j)$$ to the sparsity set $$S_\rho$$ if $$i \geq j$$ and $$\mathrm{dist}(x_i, x_j) \leq \rho \ell_i$$.
 
@@ -75,7 +75,7 @@ We exploit the sparsity of $$S_\rho$$ by instead computing the [incomplete Chole
     <img class="col one right" src="{{ site.baseurl }}/assets/gif/ichol_resized.gif"  alt="" title="and then compute the incomplete Cholesky factorization."/>
 </div>
 <div class="col three caption">
-    The minimax ordering successively selects the <span style="color: rgb(72%,26%,6%);">point <script type="math/tex"> x_k </script></span> that has <span style="color: rgb(72%,26%,6%);">maximal distance <script type="math/tex"> \ell_k </script> </span> from the <span style="color: rgb(63%,74%,78%);">points that were selected so far</span> (left). 
+    The maximin ordering successively selects the <span style="color: rgb(72%,26%,6%);">point <script type="math/tex"> x_k </script></span> that has <span style="color: rgb(72%,26%,6%);">maximal distance <script type="math/tex"> \ell_k </script> </span> from the <span style="color: rgb(63%,74%,78%);">points that were selected so far</span> (left). 
     We add those entries corresponding to interactions of <span style="color: rgb(72%,26%,6%);"> <script type="math/tex"> x_k </script></span> with <span style="color: rgb(85%,55%,13%);">points within radius <script type="math/tex"> \rho \ell_k </script></span> to the <span style="color: rgb(63%,74%,78%);"> sparsity pattern <script type="math/tex"> S_\rho </script></span> (middle). We the compute the incomplete Cholesky factorization, meaning that we skip the update 
     <span style="color: rgb(63%,74%,78%);"><script type="math/tex"> \Theta_{kj} </script></span>
     <script type="math/tex"> \leftarrow </script>
@@ -110,7 +110,7 @@ In contrast, we observe that many *dense* kernel matrices exhibit *fade-out*, le
 #### Gaussian elimination and Gaussian processes
 
 The *fade-out* phenomenon has not been observed before but from a probabilistic point of view it is not surprising.
-Cholesky factorization can be interpreted as recursive application of the matrix identity 
+Cholesky factorization can be interpreted as recursive application of
 
 $$
 \begin{pmatrix}
@@ -129,7 +129,7 @@ $$
 \begin{pmatrix}
     \mathrm{Id} & {\color{#D98C21} \left(\Theta_{1, 1}\right)^{-1}\Theta_{1,2}}\\
     0 & \mathrm{Id} 
-\end{pmatrix}
+\end{pmatrix}.
 $$
 
 For $$(X_1, X_2) \sim \mathcal{N}\left(0, \Theta\right)$$ we have 
@@ -138,18 +138,38 @@ $$
 \mathbb{E}\left[ X_2 \middle| X_1 = a \right] = {\color{#D98C21}\Theta_{2,1}\left(\Theta_{1, 1}\right)^{-1}} a \quad \mathrm{and} \quad\mathrm{Cov}\left[X_2 \middle| X_1 \right] = {\color{#A1BDC7}\Theta_{2,2} - \Theta_{2,1} \left(\Theta_{1,1}\right)^{-1} \Theta_{1,2}}$$
 
 
-meaning that Cholesky amounts to iteratively conditioning a Gaussian process. In particular, conditional independence in the Gaussian process $$X$$ directly corresponds to sparsity in the Cholesky factors of $$\Theta$$. There are many interesting densely correlated stochastic processes that feature conditional independence. 
+meaning that Cholesky factorization amounts to iteratively conditioning a Gaussian process. In particular, conditional independence in the Gaussian process $$X$$ directly corresponds to sparsity in the Cholesky factors of $$\Theta$$. There are many interesting densely correlated stochastic processes that feature conditional independence. 
 Therefore, many interesting dense matrices are subject to fade-out.
+
+<div class="img_row">
+    <img class="col one left" src="{{ site.baseurl }}/assets/gif/fill-in_resized.gif"  alt="" title="Many sparse matrices exhibit fill-in, leading to dense Cholesky factors"/>
+    <img class="col one middle" src="{{ site.baseurl }}/assets/gif/fade-out_resized.gif"  alt="" title="In contrast, we show that some dense matrices feature fade-out, leading to sparse Cholesky factors"/>
+    <img class="col one right" src="{{ site.baseurl }}/assets/gif/screening_resized.gif"  alt="" title="and then compute the incomplete Cholesky factorization."/>
+</div>
+<div class="col three caption">
+    It is well known that many sparse matrices exhibit <em>fill-in</em>, leading to substantially dense Cholesky factors. (left)
+    In contrast, we observe that the dense covariance matrices of smooth Gaussian processes exhibit <em>fade-out</em>, leading to almost sparse Cholesky factors. (center, magnitude of entries on <script type="math/tex"> \log_{10} </script> scale). 
+    This behavior is due to the <em> screening effect</em>, whereby the <span style="color: rgb(85%,55%,13%);">conditional correlation</span> of a given <span style="color: rgb(72%,26%,6%);"> point </span> will localize, as we condition on <span style="color: rgb(63%,74%,78%);"> nearby points</span> (right).
+</div>
+
 
 #### The screening effect 
 
 In the case of covariance matrices of finitely smooth Gaussian processes, the sparsity of their Cholesky factors is predicted by the *screening effect*. 
-We have seen in the introduction that the values at a point $$y$$ close to $$x$$ are much more informative of the value at $$x$$ than those at a distant point $z$. 
+We have seen in the introduction that the values at a point $$y$$ close to $$x$$ are much more informative of the value at $$x$$ than those at a distant point $$z$$. 
 This means that the value at $$x$$ is almost independent of that at $$z$$, conditional on the value at $$y$$.
 Under the elimination ordering chosen in our method, the first $$k$$ points cover the data set up to a distance $$\ell_k$$. 
 Conditional on the values at these points, the correlation length is of the order $$\ell_k$$, which informs our choice of sparsity pattern $$S_\rho$$.
 
+### Wrapping up
 
+Cholesky factorization and the numerical analysis of elliptic partial differential equations are classical field of applied mathematics. 
+Nevertheless, the probabilistic intuition described above leads to a **simple algorithm** that **improves the state of the art** computational complexity, on a large class of problems. 
+In our [paper](https://arxiv.org/abs/1706.02205), we draw connections to operator adapted wavelets and numerical homogenization that allow us to prove these results rigorously.
+There, we also show that incomplete Cholesky factorization in the reverse maximin ordering allows to efficiently invert the sparse stiffness matrices of elliptic PDEs.
+Just like in the case of Green's matrices, this simple algorithm improves upon the state of the art computational complexity for general elliptic PDEs.
+Furthermore, our methods allow for the efficient computation of near optimal low-rank approximations, corresponding to the principal component analysis (in the Green's matrix case) or homogenization (in the stiffness matrix case).
+In recent [follow-up work](https://arxiv.org/abs/2004.14455), we extend these ideas to provide an embarassingly parallel algorithm with even better computational complexity.
 
 
 
