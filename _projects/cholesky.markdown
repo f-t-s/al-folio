@@ -164,7 +164,7 @@ Conditional on the values at these points, the correlation length is of the orde
 ### Wrapping up
 
 Cholesky factorization and the numerical analysis of elliptic partial differential equations are classical field of applied mathematics. 
-Nevertheless, the probabilistic intuition described above leads to a **simple algorithm** that **improves the state of the art** computational complexity, on a large class of problems. 
+Nevertheless, the probabilistic intuition described above leads to a **simple algorithm** that **improves the state of the art** computational complexity on a large class of problems. 
 In our [paper](https://arxiv.org/abs/1706.02205), we draw connections to operator adapted wavelets and numerical homogenization that allow us to prove these results rigorously.
 There, we also show that incomplete Cholesky factorization in the reverse maximin ordering allows to efficiently invert the sparse stiffness matrices of elliptic PDEs.
 Just like in the case of Green's matrices, this simple algorithm improves upon the state of the art computational complexity for general elliptic PDEs.
