@@ -1,8 +1,8 @@
 ---
 layout: about
-permalink: /
 title: <strong> Florian </strong> Schäfer 
-<!--description: <a href="">Caltech</a>. Address. Contacts. Moto. Etc.?-->
+permalink: /
+description: <a href="#">Affiliations</a>. Address. Contacts. Moto. Etc.
 
 profile:
   align: right
@@ -12,9 +12,11 @@ profile:
     <p>1200 E California Blvd</p>
     <p>Pasadena, CA 91106</p>
 
-news: true
-social: true
+news: true  # includes a list of news items
+selected_papers: true # includes a list of papers marked as "selected={true}"
+social: true  # includes social icons at the bottom of the page
 ---
+
 
 I'm Florian Schäfer, PhD-candidate in applied and computational
 mathematics at [Caltech](http://www.caltech.edu/), where I'm doing research
