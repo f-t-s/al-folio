@@ -3,13 +3,14 @@ layout: page
 permalink: /publications/
 title: publications
 nav: true
+years: [2020, 2019, 2018, 2017]
 ---
 
-In the pipeline:
-{% bibliography -f preprint  %}
+<div class="publications">
 
-Journal Publications:
-{% bibliography -f journal  %}
+{% for y in page.years %}
+  <h2 class="year">{{y}}</h2>
+  {% bibliography -f papers -q @*[year={{y}}]* %}
+{% endfor %}
 
-Conference Proceedings:
-{% bibliography -f proceedings  %}
+</div>
