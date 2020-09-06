@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: distill
 title: Competitive Gradient Descent
 description: Gradient descent for multi-player games?
 img: /assets/gif/cgd_title.gif
@@ -50,11 +50,15 @@ Unfortunately, even on the most simple bilinear minimax problem $$f(x,y) = x^{\t
 Instead, its trajectories form ever larger cycles as the two players chase each other in strategy space.
 The oscillatory behavior of SimGD is not restricted to this toy problem and a variety of corrections have been proposed in the literature.
 
-<div class="img_row">
-    <img class="col two left" src="{{ site.baseurl }}/assets/img/oscillationSimGD.png" alt="" title="Oscillation of SimGD"/>
-    <img class="col one left" src="{{ site.baseurl }}/assets/img/460px-Rock-paper-scissors.svg.png" alt="" title="Rock Paper Scissor"/>
+<div class="row">
+    <div class="col">
+      <img class="img-fluid" src="{{ site.baseurl }}/assets/img/oscillationSimGD.png" alt="" title="Oscillation of SimGD"/>
+    </div>
+    <div class="col">
+      <img class="img-fluid" src="{{ site.baseurl }}/assets/img/460px-Rock-paper-scissors.svg.png" alt="" title="Rock Paper Scissor"/>
+    </div>
 </div>
-<div class="col three caption">
+<div class="caption">
   Even for a simple bilinear problem, simultaneous gradient descent cycles to infinity rather than converging to the Nash equilibrium at zero. This can be seen as the analogue of "ROCK! PAPER! SCISSOR ROCK ..." in the eponymous hand game (right image taken from [wikimedia](https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rock-paper-scissors.svg))
 </div>
 
@@ -239,10 +243,8 @@ For instance, $$A$$ could be a permutation matrix that takes a decision variable
 This is **not** just a different way to represent the same problem but may be a drastically different game.
 Therefore, we do **not** want to be invariant to this transformation and having this invariance built into the first, second, third, etc. order approximations is a severe limitation.
 
-<div class="img_row">
-    <img class="col three left" src="{{ site.baseurl }}/assets/img/swapping_pieces.png" alt="" title="swapping pieces"/>
-</div>
-<div class="col three caption">
+<img class="img-fluid" src="{{ site.baseurl }}/assets/img/swapping_pieces.png" alt="" title="swapping pieces"/>
+<div class="caption">
   A chess analogy: The left position can be transformed into the right one by a rotation in the joint strategy space that swaps the "queen coordinate" of black with the "bishop coordinate" of white. The two resulting games are drastically different, illustrating that games are not invariant under arbitrary rotations in the joint strategy space.
 </div>
 
@@ -250,7 +252,8 @@ Therefore, we do **not** want to be invariant to this transformation and having 
 In contrast, the bilinear approximation is only invariant to reparametrizations of the strategy space of each player in isolation, but not to a reassignment of the decision variables accross players.
 Mathematically we have 
 
-$$ \begin{pmatrix}
+<div class="l-page-outset">
+<script type="math/tex; mode=display"> \begin{pmatrix}
 x\\
 y
 \end{pmatrix}^{\top}
@@ -276,7 +279,10 @@ y
 \begin{pmatrix}
     x \\
     y
-\end{pmatrix}\right) $$
+\end{pmatrix}\right)
+</script>
+</div>
+
 
 in general only if $$A = 
 \begin{pmatrix}
@@ -300,8 +306,8 @@ $$ f(x,y) = \Phi\left(X(x), Y(y)\right), $$
 $$ g(x,y) = \Theta\left(X(x), Y(y)\right), $$
 
 where the functions $$\Phi$$ and $$\Theta$$ are highly regular, but the functions $$x \mapsto X(x)$$ and $$y \mapsto Y(y)$$ might only have first order regularity.
-In the setting of GANs for instance, $$x \mapsto X(x) = \mathcal{G}_x$$ maps the generator weights to the induced probability measure and the map $$y \mapsto Y(y) = \mathcal{D}_y$$ maps the discriminator weights to the induced classifier.
-In the original GAN, the function $$\Phi$$ would then be given as $$\Phi(\mathcal{G},\mathcal{D}) = \mathbb{E}_{z \sim \mathcal{P}}[\log(\mathcal{D}(z))] + \mathbb{E}_{z \sim \mathcal{G}}[\log\left(1 - \mathcal{D}(z)\right)]$$.
+In the setting of GANs for instance, $$x \mapsto X(x) = \mathcal{G}_x$$ maps the generator weights to the induced probability measure and $$y \mapsto Y(y) = \mathcal{D}_y$$ maps the discriminator weights to the induced classifier.
+In the original GAN, $$\Phi$$ would then be given as $$\Phi(\mathcal{G},\mathcal{D}) = \mathbb{E}_{z \sim \mathcal{P}}[\log(\mathcal{D}(z))] + \mathbb{E}_{z \sim \mathcal{G}}[\log\left(1 - \mathcal{D}(z)\right)]$$.
 We observe that in this case the mixed derivative $$D_{xy}^2 f(x,y) = (D_{x}X) D_{XY}^2\Phi (D_{y} Y)^{\top}$$ is well behaved, since only one derivative falls onto each $$X$$ and $$Y$$.
 The "pure" second derivatives $$D_{xx}^2 f$$ and $$D_{yy}^2 f$$ however require second order regularity of $$X$$ or $$Y$$.
 Thus, instead of requiring second order regularity, the bilinear approximation fully exploits the first order regularity present in many competitive optimization problems. 
@@ -315,11 +321,15 @@ While this is obviously a simple problem that can be solved with a variety of al
 With many of the existing methods we observed a strong cycling behavior with generator and discriminator chasing each other between the two modes. 
 In contrast, throughout all step sizes that we tried, CGD seemed to show initial cycling behavior followed by a rapid splitting on the two modes. *We emphasize that the other methods surely could be made work on this problem with the right hyperparameters. The main point of interest of these experiments is the sudden splitting of mass observed when using CGD*.
 
-<div class="img_row">
-    <img class="col threehalf left" src="{{ site.baseurl }}/assets/gif/other_methods_are_unstable.gif" alt="" title="other methods cycle diverge"/>
-    <img class="col threehalf left" src="{{ site.baseurl }}/assets/gif/cgd_can_split_mass.gif" alt="" title="cgd eventually splits the mass"/>
+<div class="row">
+  <div class="col">
+    <img class="img-fluid" src="{{ site.baseurl }}/assets/gif/other_methods_are_unstable.gif" alt="" title="other methods cycle diverge"/>
+  </div>
+  <div class="col">
+    <img class="img-fluid" src="{{ site.baseurl }}/assets/gif/cgd_can_split_mass.gif" alt="" title="cgd eventually splits the mass"/>
+  </div>
 </div>
-<div class="col three caption">
+<div class="caption">
 Visualization of Gaussian mixture GAN. The triangles denote true data while the circles denote fake data. The discriminator says that orange points are more likely to be true and violet points are more likely to be false.
 The arrows show the movement of the present fake data under the next weight update of the generator.
 The first video shows the frequently observed chasing between the two modes that eventually diverges. The second video shows that when using CGD, the mass suddenly splits among the two modes.
@@ -332,11 +342,15 @@ In order to study the convergence speed of CGD, we consider a linear-quadratic c
 $$ -g(V,W) = f(V,W) = \sum_{ij}W_{ij}\left(\Sigma_{ij} - \left(V V^{\top}\right)_{ij}\right) $$ 
 
 The main take-away is that while CGD has a higher cost per iteration than other methods, it is able to take larger steps without diverging, which often allows it to converge faster even when accounting for the Hessian vector products required for computing the matrix inverse in the CGD update using iterative methods.
-<div class="img_row">
-    <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/cvest_d_20.png" alt="" title="small problem"/>
-    <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/cvest_d_60.png" alt="" title="large problem"/>
+<div class="row">
+  <div class="col">
+    <img class="img-fluid" src="{{ site.baseurl }}/assets/img/cvest_d_20.png" alt="" title="small problem"/>
+  </div>
+  <div class="col">
+    <img class="img-fluid" src="{{ site.baseurl }}/assets/img/cvest_d_60.png" alt="" title="large problem"/>
+  </div>
 </div>
-<div class="col three caption">
+<div class="caption">
   While for small stepsizes CGD is not faster than other methods, it can make larger steps without diverging, which enables it to outperform other methods (combinations of algorithms and step sizes that lead to divergence are not plotted).
 </div>
 
