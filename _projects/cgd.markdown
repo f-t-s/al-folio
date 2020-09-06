@@ -253,7 +253,8 @@ In contrast, the bilinear approximation is only invariant to reparametrizations 
 Mathematically we have 
 
 <div class="l-page-outset">
-<script type="math/tex; mode=display"> \begin{pmatrix}
+<script type="math/tex; mode=display"> 
+\begin{pmatrix}
 x\\
 y
 \end{pmatrix}^{\top}
