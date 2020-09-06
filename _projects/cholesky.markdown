@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: distill
 title: Sparse factorization of dense matrices
 description: Fade-out instead of fill-in
 img: /assets/gif/ichol.gif
@@ -27,11 +27,15 @@ This means that if we observe a smooth random process to be positive in a point 
 If this is all we know, we also tend to believe that values at a more distant point $$z$$ are positive, but we will be less confident in this belief.
 A popular class of such covariance functions is given by the [Matérn family](https://en.wikipedia.org/wiki/Mat%C3%A9rn_covariance_function).
 
-<div class="img_row">
-    <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/correlation.png"  alt="" title="The correlation is positive and falls of with distance"/>
-    <img class="col threehalf right" src="{{ site.baseurl }}/assets/gif/confidence.gif" alt="" title="Nearby points have similar values, values of more distant points become less dependent."/>
+<div class="row">
+    <div class="col">
+        <img class="img-fluid" src="{{ site.baseurl }}/assets/img/correlation.png"  alt="" title="The correlation is positive and falls of with distance"/>
+    </div>
+    <div class="col">
+        <img class="img-fluid" src="{{ site.baseurl }}/assets/gif/confidence.gif" alt="" title="Nearby points have similar values, values of more distant points become less dependent."/>
+    </div>
 </div>
-<div class="col three caption">
+<div class="caption">
     On the left we show the correlation between values at <script type="math/tex"> x </script>  (marked by blue vertical line) and other points under a Matérn model. 
     On the right we show different realizations of the assoe ciated Gaussian process, conditioned to be one in <script type="math/tex"> x </script>. 
     The values at the nearby point <script type="math/tex"> y </script> (orange line) are close to one. The values at the distant point <script type="math/tex"> z </script> (red line) are positive on average, but vary wildly.
@@ -70,11 +74,15 @@ This means that we add an element $$(i,j)$$ to the sparsity set $$S_\rho$$ if $$
 The [Cholesky factorization](https://en.wikipedia.org/wiki/Cholesky_decomposition) takes in the lower triangular part of a Matrix $$\Theta$$ and, by updates of the form $$\Theta_{ki} \leftarrow \Theta_{kj} - \Theta_{ki} \Theta_{ji} / \Theta_{ii}$$, transforms it into a lower triangular matrix $$L$$ that satisfies $$L L^{\top} = \Theta$$.
 We exploit the sparsity of $$S_\rho$$ by instead computing the [incomplete Cholesky factorization](https://en.wikipedia.org/wiki/Incomplete_Cholesky_factorization) that treats entries outside of $$S_\rho$$ as zero and skips updates involving them.
 
-<div class="img_row">
-    <img class="col two left" src="{{ site.baseurl }}/assets/gif/sortsparse_combined_resized.gif"  alt="" title="We select an ordering and sparsity pattern"/>
-    <img class="col one right" src="{{ site.baseurl }}/assets/gif/ichol_resized.gif"  alt="" title="and then compute the incomplete Cholesky factorization."/>
+<div class="row">
+    <div class="col-sm-8 mt-3 mt-md-0">
+        <img class="img-fluid" src="{{ site.baseurl }}/assets/gif/sortsparse_combined.gif"  alt="" title="We select an ordering and sparsity pattern"/>
+    </div>
+    <div class="col-sm-4 mt-3 mt-md-0">
+        <img class="img-fluid" src="{{ site.baseurl }}/assets/gif/ichol.gif"  alt="" title="and then compute the incomplete Cholesky factorization."/>
+    </div>
 </div>
-<div class="col three caption">
+<div class="caption">
     The maximin ordering successively selects the <span style="color: rgb(72%,26%,6%);">point <script type="math/tex"> x_k </script></span> that has <span style="color: rgb(72%,26%,6%);">maximal distance <script type="math/tex"> \ell_k </script> </span> from the <span style="color: rgb(63%,74%,78%);">points that were selected so far</span> (left). 
     We add those entries corresponding to interactions of <span style="color: rgb(72%,26%,6%);"> <script type="math/tex"> x_k </script></span> with <span style="color: rgb(85%,55%,13%);">points within radius <script type="math/tex"> \rho \ell_k </script></span> to the <span style="color: rgb(63%,74%,78%);"> sparsity pattern <script type="math/tex"> S_\rho </script></span> (middle). We the compute the incomplete Cholesky factorization, meaning that we skip the update 
     <span style="color: rgb(63%,74%,78%);"><script type="math/tex"> \Theta_{kj} </script></span>
@@ -112,7 +120,8 @@ In contrast, we observe that many *dense* kernel matrices exhibit *fade-out*, le
 The *fade-out* phenomenon has not been observed before but from a probabilistic point of view it is not surprising.
 Cholesky factorization can be interpreted as recursive application of
 
-$$
+<div class="l-page-outset">
+<script type="math/tex; mode=display"> 
 \begin{pmatrix}
     \Theta_{1,1} & \Theta _{1,2} \\
     \Theta_{2,1} & \Theta_{2,2} 
@@ -130,7 +139,8 @@ $$
     \mathrm{Id} & {\color{#D98C21} \left(\Theta_{1, 1}\right)^{-1}\Theta_{1,2}}\\
     0 & \mathrm{Id} 
 \end{pmatrix}.
-$$
+</script>
+</div>
 
 For $$(X_1, X_2) \sim \mathcal{N}\left(0, \Theta\right)$$ we have 
 
@@ -141,12 +151,18 @@ $$
 meaning that Cholesky factorization amounts to iteratively conditioning a Gaussian process. In particular, conditional independence in the Gaussian process $$X$$ directly corresponds to sparsity in the Cholesky factors of $$\Theta$$. There are many interesting densely correlated stochastic processes that feature conditional independence. 
 Therefore, many interesting dense matrices are subject to fade-out.
 
-<div class="img_row">
-    <img class="col one left" src="{{ site.baseurl }}/assets/gif/fill-in_resized.gif"  alt="" title="Many sparse matrices exhibit fill-in, leading to dense Cholesky factors"/>
-    <img class="col one middle" src="{{ site.baseurl }}/assets/gif/fade-out_resized.gif"  alt="" title="In contrast, we show that some dense matrices feature fade-out, leading to sparse Cholesky factors"/>
-    <img class="col one right" src="{{ site.baseurl }}/assets/gif/screening_resized.gif"  alt="" title="and then compute the incomplete Cholesky factorization."/>
+<div class="row">
+    <div class="col">
+        <img class="img-fluid" src="{{ site.baseurl }}/assets/gif/fill-in_resized.gif"  alt="" title="Many sparse matrices exhibit fill-in, leading to dense Cholesky factors"/>
+    </div>
+    <div class="col">
+        <img class="img-fluid" src="{{ site.baseurl }}/assets/gif/fade-out_resized.gif"  alt="" title="In contrast, we show that some dense matrices feature fade-out, leading to sparse Cholesky factors"/>
+    </div>
+    <div class="col">
+        <img class="img-fluid" src="{{ site.baseurl }}/assets/gif/screening_resized.gif"  alt="" title="and then compute the incomplete Cholesky factorization."/>
+    </div>
 </div>
-<div class="col three caption">
+<div class="caption">
     It is well known that many sparse matrices exhibit <em>fill-in</em>, leading to substantially dense Cholesky factors. (left)
     In contrast, we observe that the dense covariance matrices of smooth Gaussian processes exhibit <em>fade-out</em>, leading to almost sparse Cholesky factors. (center, magnitude of entries on <script type="math/tex"> \log_{10} </script> scale). 
     This behavior is due to the <em> screening effect</em>, whereby the <span style="color: rgb(85%,55%,13%);">conditional correlation</span> of a given <span style="color: rgb(72%,26%,6%);"> point </span> will localize, as we condition on <span style="color: rgb(63%,74%,78%);"> nearby points</span> (right).
