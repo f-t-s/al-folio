@@ -51,10 +51,10 @@ Instead, its trajectories form ever larger cycles as the two players chase each 
 The oscillatory behavior of SimGD is not restricted to this toy problem and a variety of corrections have been proposed in the literature.
 
 <div class="row">
-    <div class="col">
+    <div class="col-sm-7 mt-3 mt-md-0">
       <img class="img-fluid" src="{{ site.baseurl }}/assets/img/oscillationSimGD.png" alt="" title="Oscillation of SimGD"/>
     </div>
-    <div class="col">
+    <div class="col-sm-5 mt-3 mt-md-0">
       <img class="img-fluid" src="{{ site.baseurl }}/assets/img/460px-Rock-paper-scissors.svg.png" alt="" title="Rock Paper Scissor"/>
     </div>
 </div>
