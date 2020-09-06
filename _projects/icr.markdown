@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: distill
 title: Implicit Competitive Regularization
 description: How do GANs generate?
 img: /assets/gif/icr_title.gif
@@ -54,11 +54,15 @@ The original GAN falls into the first category. For instance, if we have a finit
 Thus, for an optimal discriminator, the generator loss always has the same value.
 Therefore, it can not measure the relative quality of different generators.
 
-<div class="img_row">
-    <img class="col threehalf left" src="{{ site.baseurl }}/assets/gif/not_picking_out.gif" alt="" title="What we would like the discriminator to do."/>
-    <img class="col threehalf left" src="{{ site.baseurl }}/assets/gif/picking_out.gif" alt="" title="What it might actually do."/>
+<div class="row">
+  <div class="col">
+    <img class="img-fluid" src="{{ site.baseurl }}/assets/gif/not_picking_out.gif" alt="" title="What we would like the discriminator to do."/>
+  </div>
+  <div class="col">
+    <img class="img-fluid" src="{{ site.baseurl }}/assets/gif/picking_out.gif" alt="" title="What it might actually do."/>
+  </div>
 </div>
-<div class="col three caption">
+<div class="caption">
   We would like the discriminator to compare the local density of true and fake datapoints (left). But without constraints, it can just pick out individual datapoints to achieve arbitrarily low loss, without providing a meaningful assessment of the generator's quality.
 </div>
 
@@ -105,15 +109,19 @@ The example below shows that this is a *terrible* measure of visual similarity.
 </style>
 
 
-<div class="img_row">
-    <img class="col three center" src="{{ site.baseurl }}/assets/img/deception_resize.png" alt="" title="Which of these pairs are most mutually similar."/>
-</div>
-<div class="col three caption">
-    Above you see three pairs of images (left column, middle column, and right column). Can you guess the ranking of the pixel-wise Euclidean distance within each pair? <br> <button class="btn" id="show_hide">Click here to see the solution</button>
+<div class="l-page-outset">
+  <div class="row">
+    <div class="col">
+      <img class="img-fluid" src="{{ site.baseurl }}/assets/img/deception_resize.png" alt="" title="Which of these pairs are most mutually similar."/>
+    </div>
+  </div>
+  <div class="caption">
+      Above you see three pairs of images (left column, middle column, and right column). Can you guess the ranking of the pixel-wise Euclidean distance within each pair? <br> <button class="btn" id="show_hide">Click here to see the solution</button>
+  </div>
 </div>
 
 <div id="solution" style="display:none;">
-  <div class="img_row">
+  <div class="row">
       <img class="col three center" src="{{ site.baseurl }}/assets/gif/solution_mono.gif"/>
   </div>
   <div class="col three caption">
@@ -156,10 +164,10 @@ $$
 and observe that SimGD with step sizes $$\eta_x = 0.09 , \eta_y = 0.01$$ converges to $$(0,0)$$ even though this is the *worst* choice for the maximizing player.
 If we instead keep $$x$$ fixed by setting $$\eta_x = 0$$ and train $$y$$ using gradient descent, it will diverge to infinity for almost all starting points.
 
-<div class="img_row">
-    <img class="col three center" src="{{ site.baseurl }}/assets/gif/combined_stable.gif" alt="" title="Implicit competitive regularization on quadratic example."/>
+<div class="row">
+    <img class="img-fluid" src="{{ site.baseurl }}/assets/gif/combined_stable.gif" alt="" title="Implicit competitive regularization on quadratic example."/>
 </div>
-<div class="col three caption">
+<div class="caption">
   When keeping <script type="math/tex"> x </script> fixed, the <script type="math/tex"> y </script> diverges to infinity.
   If we train both simultaneously, the system converges to <script type="math/tex"> (0,0) </script> instead.
 </div>
@@ -171,11 +179,15 @@ Therefore, our only hope for convergent behavior in GANs is ICR!
 To verify this behavior in the wild, we train a GAN on MNIST until training stagnates and the generator produces good images. We then either train only the discriminator using gradient descent (keeping the generator fixed), or continue training both players using SimGD.
 We observe that the discriminator changes much more rapidly when trained in isolation, suggesting that the point of departure was indeed stabilized by ICR.
 
-<div class="img_row">
-    <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/loss_compare_resize.png" alt="" title="Discriminator loss keeps decreasing when only training discriminator"/>
-    <img class="col threehalf right" src="{{ site.baseurl }}/assets/img/pred_D_resize.png" alt="" title="Under simultaneous training, the discriminator changes slowly"/>
+<div class="row">
+  <div class="col">
+    <img class="img-fluid" src="{{ site.baseurl }}/assets/img/loss_compare_resize.png" alt="" title="Discriminator loss keeps decreasing when only training discriminator"/>
+  </div>
+  <div class="col">
+    <img class="img-fluid" src="{{ site.baseurl }}/assets/img/pred_D_resize.png" alt="" title="Under simultaneous training, the discriminator changes slowly"/>
+  </div>
 </div>
-<div class="col three caption">
+<div class="caption">
     We train a GAN on MNIST until we reach a good checkpoint. We then train only the discriminator, or both networks simultaneously.
     On the left we see that when training only the discriminator, its loss drops to near zero in accordance to the first part of the GAN-dilemma. 
     On the right we see how the discriminator output on 500 real and 500 fake test images compares to that of the checkpoint discriminator.
@@ -191,12 +203,18 @@ This was no coincidence, but due to a fascinating property of ICR:\\
 
 If we play around with the learning rate a bit more we notice that ICR is stronger if $$y$$ (the player that would want to run off to infinity) learns slowly compared to $$x$$.
 
-<div class="img_row">
-    <img class="col one left" src="{{ site.baseurl }}/assets/gif/beta_1.gif" alt="" title="Stable case."/>
-    <img class="col one center" src="{{ site.baseurl }}/assets/gif/beta_0.gif" alt="" title="Metastable case."/>
-    <img class="col one right" src="{{ site.baseurl }}/assets/gif/beta_-1.gif" alt="" title="Unstable case."/>
+<div class="row">
+    <div class="col">
+      <img class="img-fluid" src="{{ site.baseurl }}/assets/gif/beta_1.gif" alt="" title="Stable case."/>
+    </div>
+    <div class="col">
+      <img class="img-fluid" src="{{ site.baseurl }}/assets/gif/beta_0.gif" alt="" title="Metastable case."/>
+    </div>
+    <div class="col">
+      <img class="img-fluid" src="{{ site.baseurl }}/assets/gif/beta_-1.gif" alt="" title="Unstable case."/>
+    </div>
 </div>
-<div class="col three caption">
+<div class="caption">
   Depending on the relative speed of learning the system either converges, slowly cycles away, or rapidly diverges.
 </div>
 
@@ -238,11 +256,15 @@ In our model problem, a "probability distribution" is characterized by two param
 The generator is a tiny neural network that maps its weights to a pair of parameters. It is parameterized such that it can only output distributions within the set $$\mathcal{S}$$ that does not contain the *true* distribution $$P_{\mathrm{data}}=(2,2)$$. Thus, it has to accept an error in at least one of the two parameters.
 The discriminator maps a set of weights and a pair of parameters to a real number.
 
-<div class="img_row">
-    <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/networks_resized_notext.png" alt="" title="The tiny neural networks used for our model."/>
-    <img class="col threehalf right" src="{{ site.baseurl }}/assets/img/scatter_background_resized.png" alt="" title="The generator can never exactly reproduce the target."/>
+<div class="row">
+  <div class="col">
+    <img class="img-fluid" src="{{ site.baseurl }}/assets/img/networks_resized_notext.png" alt="" title="The tiny neural networks used for our model."/>
+  </div>
+  <div class="col">
+    <img class="img-fluid" src="{{ site.baseurl }}/assets/img/scatter_background_resized.png" alt="" title="The generator can never exactly reproduce the target."/>
+  </div>
 </div>
-<div class="col three caption">
+<div class="caption">
   Both generator (top) and discriminator (bottom) are given by tiny neural networks (left).
   Every point in the right plot is thought to represent a distribution of images parameterized by <script type="math/tex"> \theta_1 </script> and <script type="math/tex"> \theta_2 </script>. The last layer of the generator is designed such that it can only output values inside the set <script type="math/tex"> \mathcal{S} </script>, which does not include the target distribution.
 </div>
@@ -261,10 +283,10 @@ But we cannot characterize the perceptual distance explicitly, so this will have
 Amazingly, SimGD solves this problem for us! If we train networks using SimGD, the generator will spend long periods of time getting the first component right, while accepting an error in the second one.
 We have used SimGD to compute a projection with respect to the perceptual distance *without knowing it*.
 
-<div class="img_row">
-    <img class="col three center" src="{{ site.baseurl }}/assets/gif/combined_project.gif" alt="" title="Unstable case."/>
+<div class="row">
+    <img class="img-fluid" src="{{ site.baseurl }}/assets/gif/combined_project.gif" alt="" title="Unstable case."/>
 </div>
-<div class="col three caption">
+<div class="caption">
   We plot the two components of the generator output. For a while the generator exactly reproduces the target in the first component <script type="math/tex"> \theta_1 = 2 </script>, while accepting an error in the second component <script type="math/tex"> \theta_2 </script>. This approximates a projection with respect to the perceptual distance of the discriminator, as given by <script type="math/tex"> \eta </script>. Eventually, the system snaps out of this state again.
 </div>
 
@@ -303,11 +325,15 @@ Thus, ICR arises because the players try to avoid exposing themselves to counter
 
 Remember our example on MNIST where we only trained the discriminator while keeping the checkpoint generator fixed. The discriminator was able to greatly decrease its loss, but what if we allow the generator to fight back.
 
-<div class="img_row">
-    <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/SGD_generator_strikes_resize.png" alt="" title="When training the generator again, the discriminator loss explodes."/>
-    <img class="col threehalf right" src="{{ site.baseurl }}/assets/img/SGD_overtraining_gradients_resize.png" alt="" title="This is no surprise, as the generator gradient has increased dramatically while only training the discriminator."/>
+<div class="row">
+  <div class="col">
+    <img class="img-fluid" src="{{ site.baseurl }}/assets/img/SGD_generator_strikes_resize.png" alt="" title="When training the generator again, the discriminator loss explodes."/>
+  </div>
+  <div class="col">
+    <img class="img-fluid" src="{{ site.baseurl }}/assets/img/SGD_overtraining_gradients_resize.png" alt="" title="This is no surprise, as the generator gradient has increased dramatically while only training the discriminator."/>
+  </div>
 </div>
-<div class="col three caption">
+<div class="caption">
   Although it has achieved very low loss, the overtrained discriminator is extremely vulnerable to counterattack by the generator, as witnessed by the drastic increase in loss when we fix the discriminator and only train the generator (left). This is foreshadowed by the growing generator gradient, that we observed while exclusively training the discriminator (right).
 </div>
 
@@ -330,11 +356,15 @@ Algorithmically, this results in greater stability of the point $$(0,0)$$.
 When applying CGD to the example on MNIST, we see that training the discriminator using CGD while keeping the generator fixed will make it even more robust to counteraction of the discriminator. 
 We also observe that CGD prolongs the duration of the projection state in the example on ICR
 
-<div class="img_row">
-    <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/SimGD_CGD_blog.png" alt="" title="CGD prolongs the time spend in the projection state."/>
-    <img class="col threehalf right" src="{{ site.baseurl }}/assets/img/G3_Dloss3_resized.png" alt="" title="And it prevents the discriminator from becoming brittle."/>
+<div class="row">
+  <div class="col">
+    <img class="img-fluid" src="{{ site.baseurl }}/assets/img/SimGD_CGD_blog.png" alt="" title="CGD prolongs the time spend in the projection state."/>
+  </div>
+  <div class="col">
+    <img class="img-fluid" src="{{ site.baseurl }}/assets/img/G3_Dloss3.png" alt="" title="And it prevents the discriminator from becoming brittle."/>
+  </div>
 </div>
-<div class="col three caption">
+<div class="caption">
   When training with CGD, the stability of the the (desirable) projection state is greatly enhanced (left). When training the discriminator using CGD, it still accounts for the presence of the generator despite the latter being fixed. Thus, it becomes more, rather than less robust (right).
 </div>
 
@@ -346,11 +376,15 @@ To this end, we used the same DCGAN-architecture as in [WGAN-GP](https://arxiv.o
 Indeed, we find that training with ACGD (CGD combined with an RMSProp-type heuristic) yields better and more consistent results, as measured by the inception score (IS) and Fréchet inception distance.
 We see this as additional evidence that ICR is a key element of GAN performance.
 
-<div class="img_row">
-    <img class="col threehalf left" src="{{ site.baseurl }}/assets/img/summary_is_resized.png" alt="" title="Comparing the inception score of explicit and implicit regularization."/>
-    <img class="col threehalf right" src="{{ site.baseurl }}/assets/img/summary_fid_resized.png" alt="" title="Comparing the frechet distance of explicit and implicit regularization."/>
+<div class="row">
+  <div class="col">
+    <img class="img-fluid" src="{{ site.baseurl }}/assets/img/summary_is_resized.png" alt="" title="Comparing the inception score of explicit and implicit regularization."/>
+  </div>
+  <div class="col">
+    <img class="img-fluid" src="{{ site.baseurl }}/assets/img/summary_fid_resized.png" alt="" title="Comparing the frechet distance of explicit and implicit regularization."/>
+  </div>
 </div>
-<div class="col three caption">
+<div class="caption">
   We compare combine the WGAN with a [gradient penalty (GP)](https://arxiv.org/abs/1704.00028), [spectral normalization](https://arxiv.org/abs/1802.05957) or ACGD (without explicit regularization) and report inception scores (left) and frechet inception distance on CIFAR10.
   The pytorch code for these experiments, which was written by <a href="https://devzhk.github.io/">Hongkai</a>, can be found <a href="https://github.com/devzhk/Implicit-Competitive-Regularization">here</a>.
 </div>
