@@ -36,9 +36,9 @@ A popular class of such covariance functions is given by the [Matérn family](ht
     </div>
 </div>
 <div class="caption">
-    On the left we show the correlation between values at <script type="math/tex"> x </script>  (marked by blue vertical line) and other points under a Matérn model. 
-    On the right we show different realizations of the assoe ciated Gaussian process, conditioned to be one in <script type="math/tex"> x </script>. 
-    The values at the nearby point <script type="math/tex"> y </script> (orange line) are close to one. The values at the distant point <script type="math/tex"> z </script> (red line) are positive on average, but vary wildly.
+    On the left we show the correlation between values at <script type="math/tex"> {\color{#A1BDC7} x } </script>  and other points under a Matérn model. 
+    On the right we show different realizations of the assoe ciated Gaussian process, conditioned to be one in <script type="math/tex"> {\color{#A1BDC7} x } </script>. 
+    The values at the nearby point <script type="math/tex"> {\color{#D98C21} y} </script> are close to one. The values at the distant point <script type="math/tex"> {\color{#B8420F} z} </script> are positive on average, but vary wildly.
 </div>
 
 
@@ -83,21 +83,19 @@ We exploit the sparsity of $$S_\rho$$ by instead computing the [incomplete Chole
     </div>
 </div>
 <div class="caption">
-    The maximin ordering successively selects the <span style="color: rgb(72%,26%,6%);">point <script type="math/tex"> x_k </script></span> that has <span style="color: rgb(72%,26%,6%);">maximal distance <script type="math/tex"> \ell_k </script> </span> from the <span style="color: rgb(63%,74%,78%);">points that were selected so far</span> (left). 
-    We add those entries corresponding to interactions of <span style="color: rgb(72%,26%,6%);"> <script type="math/tex"> x_k </script></span> with <span style="color: rgb(85%,55%,13%);">points within radius <script type="math/tex"> \rho \ell_k </script></span> to the <span style="color: rgb(63%,74%,78%);"> sparsity pattern <script type="math/tex"> S_\rho </script></span> (middle). We the compute the incomplete Cholesky factorization, meaning that we skip the update 
-    <span style="color: rgb(63%,74%,78%);"><script type="math/tex"> \Theta_{kj} </script></span>
-    <script type="math/tex"> \leftarrow </script>
-    <span style="color: rgb(63%,74%,78%);"><script type="math/tex"> \Theta_{kj} </script></span>
-    <script type="math/tex"> - </script>
-    <span style="color: rgb(85%,55%,13%);"><script type="math/tex"> \Theta_{ki} </script></span>
-    <span style="color: rgb(85%,55%,13%);"><script type="math/tex"> \Theta_{ji} </script></span>
-    <script type="math/tex"> / </script>
-    <span style="color: rgb(72%,26%,6%);"><script type="math/tex"> \Theta_{ii} </script></span> whenever it involves entries outside the <span style="color:rgb(69%,67%,66%);"> sparsity pattern</span> (right). 
+    The maximin ordering successively selects the <span style="color: rgb(72%,26%,6%);">point <script type="math/tex"> {\color{#B8420F} x_k} </script></span> that has <span style="color: rgb(72%,26%,6%);">maximal distance <script type="math/tex"> {\color{#B8420F} \ell_k} </script> </span> from the <span style="color: rgb(63%,74%,78%);">points that were selected so far</span> (left). 
+    We add those entries corresponding to interactions of <span style="color: rgb(72%,26%,6%);"> <script type="math/tex"> {\color{#B8420F}x_k} </script></span> with <span style="color: rgb(85%,55%,13%);">points within radius <script type="math/tex"> {\color{#D98C21}\rho \ell_k} </script></span> to the <span style="color: rgb(63%,74%,78%);"> sparsity pattern <script type="math/tex"> {\color{#A1BDC7} S_\rho} </script></span> (middle). We then compute the incomplete Cholesky factorization, meaning that we skip the update 
+    <script type="math/tex"> 
+    {\color{#A1BDC7}\Theta_{kj}} 
+    \leftarrow 
+    {\color{#A1BDC7} \Theta_{kj}}
+     - {\color{#D98C21} \Theta_{ki}  \Theta_{ji}} 
+     /  {\color{#B8420F}\Theta_{ii}} </script> whenever it involves entries outside the <span style="color:rgb(69%,67%,66%);"> sparsity pattern</span> (right). 
 </div>
 
 #### Sparsity allows for fast computation
 
-If the set $$\{x_i\}_{1 \leq i \leq N}$$ is $$d$$-dimensional the above can be performed in time $$\mathcal{O}\left(N \log^{2}\left(N\right) \rho^{2d} \right)$$ and space $$\mathcal{O}\left(N \log^{}\left(N\right) \rho^{d} \right)$$. This can greatly improve over the *naive* complexity of $$\mathcal{O}(N^3)$$.
+If the set $$\{x_i\}_{1 \leq i \leq N}$$ is $$d$$-dimensional, this can be done in time $$\mathcal{O}\left(N \log^{2}\left(N\right) \rho^{2d} \right)$$ and space $$\mathcal{O}\left(N \log^{}\left(N\right) \rho^{d} \right)$$. This yields a major improvement over the *naive* complexity $$\mathcal{O}(N^3)$$.
 
 
 ### It works! But why?
