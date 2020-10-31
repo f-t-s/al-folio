@@ -168,8 +168,8 @@ If we instead keep $$x$$ fixed by setting $$\eta_x = 0$$ and train $$y$$ using g
     <img class="img-fluid" src="{{ site.baseurl }}/assets/gif/combined_stable.gif" alt="" title="Implicit competitive regularization on quadratic example."/>
 </div>
 <div class="caption">
-  When keeping <script type="math/tex"> x </script> fixed, the <script type="math/tex"> y </script> diverges to infinity.
-  If we train both simultaneously, the system converges to <script type="math/tex"> (0,0) </script> instead.
+  When keeping \( x \) fixed, the \( y \) diverges to infinity.
+  If we train both simultaneously, the system converges to \( (0,0) \) instead.
 </div>
 
 This is commonly seen as a *flaw* of SimGD, but I think it is crucial for GANs to work at all.
@@ -266,7 +266,7 @@ The discriminator maps a set of weights and a pair of parameters to a real numbe
 </div>
 <div class="caption">
   Both generator (top) and discriminator (bottom) are given by tiny neural networks (left).
-  Every point in the right plot is thought to represent a distribution of images parameterized by <script type="math/tex"> \theta_1 </script> and <script type="math/tex"> \theta_2 </script>. The last layer of the generator is designed such that it can only output values inside the set <script type="math/tex"> \mathcal{S} </script>, which does not include the target distribution.
+  Every point in the right plot is thought to represent a distribution of images parameterized by \( \theta_1 \) and \( \theta_2 \). The last layer of the generator is designed such that it can only output values inside the set \( \mathcal{S} \), which does not include the target distribution.
 </div>
 
 
@@ -287,7 +287,7 @@ We have used SimGD to compute a projection with respect to the perceptual distan
     <img class="img-fluid" src="{{ site.baseurl }}/assets/gif/combined_project.gif" alt="" title="Unstable case."/>
 </div>
 <div class="caption">
-  We plot the two components of the generator output. For a while the generator exactly reproduces the target in the first component <script type="math/tex"> \theta_1 = 2 </script>, while accepting an error in the second component <script type="math/tex"> \theta_2 </script>. This approximates a projection with respect to the perceptual distance of the discriminator, as given by <script type="math/tex"> \eta </script>. Eventually, the system snaps out of this state again.
+  We plot the two components of the generator output. For a while the generator exactly reproduces the target in the first component \( \theta_1 = 2 \), while accepting an error in the second component \( \theta_2 \). This approximates a projection with respect to the perceptual distance of the discriminator, as given by \( \eta \). Eventually, the system snaps out of this state again.
 </div>
 
 ### Improving GAN training by strengthening ICR

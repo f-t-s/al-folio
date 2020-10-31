@@ -36,9 +36,9 @@ A popular class of such covariance functions is given by the [Matérn family](ht
     </div>
 </div>
 <div class="caption">
-    On the left we show the correlation between values at <script type="math/tex"> {\color{#A1BDC7} x } </script>  and other points under a Matérn model. 
-    On the right we show different realizations of the assoe ciated Gaussian process, conditioned to be one in <script type="math/tex"> {\color{#A1BDC7} x } </script>. 
-    The values at the nearby point <script type="math/tex"> {\color{#D98C21} y} </script> are close to one. The values at the distant point <script type="math/tex"> {\color{#B8420F} z} </script> are positive on average, but vary wildly.
+    On the left we show the correlation between values at \( {\color{#A1BDC7} x } \) and other points under a Matérn model. 
+    On the right we show different realizations of the assoe ciated Gaussian process, conditioned to be one in \( {\color{#A1BDC7} x } \). 
+    The values at the nearby point \( {\color{#D98C21} y} \) are close to one. The values at the distant point \( {\color{#B8420F} z} \) are positive on average, but vary wildly.
 </div>
 
 
@@ -83,14 +83,14 @@ We exploit the sparsity of $$S_\rho$$ by instead computing the [incomplete Chole
     </div>
 </div>
 <div class="caption">
-    The maximin ordering successively selects the <span style="color: rgb(72%,26%,6%);">point <script type="math/tex"> {\color{#B8420F} x_k} </script></span> that has <span style="color: rgb(72%,26%,6%);">maximal distance <script type="math/tex"> {\color{#B8420F} \ell_k} </script> </span> from the <span style="color: rgb(63%,74%,78%);">points that were selected so far</span> (left). 
-    We add those entries corresponding to interactions of <span style="color: rgb(72%,26%,6%);"> <script type="math/tex"> {\color{#B8420F}x_k} </script></span> with <span style="color: rgb(85%,55%,13%);">points within radius <script type="math/tex"> {\color{#D98C21}\rho \ell_k} </script></span> to the <span style="color: rgb(63%,74%,78%);"> sparsity pattern <script type="math/tex"> {\color{#A1BDC7} S_\rho} </script></span> (middle). We then compute the incomplete Cholesky factorization, meaning that we skip the update 
-    <script type="math/tex"> 
+    The maximin ordering successively selects the <span style="color: rgb(72%,26%,6%);">point </span>\( {\color{#B8420F} x_k} \) that has <span style="color: rgb(72%,26%,6%);">maximal distance </span> \( {\color{#B8420F} \ell_k} \)  from the <span style="color: rgb(63%,74%,78%);">points that were selected so far</span> (left). 
+    We add those entries corresponding to interactions of \( {\color{#B8420F}x_k} \) with <span style="color: rgb(85%,55%,13%);">points within radius </span> \( {\color{#D98C21}\rho \ell_k} \) to the <span style="color: rgb(63%,74%,78%);"> sparsity pattern </span> \( {\color{#A1BDC7} S_\rho} \) (middle). We then compute the incomplete Cholesky factorization, meaning that we skip the update 
+    \( 
     {\color{#A1BDC7}\Theta_{kj}} 
     \leftarrow 
     {\color{#A1BDC7} \Theta_{kj}}
      - {\color{#D98C21} \Theta_{ki}  \Theta_{ji}} 
-     /  {\color{#B8420F}\Theta_{ii}} </script> whenever it involves entries outside the <span style="color:rgb(69%,67%,66%);"> sparsity pattern</span> (right). 
+     /  {\color{#B8420F}\Theta_{ii}} \) whenever it involves entries outside the <span style="color:rgb(69%,67%,66%);"> sparsity pattern</span> (right). 
 </div>
 
 #### Sparsity allows for fast computation
@@ -119,7 +119,7 @@ The *fade-out* phenomenon has not been observed before but from a probabilistic 
 Cholesky factorization can be interpreted as recursive application of
 
 <div class="l-page-outset">
-<script type="math/tex; mode=display"> 
+$$
 \begin{pmatrix}
     \Theta_{1,1} & \Theta _{1,2} \\
     \Theta_{2,1} & \Theta_{2,2} 
@@ -137,7 +137,7 @@ Cholesky factorization can be interpreted as recursive application of
     \mathrm{Id} & {\color{#D98C21} \left(\Theta_{1, 1}\right)^{-1}\Theta_{1,2}}\\
     0 & \mathrm{Id} 
 \end{pmatrix}.
-</script>
+$$
 </div>
 
 For $$(X_1, X_2) \sim \mathcal{N}\left(0, \Theta\right)$$ we have 
@@ -162,7 +162,7 @@ Therefore, many interesting dense matrices are subject to fade-out.
 </div>
 <div class="caption">
     It is well known that many sparse matrices exhibit <em>fill-in</em>, leading to substantially dense Cholesky factors. (left)
-    In contrast, we observe that the dense covariance matrices of smooth Gaussian processes exhibit <em>fade-out</em>, leading to almost sparse Cholesky factors. (center, magnitude of entries on <script type="math/tex"> \log_{10} </script> scale). 
+    In contrast, we observe that the dense covariance matrices of smooth Gaussian processes exhibit <em>fade-out</em>, leading to almost sparse Cholesky factors. (center, magnitude of entries on \( \log_{10} \) scale). 
     This behavior is due to the <em> screening effect</em>, whereby the <span style="color: rgb(85%,55%,13%);">conditional correlation</span> of a given <span style="color: rgb(72%,26%,6%);"> point </span> will localize, as we condition on <span style="color: rgb(63%,74%,78%);"> nearby points</span> (right).
 </div>
 

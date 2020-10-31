@@ -102,25 +102,25 @@ In the two-agent setting, this is the bilinear approximation obtained by includi
 The resulting local game is
 
 <div class="l-page-outset">
-<script type="math/tex; mode=display"> 
+$$
 \min \limits_{x \in \mathbb{R}^m}\  f + D_{x}f (x-x_k) + (x - x_k)^{\top} D_{xy}^2 f (y - y_k) + D_{y}f(y - y_k) + \frac{1}{2 \eta}\|x - x_k\|^2 
-</script>
+$$
 
-<script type="math/tex; mode=display"> 
+$$
 \min \limits_{y \in \mathbb{R}^n}\  g + D_{x}g (x-x_k) + (x - x_k)^{\top} D_{xy}^2 g (y - y_k) + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2,
-</script>
+$$
 </div>
 
 which can be simplified to
 
 <div class="l-page-outset">
-<script type="math/tex; mode=display"> 
+$$
 \min \limits_{x \in \mathbb{R}^m} \  D_{x}f (x-x_k) + (x - x_k)^{\top} D_{xy}^2 f (y - y_k) + \frac{1}{2 \eta}\|x - x_k\|^2 
-</script>
+$$
 
-<script type="math/tex; mode=display"> 
+$$
 \min \limits_{y \in \mathbb{R}^n} \ (x - x_k)^{\top} D_{xy}^2 g (y - y_k) + D_{y}g(y - y_k) + \frac{1}{2 \eta}\|y - y_k\|^2. 
-</script>
+$$
 </div>
 
 This local game preserves the interactive aspect of the underlying problem, since the optimal action of $$x$$ depends on the next move of $$y$$ and vice versa.
@@ -265,7 +265,7 @@ In contrast, the bilinear approximation is only invariant to reparametrizations 
 Mathematically we have 
 
 <div class="l-page-outset">
-<script type="math/tex; mode=display"> 
+$$
 \begin{pmatrix}
 x\\
 y
@@ -293,7 +293,7 @@ y
     x \\
     y
 \end{pmatrix}\right)
-</script>
+$$
 </div>
 
 
