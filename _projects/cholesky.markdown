@@ -13,7 +13,7 @@ img: /assets/gif/ichol.gif
 
 Positive definite kernel matrices of the form
 
-$$ \Theta_{ij}  \coloneqq \mathcal{G}\left(x_i, x_j\right)$$
+$$ \Theta_{ij}  := \mathcal{G}\left(x_i, x_j\right)$$
 
 play an important role in many parts of computational mathematics.
 They arise as covariance matrices of Gaussian processes in statistics and as discretized solution operators of partial differential equations in computational engineering. 
