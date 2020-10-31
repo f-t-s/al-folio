@@ -32,4 +32,3 @@ Before coming to Caltech, I obtained my Bachelor's-- and Master's degrees
 in Mathematics at the [University of Bonn](https://www.mathematics.uni-bonn.de/).
 
 I am on the academic job market this fall (2020/2021). My teaching and research statements are available upon request.
-
