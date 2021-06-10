@@ -2,7 +2,7 @@
 layout: about
 title: <strong> Florian </strong> Schäfer 
 permalink: /
-description: <a href="#">Affiliations</a>. Address. Contacts. Moto. Etc.
+description: 
 
 profile:
   align: right
@@ -23,7 +23,7 @@ mathematics at [Caltech](http://www.caltech.edu/), where I'm doing research
 at the interface of partial differential equations, statistical inference,
 and fast algorithms.
 More recently, I have been working on game theory as a paradigm for algorithm design and the computational challenges that come with it.
-Check out these [high-level summaries](/projects/) if you want to know more!
+Check out these [high-level summaries](/projects/), or my [thesis presentation](https://youtu.be/Ph1pAv92WBQ) if you want to know more!
 
 I'm part of the [Department of Computing and Mathematical Sciences](http://www.cms.caltech.edu/)
 and my PhD-advisor is [Houman Owhadi](http://users.cms.caltech.edu/~owhadi/index.htm).
@@ -31,4 +31,4 @@ and my PhD-advisor is [Houman Owhadi](http://users.cms.caltech.edu/~owhadi/index
 Before coming to Caltech, I obtained my Bachelor's-- and Master's degrees 
 in Mathematics at the [University of Bonn](https://www.mathematics.uni-bonn.de/).
 
-I am on the academic job market this fall (2020/2021). My teaching and research statements are available upon request.
+<strong> I will be joining Georgia Tech as an assistant professor in computational science and engineering this August 2021! </strong>
